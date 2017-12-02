@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fef8d370-cc09-4c08-96fa-1e4e7cbdc34f" name="Default" comment="" />
+    <list default="true" id="fef8d370-cc09-4c08-96fa-1e4e7cbdc34f" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/nn/Inception.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/FaceRecog-FaceNet.iml" afterPath="$PROJECT_DIR$/.idea/FaceRecog-FaceNet.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InceptionNets/.ipynb_checkpoints/ROUGH-checkpoint.ipynb" afterPath="$PROJECT_DIR$/InceptionNets/.ipynb_checkpoints/ROUGH-checkpoint.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InceptionNets/InceptionBlocks.py" afterPath="$PROJECT_DIR$/InceptionNets/InceptionBlocks.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InceptionNets/ROUGH.ipynb" afterPath="$PROJECT_DIR$/InceptionNets/ROUGH.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nn/.ipynb_checkpoints/Rough-checkpoint.ipynb" afterPath="$PROJECT_DIR$/nn/.ipynb_checkpoints/Rough-checkpoint.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nn/Rough.ipynb" afterPath="$PROJECT_DIR$/nn/Rough.ipynb" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,34 +22,23 @@
     <fileColor scope="Project Files" color="272727" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.48582473">
+    <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Inception.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/nn/Inception.py">
+          <file leaf-file-name="Inception.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/nn/Inception.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2020">
-                  <caret line="129" column="8" lean-forward="true" selection-start-line="129" selection-start-column="8" selection-end-line="129" selection-end-column="8" />
-                  <folding>
-                    <element signature="e#0#64#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ROUGH.ipynb" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/InceptionNets/ROUGH.ipynb">
-              <provider selected="true" editor-type-id="ipnb-editor">
-                <state>
-                  <selected id="1" />
+                <state relative-caret-position="1180">
+                  <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
           <file leaf-file-name="kerasInceptionBlock.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/InceptionNets/kerasInceptionBlock.py">
+            <entry file="file://$PROJECT_DIR$/InceptionNets/kerasInceptionBlock.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="438">
+                <state relative-caret-position="400">
                   <caret line="30" column="98" lean-forward="true" selection-start-line="30" selection-start-column="98" selection-end-line="30" selection-end-column="98" />
                   <folding />
                 </state>
@@ -51,27 +49,14 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="Inception.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/nn/Inception.py">
+          <file leaf-file-name="Model.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/nn/Model.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="640">
-                  <caret line="32" column="6" lean-forward="false" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
+                <state relative-caret-position="3360">
+                  <caret line="164" column="20" lean-forward="true" selection-start-line="164" selection-start-column="20" selection-end-line="164" selection-end-column="20" />
                   <folding>
                     <element signature="e#0#64#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/README.md">
-              <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-                <state split_layout="SPLIT">
-                  <first_editor relative-caret-position="0">
-                    <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                    <folding />
-                  </first_editor>
-                  <second_editor />
                 </state>
               </provider>
             </entry>
@@ -83,8 +68,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -96,25 +81,32 @@
       <find>ks</find>
       <find>act = tf.nn.conv2d(inpTensor, weights, [1, s, s, 1], padding='VALID', name=name) + bias</find>
       <find>X_3x3 = convLayer(X_3x3, self.params[conv2_name]['w'], self.params[conv2_name]['b'], s=1,</find>
+      <find>5e</find>
     </findStrings>
     <replaceStrings>
       <replace>layers.maxpool2d</replace>
       <replace>tf.layers.max_pooling2d</replace>
       <replace>params</replace>
       <replace>tf</replace>
+      <replace>5b</replace>
     </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/nn/keras.py" />
         <option value="$PROJECT_DIR$/nn/Network.py" />
-        <option value="$PROJECT_DIR$/nn/Rough.ipynb" />
-        <option value="$PROJECT_DIR$/nn/Rough.ipynb" />
         <option value="$PROJECT_DIR$/InceptionNets/InceptionBlocks.py" />
         <option value="$PROJECT_DIR$/InceptionNets/LoadModelWeights.ipynb" />
         <option value="$PROJECT_DIR$/InceptionNets/ROUGH.ipynb" />
         <option value="$PROJECT_DIR$/InceptionNets/LoadModelWeights.ipynb" />
+        <option value="$PROJECT_DIR$/nn/Rough.ipynb" />
+        <option value="$PROJECT_DIR$/nn/Rough.ipynb" />
+        <option value="$PROJECT_DIR$/nn/Inception2.py" />
+        <option value="$PROJECT_DIR$/nn/Model.py" />
         <option value="$PROJECT_DIR$/nn/Inception.py" />
         <option value="$PROJECT_DIR$/nn/Inception.py" />
       </list>
@@ -157,24 +149,29 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="FaceRecog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeepFaceRecognition" type="b2602c69:ProjectViewProjectNode" />
               <item name="DeepFaceRecognition" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="FaceRecog" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeepFaceRecognition" type="b2602c69:ProjectViewProjectNode" />
               <item name="DeepFaceRecognition" type="462c0819:PsiDirectoryNode" />
               <item name="InceptionNets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DeepFaceRecognition" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DeepFaceRecognition" type="462c0819:PsiDirectoryNode" />
+              <item name="nn" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -200,7 +197,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Jupyter Notebook.FaceRecog-FaceNet">
+  <component name="RunManager" selected="Python.Inception2">
     <configuration name="FaceRecog-FaceNet" type="Python.Ipnb" factoryName="Jupyter Notebook">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -217,6 +214,32 @@
       <option name="ipnbHost" value="127.0.0.1" />
       <option name="ipnbPort" value="8888" />
     </configuration>
+    <configuration name="Inception2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/nn" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="FaceRecog-FaceNet" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nn/Inception.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Jupyter Notebook.FaceRecog-FaceNet" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Inception2" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Python.Inception2" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -242,13 +265,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1280" y="-180" width="2560" height="1080" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.063145354" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06354249" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18625894" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1898332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18943606" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17990468" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -271,34 +295,53 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/nn/Inception.py">
+    <entry file="file://$PROJECT_DIR$/InceptionNets/kerasInceptionBlock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#64#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="400">
+          <caret line="30" column="98" lean-forward="true" selection-start-line="30" selection-start-column="98" selection-end-line="30" selection-end-column="98" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/InceptionNets/ROUGH.ipynb">
+    <entry file="file://$PROJECT_DIR$/InceptionNets/ROUGH.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/nn/Inception.py">
+    <entry file="file://$PROJECT_DIR$/nn/Inception_cp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#64#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2580">
+          <caret line="129" column="8" lean-forward="true" selection-start-line="129" selection-start-column="8" selection-end-line="129" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/InceptionNets/ROUGH.ipynb">
+    <entry file="file://$PROJECT_DIR$/nn/Inception_cp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InceptionNets/ROUGH.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nn/Inception_cp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InceptionNets/ROUGH.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="0" />
@@ -306,74 +349,89 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nn/keras.py" />
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/nn/Rough.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/InceptionNets/LoadWeights.py">
+    <entry file="file://$PROJECT_DIR$/InceptionNets/LoadWeights.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/InceptionNets/InceptionBlocks.py">
+    <entry file="file://$PROJECT_DIR$/InceptionNets/InceptionBlocks.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="555">
           <caret line="59" column="99" lean-forward="false" selection-start-line="59" selection-start-column="79" selection-end-line="59" selection-end-column="99" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/nn/Network.py">
+    <entry file="file://$PROJECT_DIR$/nn/Network.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/InceptionNets/kerasInceptionBlock.py">
+    <entry file="file://$PROJECT_DIR$/InceptionNets/kerasInceptionBlock.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
+        <state relative-caret-position="400">
           <caret line="30" column="98" lean-forward="true" selection-start-line="30" selection-start-column="98" selection-end-line="30" selection-end-column="98" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/InceptionNets/LoadModelWeights.ipynb">
+    <entry file="file://$PROJECT_DIR$/InceptionNets/LoadModelWeights.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/InceptionNets/ROUGH.ipynb">
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InceptionNets/ROUGH.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/nn/Inception.py">
+    <entry file="file://$PROJECT_DIR$/nn/Rough.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nn/Inception_cp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="32" column="6" lean-forward="false" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
+        <state relative-caret-position="0">
+          <caret line="129" column="8" lean-forward="false" selection-start-line="129" selection-start-column="8" selection-end-line="129" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nn/Inception.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1180">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nn/Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3360">
+          <caret line="164" column="20" lean-forward="true" selection-start-line="164" selection-start-column="20" selection-end-line="164" selection-end-column="20" />
           <folding>
             <element signature="e#0#64#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../DeepFaceRecognition/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
