@@ -1,13 +1,19 @@
 from __future__ import division, print_function, absolute_import
 import tensorflow as tf
-from nn.Inception import convLayer, activation, Inception
+from nn.Inception import convLayer, activation, Inception, batchNorm
 
 
 def conv1(X, params):
-    with tf.variable_scope('conv1'):
-        X = convLayer(X, params['conv1']['w'], params['conv1']['b'], s=2,
-                      isTrainable=False, name='conv1')
-        X = tf.layers.batch_normalization(X, axis=-1, epsilon=1e-5, name='bn1')
+    conv_name = 'conv1'
+    bn_name = 'bn1'
+    with tf.variable_scope(conv_name):
+        X = convLayer(X, params[conv_name]['w'], params[conv_name]['b'], s=2,
+                      isTrainable=False, name=conv_name)
+        # X = tf.layers.batch_normalization(X, axis=-1, epsilon=1e-5, name='bn1')
+        X = batchNorm(X,
+                      mean=params[bn_name]['m'], var=params[bn_name]['v'],
+                      gamma=params[bn_name]['w'], beta=params[bn_name]['b'],
+                      isTrainable=False, name=bn_name)
         X = activation(X, type="relu")
         print('conv1: ', X.shape)
         
@@ -20,10 +26,16 @@ def conv1(X, params):
 
 
 def conv2(X, params):
-    with tf.variable_scope('conv2'):
-        X = convLayer(X, params['conv2']['w'], params['conv2']['b'], s=1,
-                      isTrainable=False, name='conv2')
-        X = tf.layers.batch_normalization(X, axis=-1, epsilon=1e-5, name='bn2')
+    conv_name = 'conv2'
+    bn_name = 'bn2'
+    with tf.variable_scope(conv_name):
+        X = convLayer(X, params[conv_name]['w'], params[conv_name]['b'], s=1,
+                      isTrainable=False, name=conv_name)
+        # X = tf.layers.batch_normalization(X, axis=-1, epsilon=1e-5, name='bn2')
+        X = batchNorm(X,
+                      mean=params[bn_name]['m'], var=params[bn_name]['v'],
+                      gamma=params[bn_name]['w'], beta=params[bn_name]['b'],
+                      isTrainable=False, name=bn_name)
         X = activation(X, type="relu")
         print('conv2: ', X.shape)
         
@@ -34,10 +46,16 @@ def conv2(X, params):
 
 
 def conv3(X, params):
-    with tf.variable_scope('conv3'):
-        X = convLayer(X, params['conv3']['w'], params['conv3']['b'], s=1,
-                      isTrainable=False, name='conv3')
-        X = tf.layers.batch_normalization(X, axis=-1, epsilon=1e-5, name='bn3')
+    conv_name = 'conv3'
+    bn_name = 'bn3'
+    with tf.variable_scope(conv_name):
+        X = convLayer(X, params[conv_name]['w'], params[conv_name]['b'], s=1,
+                      isTrainable=False, name=conv_name)
+        # X = tf.layers.batch_normalization(X, axis=-1, epsilon=1e-5, name='bn3')
+        X = batchNorm(X,
+                      mean=params[bn_name]['m'], var=params[bn_name]['v'],
+                      gamma=params[bn_name]['w'], beta=params[bn_name]['b'],
+                      isTrainable=False, name=bn_name)
         X = activation(X, type="relu")
         print('conv3: ', X.shape)
         
@@ -168,6 +186,7 @@ def inception5b(X, params):
 
 def fullyConnected(X, params):
     with tf.name_scope("InceptionFC"):
+        X = tf.cast(X, tf.float32)
         X = tf.layers.average_pooling2d(X, pool_size=3, strides=1,
                                         data_format='channels_last')
         print ('X after FC pool: ', X.shape)

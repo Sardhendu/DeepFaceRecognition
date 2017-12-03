@@ -32,12 +32,12 @@ def batchNorm(inpTensor, mean, var, gamma, beta, isTrainable, name):
     Note: The mean, bar, gamma, beta shold be 1D Tensor or an array with channel Size
           and the input should be in the form of [m, h, w, channels]
     '''
-    
+    inpTensor = tf.cast(inpTensor, tf.float32)
     if not isTrainable:
-        m = tf.constant(mean, name="Exponential_weighted_mean")
-        v = tf.constant(var, name="Exponential_weighted_variance")
-        b = tf.constant(beta, name="Offset")
-        w = tf.constant(gamma, name='Scale')
+        m = tf.constant(mean, name="Exponential_weighted_mean", dtype=tf.float32)
+        v = tf.constant(var, name="Exponential_weighted_variance", dtype=tf.float32)
+        b = tf.constant(beta, name="Offset", dtype=tf.float32)
+        w = tf.constant(gamma, name='Scale', dtype=tf.float32)
         bn = tf.nn.batch_normalization(inpTensor, mean=m, variance=v, offset=b, scale=w,
                                        variance_epsilon=1e-5, name=name)
     else:

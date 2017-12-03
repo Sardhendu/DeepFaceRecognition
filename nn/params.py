@@ -36,7 +36,7 @@ layer_name = [
     'inception_5b_3x3_conv1', 'inception_5b_3x3_conv2', 'inception_5b_3x3_bn1', 'inception_5b_3x3_bn2',
     'inception_5b_pool_conv', 'inception_5b_pool_bn',
     
-    'dense_layer'
+    'dense'
 ]
 
 
