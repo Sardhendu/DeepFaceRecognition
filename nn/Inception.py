@@ -2,6 +2,8 @@
 import tensorflow as tf
 
 
+
+
 def convLayer(inpTensor, w, b, s, isTrainable, name):
     inpTensor = tf.cast(inpTensor, tf.float32)
     
@@ -13,6 +15,35 @@ def convLayer(inpTensor, w, b, s, isTrainable, name):
     act = tf.nn.conv2d(inpTensor, weights, [1, s, s, 1], padding='VALID', name=name) + bias
     
     return act
+
+def batchNorm(inpTensor, mean, var, gamma, beta, isTrainable, name):
+    '''
+    :param inpTensor:    Input Tensor to Normalize
+    :param mean:         The exponential weighted mean for each channel obtained from training
+                          sample.
+    :param var:          The exponential weighted variance for each channel obtained from training
+                          sample.
+    :param gamma:        The trained scale (can be thought as weight for Batch Normalization)
+    :param beta:         The trained offset (can be thought as bias for Batch Normalization)
+    :param isTrainable:
+    :param name:
+    :return:
+    
+    Note: The mean, bar, gamma, beta shold be 1D Tensor or an array with channel Size
+          and the input should be in the form of [m, h, w, channels]
+    '''
+    
+    if not isTrainable:
+        m = tf.constant(mean, name="Exponential_weighted_mean")
+        v = tf.constant(var, name="Exponential_weighted_variance")
+        b = tf.constant(beta, name="Offset")
+        w = tf.constant(gamma, name='Scale')
+        bn = tf.nn.batch_normalization(inpTensor, mean=m, variance=v, offset=b, scale=w,
+                                       variance_epsilon=1e-5, name=name)
+    else:
+        bn=None
+    
+    return bn
 
 def activation(X, type='relu'):
     if type == 'relu':
@@ -43,13 +74,21 @@ class Inception():
 
         X_3x3 = convLayer(X, self.params[conv1_name]['w'], self.params[conv1_name]['b'], s=cnv1s,
                           isTrainable=False, name=conv1_name)
-        X_3x3 = tf.layers.batch_normalization(X_3x3, axis=1, epsilon=1e-5, name=bn1_name)
+        # X_3x3 = tf.layers.batch_normalization(X_3x3, axis=1, epsilon=1e-5, name=bn1_name)
+        X_3x3 = batchNorm(X_3x3,
+                          mean=self.params[bn1_name]['m'], var=self.params[bn1_name]['v'],
+                          gamma=self.params[bn1_name]['w'], beta=self.params[bn1_name]['b'],
+                          isTrainable=False, name=bn1_name)
         X_3x3 = tf.nn.relu(X_3x3)
         
         X_3x3 = tf.pad(X_3x3, paddings=[[0, 0], [padTD[0], padTD[1]], [padLR[0], padLR[1]], [0, 0]])  #####  Zeropadding
         X_3x3 = convLayer(X_3x3, self.params[conv2_name]['w'], self.params[conv2_name]['b'],
                           s=cnv2s, isTrainable=False, name=conv2_name)
-        X_3x3 = tf.layers.batch_normalization(X_3x3, axis=1, epsilon=1e-5, name=bn2_name)
+        # X_3x3 = tf.layers.batch_normalization(X_3x3, axis=1, epsilon=1e-5, name=bn2_name)
+        X_3x3 = batchNorm(X_3x3,
+                          mean=self.params[bn2_name]['m'], var=self.params[bn2_name]['v'],
+                          gamma=self.params[bn2_name]['w'], beta=self.params[bn2_name]['b'],
+                          isTrainable=False, name=bn2_name)
         X_3x3 = tf.nn.relu(X_3x3)
         print('Chain 2: ', X_3x3.shape)
         return X_3x3
@@ -63,13 +102,21 @@ class Inception():
 
         X_5x5 = convLayer(X, self.params[conv1_name]['w'], self.params[conv1_name]['b'], s=cnv1s,
                           isTrainable=False, name=conv1_name)
-        X_5x5 = tf.layers.batch_normalization(X_5x5, axis=1, epsilon=1e-5, name=bn1_name)
+        # X_5x5 = tf.layers.batch_normalization(X_5x5, axis=1, epsilon=1e-5, name=bn1_name)
+        X_5x5 = batchNorm(X_5x5,
+                          mean=self.params[bn1_name]['m'], var=self.params[bn1_name]['v'],
+                          gamma=self.params[bn1_name]['w'], beta=self.params[bn1_name]['b'],
+                          isTrainable=False, name=bn1_name)
         X_5x5 = tf.nn.relu(X_5x5)
         
         X_5x5 = tf.pad(X_5x5, paddings=[[0, 0], [padTD[0], padTD[1]], [padLR[0], padLR[1]], [0, 0]])  #####  Zeropadding
         X_5x5 = convLayer(X_5x5, self.params[conv2_name]['w'], self.params[conv2_name]['b'], s=cnv2s,
                           isTrainable=False, name=conv2_name)
-        X_5x5 = tf.layers.batch_normalization(X_5x5, axis=1, epsilon=1e-5, name=bn2_name)
+        # X_5x5 = tf.layers.batch_normalization(X_5x5, axis=1, epsilon=1e-5, name=bn2_name)
+        X_5x5 = batchNorm(X_5x5,
+                          mean=self.params[bn2_name]['m'], var=self.params[bn2_name]['v'],
+                          gamma=self.params[bn2_name]['w'], beta=self.params[bn2_name]['b'],
+                          isTrainable=False, name=bn2_name)
         X_5x5 = tf.nn.relu(X_5x5)
         print('Chain 3: ', X_5x5.shape)
         return X_5x5
@@ -90,7 +137,11 @@ class Inception():
         
         X_pool = convLayer(X_pool, self.params[conv_name]['w'], self.params[conv_name]['b'],
                            s=cnv1s, isTrainable=False, name=conv_name)
-        X_pool = tf.layers.batch_normalization(X_pool, axis=1, epsilon=1e-5, name=bn1_name)
+        # X_pool = tf.layers.batch_normalization(X_pool, axis=1, epsilon=1e-5, name=bn1_name)
+        X_pool = batchNorm(X_pool,
+                          mean=self.params[bn1_name]['m'], var=self.params[bn1_name]['v'],
+                          gamma=self.params[bn1_name]['w'], beta=self.params[bn1_name]['b'],
+                          isTrainable=False, name=bn1_name)
         X_pool = tf.nn.relu(X_pool)
         X_pool = tf.pad(X_pool, paddings=[[0, 0], [padTD[0], padTD[1]],
                                           [padLR[0], padLR[1]], [0, 0]])
