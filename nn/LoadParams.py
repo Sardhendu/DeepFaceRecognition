@@ -1,7 +1,8 @@
-from collections import defaultdict
-moduleWeightDict = defaultdict(lambda: defaultdict())
+from __future__ import division, print_function, absolute_import
 
-parentPath = "/Users/sam/All-Program/App-DataSet/Deep-Neural-Nets/Models/FaceNet-Inception"
+from collections import defaultdict
+import numpy as np
+
 
 layer_name = [
     'conv1', 'bn1',
@@ -127,3 +128,39 @@ convShape = {
     'inception_5b_pool_conv': [96, 736, 1, 1],
     
 }
+
+
+def getWeights(modelPath):
+    moduleWeightDict = defaultdict(lambda: defaultdict())
+    
+    for name in layer_name:
+        if 'conv' in name:
+            conv1_w = np.genfromtxt(modelPath+"/"+name+'_w.csv', delimiter=',', dtype='float32')
+            conv1_w = np.reshape(conv1_w, convShape[name])
+            conv1_w = np.transpose(conv1_w, (2, 3, 1, 0))
+            conv1_b = np.genfromtxt(modelPath+"/"+name+'_b.csv', delimiter=',', dtype='float32')
+            moduleWeightDict[name]['w'] = conv1_w
+            moduleWeightDict[name]['b'] = conv1_b
+            print (name)
+            print (conv1_w.shape)
+            print (conv1_b.shape)
+        elif 'dense' in name:
+            dense_w = np.genfromtxt(modelPath+"/"+name+'_w.csv', delimiter=',', dtype='float32')
+            dense_w = np.reshape(dense_w, (128,736)) # Remember the input weights are in reverse order
+            dense_w = np.transpose(dense_w, (1,0))   # Transpose the input to accept as (layer_l, layer_l+1)
+            dense_b = np.genfromtxt(modelPath+"/"+name+'_b.csv', delimiter=',', dtype='float32')
+            moduleWeightDict[name]['w'] = dense_w
+            moduleWeightDict[name]['b'] = dense_b
+        elif 'bn' in name:
+            bn_w = np.genfromtxt(modelPath+"/"+name+'_w.csv', delimiter=',', dtype='float32')
+            bn_b = np.genfromtxt(modelPath+"/"+name+'_b.csv', delimiter=',', dtype='float32')
+            bn_m = np.genfromtxt(modelPath+"/"+name+'_m.csv', delimiter=',', dtype='float32')
+            bn_v = np.genfromtxt(modelPath+"/"+name+'_v.csv', delimiter=',', dtype='float32')
+            moduleWeightDict[name]['w'] = bn_w
+            moduleWeightDict[name]['b'] = bn_b
+            moduleWeightDict[name]['m'] = bn_m
+            moduleWeightDict[name]['v'] = bn_v
+            print (name)
+            print (bn_w.shape, bn_b.shape, bn_m.shape, bn_v.shape)
+            
+    return moduleWeightDict

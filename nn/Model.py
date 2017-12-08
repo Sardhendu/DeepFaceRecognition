@@ -187,11 +187,14 @@ def inception5b(X, params):
 def fullyConnected(X, params):
     with tf.name_scope("InceptionFC"):
         X = tf.cast(X, tf.float32)
+        w = tf.constant(params['dense']['w'], name="weights", dtype=tf.float32)
+        b = tf.constant(params['dense']['b'], name="bias", dtype=tf.float32)
         X = tf.layers.average_pooling2d(X, pool_size=3, strides=1,
                                         data_format='channels_last')
         print ('X after FC pool: ', X.shape)
         X = tf.contrib.layers.flatten(X)
         print('X after X Flattened: ', X.shape)
-        X = tf.matmul(X, params['dense']['w']) + params['dense']['b']
+        # print ('sdcdsddf ', params['dense']['w'].dtype, params['dense']['b'].dtype)
+        X = tf.add(tf.matmul(X, w), b)
         print('X after FC Matmul: ', X.shape)
     return X

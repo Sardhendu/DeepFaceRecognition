@@ -29,7 +29,7 @@ def batchNorm(inpTensor, mean, var, gamma, beta, isTrainable, name):
     :param name:
     :return:
     
-    Note: The mean, bar, gamma, beta shold be 1D Tensor or an array with channel Size
+    Note: The mean, bar, gamma, beta should be 1D Tensor or an array of channel Size
           and the input should be in the form of [m, h, w, channels]
     '''
     inpTensor = tf.cast(inpTensor, tf.float32)
