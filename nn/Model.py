@@ -197,4 +197,8 @@ def fullyConnected(X, params):
         # print ('sdcdsddf ', params['dense']['w'].dtype, params['dense']['b'].dtype)
         X = tf.add(tf.matmul(X, w), b)
         print('X after FC Matmul: ', X.shape)
+
+        # The output encoding identifies [batchSize, 128], L2 norm is perform for each
+        # training example (per record), Formula: a / pow(max(sum(a**2), 1e-5), 0.5)
+        X = tf.nn.l2_normalize(X, dim=1, epsilon=1e-12, name='L2_norm')
     return X

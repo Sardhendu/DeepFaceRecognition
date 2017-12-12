@@ -25,6 +25,7 @@ def tripletLoss(predTensor, alpha=0.2):
         loss = tf.reduce_sum(tf.maximum(tf.add(tf.subtract(positiveDist, negativeDist), alpha), 0))
     return loss
 
+
 def getModel(imgShape, params):
     inpTensor = tf.placeholder(dtype=tf.float32, shape=[None, imgShape[0], imgShape[1], imgShape[2]])
     print('inpTensor ', inpTensor.shape)
@@ -46,8 +47,14 @@ def getModel(imgShape, params):
     
     return dict(inpTensor=inpTensor, output=X)
 
+def summaryBuilder(sess, outFilePath):
+    mergedSummary = tf.summary.merge_all()
+    writer = tf.summary.FileWriter(outFilePath)
+    writer.add_graph(sess.graph)
+    return mergedSummary, writer
 
-# with tf.Session() as test:
+    
+        # with tf.Session() as test:
 #     tf.set_random_seed(1)
 #     y_true = (None, None, None)
 #     y_pred = (tf.random_normal([3, 128], mean=6, stddev=0.1, seed=1),

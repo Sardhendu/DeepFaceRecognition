@@ -64,9 +64,12 @@ class DataFormatter():
                 dataY = np.vstack((dataY, per_person_labels))
         return dataX, dataY, labelDict
     
-    def dumpImageArr(self, dataX, dataY, labelDict=None):
-        
-        with open(os.path.join(self.parentPath, 'full_data_ndarr.pickle'), 'wb') as f:
+    @staticmethod
+    def dumpImageArr(self, dataX, dataY, labelDict=None, path_to_dump=None):
+        if not path_to_dump:
+            path_to_dump = os.path.join(self.parentPath, 'full_data_ndarr.pickle')
+
+        with open(path_to_dump, 'wb') as f:
             fullData = {
                 'dataX': dataX,
                 'dataY': dataY,
@@ -75,7 +78,7 @@ class DataFormatter():
             pickle.dump(fullData, f, pickle.HIGHEST_PROTOCOL)
 
 
-debugg = True
+debugg = False
 if debugg:
     objDP = DataFormatter(parent_path)
     objDP.createResizedData()
