@@ -6,9 +6,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Rough-checkpoint.ipynb" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Rough-checkpoint.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DataPrep/DataIO.py" afterPath="$PROJECT_DIR$/DataPrep/DataIO.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Rough.ipynb" afterPath="$PROJECT_DIR$/Rough.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nn/Inception.py" afterPath="$PROJECT_DIR$/nn/Inception.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nn/Model.py" afterPath="$PROJECT_DIR$/nn/Model.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nn/Network.py" afterPath="$PROJECT_DIR$/nn/Network.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,18 +24,18 @@
           <file leaf-file-name="Inception.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nn/Inception.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-2008">
+                <state relative-caret-position="600">
                   <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="DataIO.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="DataIO.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/DataPrep/DataIO.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1380">
-                  <caret line="68" column="28" lean-forward="true" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
+                <state relative-caret-position="476">
+                  <caret line="123" column="55" lean-forward="false" selection-start-line="123" selection-start-column="55" selection-end-line="123" selection-end-column="55" />
                   <folding>
                     <element signature="e#0#9#0" expanded="true" />
                   </folding>
@@ -49,8 +46,8 @@
           <file leaf-file-name="LoadParams.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nn/LoadParams.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="400">
-                  <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+                <state relative-caret-position="2620">
+                  <caret line="134" column="4" lean-forward="false" selection-start-line="134" selection-start-column="4" selection-end-line="134" selection-end-column="4" />
                   <folding>
                     <element signature="e#0#64#0" expanded="true" />
                   </folding>
@@ -58,11 +55,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Network.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Network.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/nn/Network.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="712">
-                  <caret line="55" column="4" lean-forward="true" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
+                <state relative-caret-position="920">
+                  <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#64#0" expanded="true" />
                   </folding>
@@ -77,8 +74,8 @@
           <file leaf-file-name="Model.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/nn/Model.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="892">
-                  <caret line="201" column="42" lean-forward="false" selection-start-line="201" selection-start-column="42" selection-end-line="201" selection-end-column="42" />
+                <state relative-caret-position="2089">
+                  <caret line="169" column="0" lean-forward="true" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#64#0" expanded="true" />
                   </folding>
@@ -108,6 +105,9 @@
       <find>X_3x3 = convLayer(X_3x3, self.params[conv2_name]['w'], self.params[conv2_name]['b'], s=1,</find>
       <find>5e</find>
       <find>None</find>
+      <find>training_resized_image_path</find>
+      <find>createResizedData</find>
+      <find>neg_idx</find>
     </findStrings>
     <replaceStrings>
       <replace>layers.maxpool2d</replace>
@@ -116,6 +116,8 @@
       <replace>tf</replace>
       <replace>5b</replace>
       <replace>'float32'</replace>
+      <replace>training_resized_image_path</replace>
+      <replace>pos_idxs</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -139,8 +141,8 @@
         <option value="$PROJECT_DIR$/nn/Inception.py" />
         <option value="$PROJECT_DIR$/nn/Network.py" />
         <option value="$PROJECT_DIR$/Rough.ipynb" />
-        <option value="$PROJECT_DIR$/DataPrep/DataIO.py" />
         <option value="$PROJECT_DIR$/nn/Model.py" />
+        <option value="$PROJECT_DIR$/DataPrep/DataIO.py" />
       </list>
     </option>
   </component>
@@ -185,7 +187,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -207,6 +208,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -340,12 +342,12 @@
     <frame x="1280" y="-180" width="2560" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06513105" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0655282" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32923368" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18625894" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1957903" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1957903" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17990468" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -723,50 +725,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nn/LoadParams.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nn/Inception.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2008">
+        <state relative-caret-position="600">
           <caret line="30" column="4" lean-forward="false" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DataPrep/DataIO.py">
+    <entry file="file://$PROJECT_DIR$/nn/Model.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="68" column="28" lean-forward="true" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
+        <state relative-caret-position="2089">
+          <caret line="169" column="0" lean-forward="true" selection-start-line="169" selection-start-column="0" selection-end-line="169" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#64#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nn/Network.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="712">
-          <caret line="55" column="4" lean-forward="true" selection-start-line="55" selection-start-column="4" selection-end-line="55" selection-end-column="4" />
+        <state relative-caret-position="920">
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding>
             <element signature="e#0#64#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nn/Model.py">
+    <entry file="file://$PROJECT_DIR$/nn/LoadParams.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="892">
-          <caret line="201" column="42" lean-forward="false" selection-start-line="201" selection-start-column="42" selection-end-line="201" selection-end-column="42" />
+        <state relative-caret-position="2620">
+          <caret line="134" column="4" lean-forward="false" selection-start-line="134" selection-start-column="4" selection-end-line="134" selection-end-column="4" />
           <folding>
             <element signature="e#0#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DataPrep/DataIO.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="123" column="55" lean-forward="false" selection-start-line="123" selection-start-column="55" selection-end-line="123" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
