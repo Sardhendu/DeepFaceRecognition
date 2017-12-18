@@ -1,6 +1,7 @@
 from __future__ import division, print_function, absolute_import
 import tensorflow as tf
 from nn.inception import convLayer, activation, Inception, batchNorm
+from nn.inception_finetune import Inception_FT
 
 
 def conv1(X, params):
@@ -72,6 +73,7 @@ def conv3(X, params):
 def inception3a(X, params):
     with tf.name_scope("Inception3a"):
         objInception = Inception(params)
+        print('Inside Inception module 3a: ', X.shape)
         inception3a = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
                                                    padLR=(1, 1), name='3a'),
@@ -89,6 +91,7 @@ def inception3a(X, params):
 def inception3b(X, params):
     with tf.name_scope("Inception3b"):
         objInception = Inception(params)
+        print('Inside Inception module 3b: ', X.shape)
         inception3b = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
                                                    padLR=(1, 1), name='3b'),
@@ -106,6 +109,7 @@ def inception3b(X, params):
 def inception3c(X, params):
     with tf.name_scope("Inception3c"):
         objInception = Inception(params)
+        print('Inside Inception module 3c: ', X.shape)
         inception3c = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=2, padTD=(1, 1),
                                                    padLR=(1, 1), name='3c'),
@@ -121,7 +125,7 @@ def inception3c(X, params):
 def inception4a(X, params):
     with tf.name_scope("Inception4a"):
         objInception = Inception(params)
-        print('Inside Inception module1: ', X.shape)
+        print('Inside Inception module 4a: ', X.shape)
         inception4a = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
                                                    padLR=(1, 1), name='4a'),
@@ -139,7 +143,7 @@ def inception4a(X, params):
 def inception4e(X, params):
     with tf.name_scope("Inception4e"):
         objInception = Inception(params)
-        print('Inside Inception module1: ', X.shape)
+        print('Inside Inception module 4e: ', X.shape)
         inception4e = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=2, padTD=(1, 1),
                                                    padLR=(1, 1), name='4e'),
@@ -155,7 +159,7 @@ def inception4e(X, params):
 def inception5a(X, params):
     with tf.name_scope("Inception5a"):
         objInception = Inception(params)
-        print('Inside Inception module1: ', X.shape)
+        print('Inside Inception module 5a: ', X.shape)
         inception5a = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
                                                    padLR=(1, 1), name='5a'),
@@ -171,7 +175,7 @@ def inception5a(X, params):
 def inception5b(X, params):
     with tf.name_scope("Inception5b"):
         objInception = Inception(params)
-        print('Inside Inception module1: ', X.shape)
+        print('Inside Inception module 5b: ', X.shape)
         inception5b = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
                                                    padLR=(1, 1), name='5b'),
@@ -204,16 +208,19 @@ def fullyConnected(X, params):
         X = tf.nn.l2_normalize(X, dim=1, epsilon=1e-12, name='L2_norm')
     return X
 
+
+
 ########################################################################################
-## FINE TUNE LAST FEW LAYERS: ONLY TRAIN THE LAST FEW LAYERS
+## FINE TUNE LAST FEW LAYERS: ONLY TRAIN THE LAST FEW LAYERS FOR YOUR IMAGES
 ########################################################################################
-def inception5a_fntn(X, params):
-    with tf.name_scope("Inception5a_fntn"):
-        objInception = Inception(params)
-        print('Inside Inception module1: ', X.shape)
+
+def inception5a_FT(X):
+    with tf.name_scope("Inception5a_FT"):
+        print('Inside Inception module 5a FT: ', X.shape)
+        objInception = Inception_FT()
         inception5a = tf.concat(
-                values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
-                                                   padLR=(1, 1), name='5a'),
+                values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1,
+                                                   padTD=(1, 1), padLR=(1, 1), name='5a'),
                         objInception.inception_pool(X, cnv1s=1, padTD=(1, 1), padLR=(1, 1),
                                                     poolSize=3, poolStride=3, poolType='avg',
                                                     name='5a'),
@@ -223,17 +230,68 @@ def inception5a_fntn(X, params):
     return inception5a
 
 
-def inception5b_fntn(X, params):
-    with tf.name_scope("Inception5b_fntn"):
-        objInception = Inception(params)
-        print('Inside Inception module1: ', X.shape)
-        inception5b = tf.concat(
+def inception5b_FT(X):
+    with tf.name_scope("Inception5a_FT"):
+        print('Inside Inception module 5a FT: ', X.shape)
+        objInception = Inception_FT()
+        inception5a = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
                                                    padLR=(1, 1), name='5b'),
-                        objInception.inception_pool(X, cnv1s=1,padTD=(1, 1), padLR=(1, 1),
+                        objInception.inception_pool(X, cnv1s=1, padTD=(1, 1), padLR=(1, 1),
                                                     poolSize=3, poolStride=2, poolType='max',
                                                     name='5b'),
                         objInception.inception_1x1(X, cnv1s=1, name='5b')],
                 axis=-1)
-        print('inception5b: ', inception5b.shape)
-    return inception5b
+        print('inception5a: ', inception5a.shape)
+    return inception5a
+
+
+def fullyConnected_FT(X, k_shape):
+    name = "InceptionFC_FT"
+    with tf.name_scope(name):
+        X = tf.cast(X, tf.float32)
+        X = tf.layers.average_pooling2d(X, pool_size=3, strides=1,
+                                        data_format='channels_last')
+        print('X after FC pool: ', X.shape)
+        
+        with tf.variable_scope(name+'_wb'):
+            w = tf.get_variable(
+                    dtype='float32',
+                    shape=k_shape,
+                    initializer=tf.truncated_normal_initializer(
+                            stddev=0.1, seed=6752
+                    ),
+                    name="convWeight",
+                    trainable=True
+            )
+            
+            b = tf.get_variable(
+                    dtype='float32',
+                    shape=[k_shape[-1]],
+                    initializer=tf.constant_initializer(1),
+                    name="convBias",
+                    trainable=True
+            
+            )
+
+        tf.summary.histogram("FC_Weights", w)
+        tf.summary.histogram("FC_bias", b)
+        # Flatten the pooled output (cnvrt [batchSize, 1, 1, 736] to [batchSize, 736])
+        X = tf.contrib.layers.flatten(X)
+        print('X after X Flattened: ', X.shape)
+        # print ('sdcdsddf ', params['dense']['w'].dtype, params['dense']['b'].dtype)
+        X = tf.add(tf.matmul(X, w), b)
+        print('X after FC Matmul: ', X.shape)
+        
+        # The output encoding identifies [batchSize, 128], L2 norm is perform for each
+        # training example (per record), Formula: a / pow(max(sum(a**2), 1e-5), 0.5)
+        # Basically we normalize the embedding output per image
+        X = tf.nn.l2_normalize(X, dim=1, epsilon=1e-12, name='L2_norm')
+    return X
+#
+# import numpy as np
+# X = np.random.rand(1,3,3,1024)
+# X = tf.cast(X, dtype=tf.float32)
+# X = inception5a_FT(X)
+# X = inception5b_FT(X)
+# X = fullyConnected_FT(X, k_shape=[736, 128])

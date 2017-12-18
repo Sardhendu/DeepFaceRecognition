@@ -126,13 +126,3 @@ class Inception_FT():
         print('inception_pool Chain 4: ', X_pool.shape)
         return X_pool
 
-X = np.random.rand(1,3,3,1024)
-X = tf.cast(X, dtype=tf.float32)
-obj_FT = Inception_FT()
-X_1x1 = obj_FT.inception_1x1(X, cnv1s=1, name='5a')
-print (X.get_shape().as_list())
-X_3x3 = obj_FT.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1), padLR=(1, 1), name='5a')
-print (X.get_shape().as_list())
-
-X_pool = obj_FT.inception_3x3(X, cnv1s=1, padTD=(1, 1), padLR=(1, 1),
-                             poolSize=3,poolStride=3, poolType='avg', name='5a')

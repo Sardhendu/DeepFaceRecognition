@@ -45,11 +45,6 @@ def batchNorm(inpTensor, mean, var, gamma, beta, isTrainable, name):
     
     return bn
 
-def activation(X, type='relu'):
-    if type == 'relu':
-        return tf.nn.relu(X)
-    elif type == 'sigmoid':
-        return tf.nn.sigmoid(X)
 
 class Inception():
     def __init__(self, params):
