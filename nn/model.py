@@ -184,6 +184,7 @@ def inception5b(X, params):
     return inception5b
 
 
+
 def fullyConnected(X, params):
     with tf.name_scope("InceptionFC"):
         X = tf.cast(X, tf.float32)
@@ -202,3 +203,37 @@ def fullyConnected(X, params):
         # training example (per record), Formula: a / pow(max(sum(a**2), 1e-5), 0.5)
         X = tf.nn.l2_normalize(X, dim=1, epsilon=1e-12, name='L2_norm')
     return X
+
+########################################################################################
+## FINE TUNE LAST FEW LAYERS: ONLY TRAIN THE LAST FEW LAYERS
+########################################################################################
+def inception5a_fntn(X, params):
+    with tf.name_scope("Inception5a_fntn"):
+        objInception = Inception(params)
+        print('Inside Inception module1: ', X.shape)
+        inception5a = tf.concat(
+                values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
+                                                   padLR=(1, 1), name='5a'),
+                        objInception.inception_pool(X, cnv1s=1, padTD=(1, 1), padLR=(1, 1),
+                                                    poolSize=3, poolStride=3, poolType='avg',
+                                                    name='5a'),
+                        objInception.inception_1x1(X, cnv1s=1, name='5a')],
+                axis=-1)
+        print('inception5a: ', inception5a.shape)
+    return inception5a
+
+
+def inception5b_fntn(X, params):
+    with tf.name_scope("Inception5b_fntn"):
+        objInception = Inception(params)
+        print('Inside Inception module1: ', X.shape)
+        inception5b = tf.concat(
+                values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
+                                                   padLR=(1, 1), name='5b'),
+                        objInception.inception_pool(X, cnv1s=1,padTD=(1, 1), padLR=(1, 1),
+                                                    poolSize=3, poolStride=2, poolType='max',
+                                                    name='5b'),
+                        objInception.inception_1x1(X, cnv1s=1, name='5b')],
+                axis=-1)
+        print('inception5b: ', inception5b.shape)
+    return inception5b

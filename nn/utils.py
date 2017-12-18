@@ -1,10 +1,34 @@
-
+import tensorflow as tf
 import numpy as np
 from itertools import combinations
 
-def getTriplets(batch_embedding, img_per_label, num_labels):
+
+def tripletLoss(predTensor, alpha=0.2):
+    with tf.name_scope("TripletLoss"):
+        anchor, positive, negative = predTensor[0], predTensor[1], predTensor[2]
+        '''
+        :param predTensor
+                anchor:    The encoding of the actual image of the person
+                positive:  The encodings of the image of the same person (positive)
+                negative:  The encodings of the image of a different person (! the anchor person)
+        :param alpha:      The penalty term that is added to the squared distance of the anchor and
+                            the positive image to deliberately increase the triplet loss function so
+                            that the function learns the underlying similarity much better by
+                            minimizing the loss function
+        :return:           LOSS
+        '''
+        # Mean of difference square
+        positiveDist = tf.reduce_sum(tf.square(tf.subtract(anchor, positive)))
+        negativeDist = tf.reduce_sum(tf.square(tf.subtract(anchor, negative)))
+        
+        # Calculating the loss accross all the examples in the Batch
+        loss = tf.reduce_sum(tf.maximum(tf.add(tf.subtract(positiveDist, negativeDist), alpha), 0))
+    return loss
+
+
+def getTriplets(batch_embedding, img_per_label, num_labels, alpha=0.01):
     batch_tripet_idx = []
-    idx_arr = np.arange(batch_size)
+    idx_arr = np.arange(len(batch_embedding))
     for i in np.arange(num_labels):
         pos_idxs = np.arange( i *img_per_label , i * img_per_label +img_per_label)
         neg_idxs = np.setdiff1d(idx_arr, pos_idxs)
@@ -48,15 +72,15 @@ def getTriplets(batch_embedding, img_per_label, num_labels):
     return batch_tripet_idx
 
 
-np.random.seed(327)
-batch_embedding = np.random.rand(40, 2)
-batch_size, num_embeddings = batch_embedding.shape
-img_per_label = 10
-num_labels = int( batch_size /img_per_label)
-
-alpha = 0.01
-
-
-batch_tripet_idx = getTriplets(batch_embedding, img_per_label, num_labels)
-
-print (batch_tripet_idx)
+# np.random.seed(327)
+# batch_embedding = np.random.rand(40, 2)
+# batch_size, num_embeddings = batch_embedding.shape
+# img_per_label = 10
+# num_labels = int( batch_size /img_per_label)
+#
+# alpha = 0.01
+#
+#
+# batch_tripet_idx = getTriplets(batch_embedding, img_per_label, num_labels)
+#
+# print (batch_tripet_idx)

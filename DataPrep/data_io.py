@@ -85,8 +85,8 @@ class DataFormatter():
         path_to_dump = os.path.join(folderPath, picklefileName)
         
         if getStats:
-            print('The shape of input data (X) is: ', len(dataX))
-            print('The shape of input data (Y) is: ', len(dataY))
+            print('The shape of input data (X) is: ', np.array(dataX).shape)
+            print('The shape of input data (Y) is: ', np.array(dataY).shape)
             print('Unique labels in dataY is: ', np.unique(dataY))
             print('Label dict: ', labelDict)
         
@@ -108,8 +108,8 @@ class DataFormatter():
             dataY = data['dataY']
             labelDict = data['labelDict']
         if getStats:
-            print('The shape of input data (X) is: ', len(dataX))
-            print('The shape of input data (Y) is: ', len(dataY))
+            print('The shape of input data (X) is: ', np.array(dataX).shape)
+            print('The shape of input data (Y) is: ', np.array(dataY).shape)
             print('Unique labels in dataY is: ', np.unique(dataY))
             print('Label dict: ', labelDict)
         return dataX, dataY, labelDict
