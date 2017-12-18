@@ -2,7 +2,7 @@ import os
 import numpy as np
 import pickle
 from scipy import ndimage, misc
-from skimage import transform, io, img_as_uint
+from skimage import io, img_as_uint
 
 parent_path = "/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/"
 
@@ -12,10 +12,10 @@ class DataFormatter():
         self.parentPath = parentPath
         
         if whichData == "training":
-            self.original_image_path = os.path.join(self.parentPath, 'original', 'training')
+            self.original_image_path = os.path.join(self.parentPath, 'faces', 'training')
             self.resized_path = os.path.join(self.parentPath, 'resized','training')
         elif whichData == "verification":
-            self.original_image_path = os.path.join(self.parentPath, 'original', 'verification')
+            self.original_image_path = os.path.join(self.parentPath, 'faces', 'verification')
             self.resized_path = os.path.join(self.parentPath, 'resized','verification')
             
         print ('Getting images from : ', self.original_image_path)
@@ -32,11 +32,13 @@ class DataFormatter():
                 os.makedirs(outPersonPath)
                 
             personPath = os.path.join(folderPath, name)
-            
-            imagePathList = [os.path.join(personPath, images) for images in os.listdir(personPath)
+            # print (images for images in os.listdir(personPath))
+            imagePathList = [os.path.join(personPath, images)
+                             for images in os.listdir(personPath)
                              if np.array(images.split("."))[-1] == 'jpg'
-                             or np.array(images.split('.'))[-1] == "jpeg"]
-            
+                             or np.array(images.split('.'))[-1] == "jpeg"
+                             or np.array(images.split('.'))[-1] == "png"]
+
             for num, imagePath in enumerate(imagePathList):
                 # print(imagePath)
                 image = ndimage.imread(imagePath, mode='RGB')
@@ -73,7 +75,7 @@ class DataFormatter():
         return dataX, dataY, labelDict
     
     @staticmethod
-    def dumpPickleFile(dataX, dataY, labelDict=None, folderPath=None, picklefileName=None):
+    def dumpPickleFile(dataX, dataY, labelDict=None, folderPath=None, picklefileName=None, getStats=None):
         if not folderPath or not picklefileName:
             raise ValueError('You should provide a folder path and pickle file name to dump your file')
         
@@ -81,6 +83,12 @@ class DataFormatter():
             os.makedirs(folderPath)
         
         path_to_dump = os.path.join(folderPath, picklefileName)
+        
+        if getStats:
+            print('The shape of input data (X) is: ', len(dataX))
+            print('The shape of input data (Y) is: ', len(dataY))
+            print('Unique labels in dataY is: ', np.unique(dataY))
+            print('Label dict: ', labelDict)
         
         with open(path_to_dump, 'wb') as f:
             fullData = {
@@ -91,14 +99,20 @@ class DataFormatter():
             pickle.dump(fullData, f, pickle.HIGHEST_PROTOCOL)
          
     @staticmethod
-    def getPickleFile(folderPath, picklefileName):
+    def getPickleFile(folderPath, picklefileName, getStats=None):
+        
         path_from = os.path.join(folderPath, picklefileName)
         with open(path_from, "rb") as p:
             data = pickle.load(p)
             dataX = data['dataX']
             dataY = data['dataY']
             labelDict = data['labelDict']
-        return dataX[0], dataY, labelDict
+        if getStats:
+            print('The shape of input data (X) is: ', len(dataX))
+            print('The shape of input data (Y) is: ', len(dataY))
+            print('Unique labels in dataY is: ', np.unique(dataY))
+            print('Label dict: ', labelDict)
+        return dataX, dataY, labelDict
 
 
 training = False

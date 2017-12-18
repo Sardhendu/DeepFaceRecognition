@@ -1,6 +1,6 @@
 from __future__ import division, print_function, absolute_import
 import tensorflow as tf
-from nn.Inception import convLayer, activation, Inception, batchNorm
+from nn.inception import convLayer, activation, Inception, batchNorm
 
 
 def conv1(X, params):

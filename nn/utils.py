@@ -2,7 +2,7 @@
 import numpy as np
 from itertools import combinations
 
-def get_triplets(batch_embedding, img_per_label, num_labels):
+def getTriplets(batch_embedding, img_per_label, num_labels):
     batch_tripet_idx = []
     idx_arr = np.arange(batch_size)
     for i in np.arange(num_labels):
@@ -57,6 +57,6 @@ num_labels = int( batch_size /img_per_label)
 alpha = 0.01
 
 
-batch_tripet_idx = get_triplets(batch_embedding, img_per_label, num_labels)
+batch_tripet_idx = getTriplets(batch_embedding, img_per_label, num_labels)
 
 print (batch_tripet_idx)
