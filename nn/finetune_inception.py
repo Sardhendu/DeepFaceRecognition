@@ -14,14 +14,16 @@ def convLayer_FT(inpTensor, kShape, s, name):
                 initializer=tf.truncated_normal_initializer(
                          stddev=0.1, seed=6752
                 ),
-                name="convWeight"
+                name="convWeight",
+                trainable=True
         )
     
         b = tf.get_variable(
                 dtype='float32',
                 shape=[kShape[-1]],
                 initializer=tf.constant_initializer(1),
-                name="convBias"
+                name="convBias",
+                trainable=True
     
         )
 
@@ -62,17 +64,75 @@ class Inception_FT():
         '''
         pass
 
-    def inception1x1(self, X, name='5a'):
+    def inception_1x1(self, X, cnv1s, name='5a'):
         conv_name = 'inception_%s_1x1_conv' % str(name)
         bn_name = 'inception_%s_1x1_bn' % str(name)
         kShape = np.array(convShape[conv_name])
         kShape = [kShape[2], kShape[3], kShape[1], kShape[0]]
-        X = convLayer_FT(X, kShape, s=1, name=conv_name)
-        print (X.get_shape().as_list())
-        X = batchNorm_FT(X, kShape[-1], axis=[0,1,2], name=bn_name)
-        print(X.get_shape().as_list())
+        X_1x1 = convLayer_FT(X, kShape, s=cnv1s, name=conv_name)
+        X_1x1 = batchNorm_FT(X_1x1, kShape[-1], axis=[0,1,2], name=bn_name)
+        X_1x1 = tf.nn.relu(X_1x1)
+        print('inception_1x1_FT: Chain 1: ', X_1x1.shape)
+        return X_1x1
 
+
+    def inception_3x3(self, X, cnv1s, cnv2s, padTD, padLR , name='5a'):
+        conv1_name = 'inception_%s_3x3_conv1' % str(name)
+        bn1_name = 'inception_%s_3x3_bn1' % str(name)
+        conv2_name = 'inception_%s_3x3_conv2' % str(name)
+        bn2_name = 'inception_%s_3x3_bn2' % str(name)
+        k1_shape = np.array(convShape[conv1_name])
+        k1_shape = [k1_shape[2], k1_shape[3], k1_shape[1], k1_shape[0]]
+        k2_shape = np.array(convShape[conv2_name])
+        k2_shape = [k2_shape[2], k2_shape[3], k2_shape[1], k2_shape[0]]
+
+
+        X_3x3 = convLayer_FT(X, k1_shape, s=cnv1s, name=conv1_name)
+        X_3x3 = batchNorm_FT(X_3x3, k1_shape[-1], axis=[0, 1, 2], name=bn1_name)
+        X_3x3 = tf.nn.relu(X_3x3)
+        
+        # Zero Padding
+        X_3x3 = tf.pad(X_3x3, paddings=[[0,0], [padTD[0], padTD[1]], [padLR[0], padLR[1]], [0, 0]])
+        X_3x3 = convLayer_FT(X_3x3, k2_shape, s=cnv2s, name=conv2_name)
+        X_3x3 = batchNorm_FT(X_3x3, k2_shape[-1], axis=[0, 1, 2], name=bn2_name)
+        X_3x3 = tf.nn.relu(X_3x3)
+        print('inception_3x3 Chain 2: ', X_3x3.shape)
+        return X_3x3
+
+    def inception_pool(self, X, cnv1s, padTD, padLR, poolSize, poolStride,
+                       poolType, name='5a'):
+        conv_name = 'inception_%s_pool_conv' % str(name)
+        bn1_name = 'inception_%s_pool_bn' % str(name)
+        k1_shape = np.array(convShape[conv_name])
+        k1_shape = [k1_shape[2], k1_shape[3], k1_shape[1], k1_shape[0]]
+        
+        # Chain 4
+        if poolType == 'avg':
+            X_pool = tf.layers.average_pooling2d(X, pool_size=poolSize, strides=poolStride,
+                                                 data_format='channels_last')
+        elif poolType == 'max':
+            X_pool = tf.layers.max_pooling2d(X, pool_size=poolSize, strides=poolStride,
+                                             data_format='channels_last')
+        else:
+            X_pool = X
+    
+        X_pool = convLayer_FT(X_pool, k1_shape, s=cnv1s, name=conv_name)
+        
+        # X_pool = tf.layers.batch_normalization(X_pool, axis=1, epsilon=1e-5, name=bn1_name)
+        X_pool = batchNorm_FT(X_pool, numOUT=k1_shape[-1], axis=[0,1,2], name=bn1_name)
+        X_pool = tf.nn.relu(X_pool)
+        X_pool = tf.pad(X_pool, paddings=[[0, 0], [padTD[0], padTD[1]],
+                                          [padLR[0], padLR[1]], [0, 0]])
+        print('inception_pool Chain 4: ', X_pool.shape)
+        return X_pool
 
 X = np.random.rand(1,3,3,1024)
 X = tf.cast(X, dtype=tf.float32)
-Inception_FT().inception1x1(X)
+obj_FT = Inception_FT()
+X_1x1 = obj_FT.inception_1x1(X, cnv1s=1, name='5a')
+print (X.get_shape().as_list())
+X_3x3 = obj_FT.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1), padLR=(1, 1), name='5a')
+print (X.get_shape().as_list())
+
+X_pool = obj_FT.inception_3x3(X, cnv1s=1, padTD=(1, 1), padLR=(1, 1),
+                             poolSize=3,poolStride=3, poolType='avg', name='5a')
