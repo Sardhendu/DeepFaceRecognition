@@ -41,16 +41,16 @@ def getModel_FT(imgShape, params):
     X = inception5a_FT(X)
     X = inception5b_FT(X)
     X = fullyConnected_FT(X, [736, 128])
-    return X
+    return dict(inpTensor=inpTensor, output=X)
 
 
-def initNetwork(weightDict, isTrainable=False):
-    logging.info('INITIALIZING THE NETWORK !! ...............................')
-    if not isTrainable:
-        tensorDict = getModel([96, 96, 3], params=weightDict)
-    else:
-        tensorDict = getModel_FT([96, 96, 3], params=weightDict)
-    return tensorDict
+# def initNetwork(weightDict, isTrainable=False):
+#     logging.info('INITIALIZING THE NETWORK !! ...............................')
+#     if not isTrainable:
+#         encodingDict = getModel([96, 96, 3], params=weightDict)
+#     else:
+#         encodingDict = getModel_FT([96, 96, 3], params=weightDict)
+#     return encodingDict
 
 
 def summaryBuilder(sess, outFilePath):

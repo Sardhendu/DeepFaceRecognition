@@ -288,6 +288,45 @@ def fullyConnected_FT(X, k_shape):
         # Basically we normalize the embedding output per image
         X = tf.nn.l2_normalize(X, dim=1, epsilon=1e-12, name='L2_norm')
     return X
+
+
+def optimize(xIN, yIN, optimizerParams, learningRateDecay=True):
+    learningRate = optimizerParams["learningRate"]
+    momentum = optimizerParams["momentum"]
+    optimizerType = optimizerParams["optimizer"]
+    
+    globalStep = tf.Variable(0, dtype=tf.float32)
+    if learningRateDecay:
+        decayRate = optimizerParams["learningDecayRate"]
+        trainSize = optimizerParams["trainSize"]
+        batchSize = optimizerParams["batchSize"]
+        
+        learningRate = tf.train.exponential_decay(learningRate,
+                                                  globalStep * batchSize,  # Used for decay computation
+                                                  trainSize,  # Decay steps
+                                                  decayRate,  # Decay rate
+                                                  staircase=True)  # Will decay the learning rate in discrete interval
+        tf.summary.scalar('learningRate', learningRate)
+    
+    # We would like to store the summary of the loss to watch the decrease in loss.
+    with tf.name_scope("Loss"):
+        lossCE = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=xIN, labels=yIN))
+        tf.summary.scalar('loss', lossCE)
+    
+    with tf.name_scope("Optimizer"):
+        if optimizerType == 'ADAM':
+            optimizer = (tf.train.AdamOptimizer(learning_rate=learningRate)
+                         .minimize(lossCE, global_step=globalStep))
+        
+        elif optimizerType == 'RMSPROP':
+            optimizer = (tf.train.RMSPropOptimizer(learning_rate=learningRate,
+                                                   momentum=momentum)
+                         .minimize(lossCE, global_step=globalStep)
+                         )
+        else:
+            raise ValueError('Your provided optimizers do not match with any of the initialized optimizers')
+    
+    return lossCE, optimizer, learningRate
     
 #
 #
@@ -298,7 +337,7 @@ def fullyConnected_FT(X, k_shape):
 # # X = inception5a_FT(X)
 # # X = inception5b_FT(X)
 # # X = fullyConnected_FT(X, k_shape=[736, 128])
-# X = tf.cast(np.random.rand(6,2), tf.float32)
+# X = tf.cast(np.random.rand(18,128), tf.float32)
 #
 # with tf.Session() as sess:
 #     sess.run(tf.global_variables_initializer())
@@ -312,7 +351,7 @@ def fullyConnected_FT(X, k_shape):
 #                        tf.gather(X, p_idxs),
 #                        tf.gather(X, n_idxs), alpha=0.2)
 #
-#     logging.info(loss.eval())
+#     print (loss.eval())
 
 
 # with tf.Session() as sess:
