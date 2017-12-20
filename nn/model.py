@@ -44,14 +44,18 @@ def getModel_FT(imgShape, params):
     return dict(inpTensor=inpTensor, output=X)
 
 
-# def initNetwork(weightDict, isTrainable=False):
-#     logging.info('INITIALIZING THE NETWORK !! ...............................')
-#     if not isTrainable:
-#         encodingDict = getModel([96, 96, 3], params=weightDict)
-#     else:
-#         encodingDict = getModel_FT([96, 96, 3], params=weightDict)
-#     return encodingDict
-
+def initNetwork(weightDict, isTrainable=False):
+    logging.info('INITIALIZING THE NETWORK !! ...............................')
+    if not isTrainable:
+        encodingDict = getModel([96, 96, 3], params=weightDict)
+    else:
+        img_per_label = 6
+        num_labels = 3
+        alpha = 0.01
+        encodingDict = getModel_FT([96, 96, 3], params=weightDict)
+        encodingDict = loss(encodingDict, img_per_label, num_labels, alpha)
+        encodingDict = optimize(encodingDict)
+    return encodingDict
 
 def summaryBuilder(sess, outFilePath):
     mergedSummary = tf.summary.merge_all()

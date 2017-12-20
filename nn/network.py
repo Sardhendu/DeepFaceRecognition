@@ -1,5 +1,6 @@
 from __future__ import division, print_function, absolute_import
 import tensorflow as tf
+from nn.utils import getTriplets, tripletLoss
 from nn.inception import convLayer, activation, Inception, batchNorm
 from nn.inception_finetune import Inception_FT
 import logging
@@ -290,7 +291,36 @@ def fullyConnected_FT(X, k_shape):
     return X
 
 
-def optimize(xIN, yIN, optimizerParams, learningRateDecay=True):
+
+
+########################################################################################
+## MAIN CALL: TRIPLET LOSS AND OPTIMIZATION
+########################################################################################
+
+def loss(encodingDict, img_per_label, num_labels, alpha):
+    '''
+        Implementing the Tensor Graph for Triplet loss function.
+        The output tripletIDX is a numpy ND array.
+    '''
+    tripletIDX = tf.py_func(getTriplets,
+                            [encodingDict['output'], img_per_label, num_labels, alpha],
+                            tf.int64)
+    loss = tripletLoss(
+        tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,0]),
+        tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,1]),
+        tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,2]),
+        alpha=0.2)
+    encodingDict['loss'] = loss
+    return encodingDict
+
+
+def optimize(encodingDict):
+    optimizer = tf.train.AdamOptimizer(learning_rate=0.0001).minimize(encodingDict['loss'])
+    encodingDict['optimizer'] = optimizer
+    return encodingDict
+
+
+def optimize2(xIN, yIN, optimizerParams, learningRateDecay=True):
     learningRate = optimizerParams["learningRate"]
     momentum = optimizerParams["momentum"]
     optimizerType = optimizerParams["optimizer"]
