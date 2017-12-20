@@ -3,7 +3,7 @@ from __future__ import division, print_function, absolute_import
 import tensorflow as tf
 from nn.load_params import convShape
 import numpy as np
-
+import logging
 def convLayer_FT(inpTensor, kShape, s, name):
     inpTensor = tf.cast(inpTensor, tf.float32)
     
@@ -72,7 +72,7 @@ class Inception_FT():
         X_1x1 = convLayer_FT(X, kShape, s=cnv1s, name=conv_name)
         X_1x1 = batchNorm_FT(X_1x1, kShape[-1], axis=[0,1,2], name=bn_name)
         X_1x1 = tf.nn.relu(X_1x1)
-        print('inception_1x1_FT: Chain 1: ', X_1x1.shape)
+        logging.info('inception_1x1_FT: Chain 1: shape = %s', str(X_1x1.shape))
         return X_1x1
 
 
@@ -96,7 +96,7 @@ class Inception_FT():
         X_3x3 = convLayer_FT(X_3x3, k2_shape, s=cnv2s, name=conv2_name)
         X_3x3 = batchNorm_FT(X_3x3, k2_shape[-1], axis=[0, 1, 2], name=bn2_name)
         X_3x3 = tf.nn.relu(X_3x3)
-        print('inception_3x3 Chain 2: ', X_3x3.shape)
+        logging.info('inception_3x3 Chain 2: shape = %s ', str(X_3x3.shape))
         return X_3x3
 
     def inception_pool(self, X, cnv1s, padTD, padLR, poolSize, poolStride,
@@ -123,6 +123,6 @@ class Inception_FT():
         X_pool = tf.nn.relu(X_pool)
         X_pool = tf.pad(X_pool, paddings=[[0, 0], [padTD[0], padTD[1]],
                                           [padLR[0], padLR[1]], [0, 0]])
-        print('inception_pool Chain 4: ', X_pool.shape)
+        logging.info('inception_pool Chain 4: shape = %s ', str(X_pool.shape))
         return X_pool
 

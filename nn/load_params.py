@@ -3,6 +3,11 @@ from __future__ import division, print_function, absolute_import
 from collections import defaultdict
 import numpy as np
 
+import logging
+
+logging.basicConfig(level=logging.DEBUG, filename="logfile.log", filemode="w",
+                    format="%(asctime)-15s %(levelname)-8s %(message)s")
+
 
 layer_name = [
     'conv1', 'bn1',
@@ -132,7 +137,7 @@ convShape = {
 
 def getWeights(modelPath):
     moduleWeightDict = defaultdict(lambda: defaultdict())
-    
+    logging.info('LOADING WEIGHTS FOR THE NETWORK !! .........................')
     for name in layer_name:
         if 'conv' in name:
             conv1_w = np.genfromtxt(modelPath+"/"+name+'_w.csv', delimiter=',', dtype='float32')
@@ -141,9 +146,8 @@ def getWeights(modelPath):
             conv1_b = np.genfromtxt(modelPath+"/"+name+'_b.csv', delimiter=',', dtype='float32')
             moduleWeightDict[name]['w'] = conv1_w
             moduleWeightDict[name]['b'] = conv1_b
-            print (name)
-            print (conv1_w.shape)
-            print (conv1_b.shape)
+            logging.info('ConvLayer: %s, weight_shape = %s, bias_shape = %s',
+                         str(name), str(conv1_w.shape), str(conv1_b.shape))
         elif 'dense' in name:
             dense_w = np.genfromtxt(modelPath+"/"+name+'_w.csv', delimiter=',', dtype='float32')
             dense_w = np.reshape(dense_w, (128,736)) # Remember the input weights are in reverse order
@@ -160,7 +164,6 @@ def getWeights(modelPath):
             moduleWeightDict[name]['b'] = bn_b
             moduleWeightDict[name]['m'] = bn_m
             moduleWeightDict[name]['v'] = bn_v
-            print (name)
-            print (bn_w.shape, bn_b.shape, bn_m.shape, bn_v.shape)
-            
+            logging.info('BatchNorm: %s, Offset = %s, bias = %s, mean = %s, variance = %s  ', str(name), str(bn_w.shape), str(bn_b.shape), str(bn_m.shape), str(bn_v.shape))
+    logging.info('\n')
     return moduleWeightDict

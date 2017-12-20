@@ -3,23 +3,23 @@ import numpy as np
 from itertools import combinations
 
 
-def tripletLoss(predTensor, alpha=0.2):
+def tripletLoss(anchor, positive, negative, alpha=0.2):
+     # = predTensor[0], predTensor[1], predTensor[2]
+    '''
+    :param anchor:      array of encodings of several actual image of the person
+    :param positive:    array of encodings of several hard actual image of the person
+    :param negative:    array of encodings of several hard actual image of other people
+    :param alpha:       The penalty term that is added to the squared distance of the anchor and
+                     the positive image to deliberately increase the triplet loss function so
+                     that the function learns the underlying similarity much better by
+                     minimizing the loss function
+    :return:            LOSS
+    '''
+   
     with tf.name_scope("TripletLoss"):
-        anchor, positive, negative = predTensor[0], predTensor[1], predTensor[2]
-        '''
-        :param predTensor
-                anchor:    The encoding of the actual image of the person
-                positive:  The encodings of the image of the same person (positive)
-                negative:  The encodings of the image of a different person (! the anchor person)
-        :param alpha:      The penalty term that is added to the squared distance of the anchor and
-                            the positive image to deliberately increase the triplet loss function so
-                            that the function learns the underlying similarity much better by
-                            minimizing the loss function
-        :return:           LOSS
-        '''
         # Mean of difference square
-        positiveDist = tf.reduce_sum(tf.square(tf.subtract(anchor, positive)))
-        negativeDist = tf.reduce_sum(tf.square(tf.subtract(anchor, negative)))
+        positiveDist = tf.reduce_sum(tf.square(tf.subtract(anchor, positive)), 1)
+        negativeDist = tf.reduce_sum(tf.square(tf.subtract(anchor, negative)), 1)
         
         # Calculating the loss accross all the examples in the Batch
         loss = tf.reduce_sum(tf.maximum(tf.add(tf.subtract(positiveDist, negativeDist), alpha), 0))
@@ -53,10 +53,10 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha=0.01):
             # print ('anc_VS_pos anc_VS_pos', anc_VS_pos)
             
             hard_neg_idx = np.where(anc_VS_neg_ndarr - anc_VS_pos < alpha)[0]
-            
+            # print (hard_neg_idx)
             
             # Randomly sample 1 record from the hard negative idx, and create a triplet
-            if len(hard_neg_idx ) >0:
+            if len(hard_neg_idx) >0:
                 # print('hard_neg_idx hard_neg_idx ', hard_neg_idx)
                 np.random.shuffle(hard_neg_idx)
                 rnd_idx = hard_neg_idx[0]
@@ -70,6 +70,77 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha=0.01):
     # print('TRIPLET INDEX ', batch_tripet_idx)
     
     return batch_tripet_idx
+
+def getTriplets_TF(batch_embedding, img_per_label, num_labels, alpha=0.01):
+    batch_tripet_idxs = tf.constant([])
+    # print ('yywyruiwyriuwyuiryuwryuwuier ', batch_tripet_idxs.eval())
+    idx_arr = np.arange(batch_embedding.get_shape().as_list()[0])
+    for i in np.arange(num_labels):
+        # print ('2423423412425453463423423425345')
+        pos_idxs = np.arange(i * img_per_label, i * img_per_label + img_per_label)
+        neg_idxs = np.setdiff1d(idx_arr, pos_idxs)
+
+        compare_point = -1  # used to avoid redundancy in calculating SSE between anchor and all negative
+        # Get all combination of Anchor and positive
+        for indNum, (anc_idx, pos_idx) in enumerate(combinations(pos_idxs, 2)):
+            if anc_idx != compare_point:
+                compare_point += 1
+                # Get the sum of squared distance between anchor and positive
+                #
+ 
+                anc_VS_neg_ndarr = tf.reduce_sum(
+                                        tf.square(
+                                            tf.subtract(
+                                                tf.gather(batch_embedding, anc_idx),
+                                                tf.gather(batch_embedding, neg_idxs)
+                                             )
+                                        ), 1
+                                    )
+        
+            # Get the sum of squared distance between anchor and positive
+            anc_VS_pos = tf.reduce_sum(
+                            tf.square(
+                                tf.subtract(
+                                    tf.gather(batch_embedding, anc_idx),
+                                    tf.gather(batch_embedding, pos_idx)
+                                )
+                            )
+                        )
+            
+            # print ('anc_VS_pos anc_VS_pos', anc_VS_pos.eval())
+            
+            condition = tf.subtract(anc_VS_neg_ndarr, anc_VS_pos)
+            hard_neg_idx = tf.where(condition < alpha)
+            # print('hard_neg_idx hard_neg_idx ', hard_neg_idx.eval())
+
+            # Randomly sample 1 record from the set of hard negative idx, and create a triplet
+            if hard_neg_idx.eval().shape[0] > 0 :
+                # print('hard_neg_idx hard_neg_idx ', hard_neg_idx)
+                hard_neg_idx = tf.random_shuffle(hard_neg_idx)
+                rnd_idx = tf.gather(hard_neg_idx, [0])
+                print ('neg_idx neg_idx ', rnd_idx.eval())
+                # Get triplet indexes in order to work on offline mode
+                print (tf.cast(tf.gather(neg_idxs, rnd_idx), dtype=tf.int32).eval())
+                batch_tripet_idx = tf.stack([anc_idx, pos_idx,
+                                             tf.squeeze(tf.gather(neg_idxs, rnd_idx))])
+                # print ('545454545454545 ', batch_tripet_idx.eval())
+                # print ('')
+                # print (break_point - cnt)
+            if batch_tripet_idxs.get_shape().as_list()[0] == 0:
+                batch_tripet_idxs = batch_tripet_idx
+                # print('1111111111111111 ', batch_tripet_idxs.eval())
+            else:
+                # print ('12121212121212121 ', batch_tripet_idxs.get_shape().as_list())
+                # print('12121212121212121 ', batch_tripet_idx.get_shape().as_list())
+                batch_tripet_idxs = tf.stack([batch_tripet_idxs, batch_tripet_idx])
+                # print('22222222222222222 ', batch_tripet_idxs.eval())
+                
+            # print ('vfvrgbrtbrbrtbrgbrt ', batch_tripet_idxs.eval())
+    # print('TRIPLET INDEX ', batch_tripet_idx)
+
+    return batch_tripet_idxs
+
+
 
 
 # np.random.seed(327)

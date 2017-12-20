@@ -1,6 +1,6 @@
 
 import tensorflow as tf
-
+import logging
 
 
 
@@ -46,6 +46,12 @@ def batchNorm(inpTensor, mean, var, gamma, beta, isTrainable, name):
     return bn
 
 
+def activation(X, type='relu'):
+    if type == 'relu':
+        return tf.nn.relu(X)
+    elif type == 'sigmoid':
+        return tf.nn.sigmoid(X)
+
 class Inception():
     def __init__(self, params):
         self.params = params
@@ -61,7 +67,7 @@ class Inception():
                           gamma=self.params[bn_name]['w'], beta=self.params[bn_name]['b'],
                           isTrainable=False, name=bn_name)
         X_1x1 = tf.nn.relu(X_1x1)
-        print('inception_1x1: Chain 1: ', X_1x1.shape)
+        logging.info('inception_1x1: Chain 1: shape = %s', str(X_1x1.shape))
         return X_1x1
     
     def inception_3x3(self, X, cnv1s=1, cnv2s=1, padTD=(1,1), padLR=(1,1), name='3a'):
@@ -89,7 +95,7 @@ class Inception():
                           gamma=self.params[bn2_name]['w'], beta=self.params[bn2_name]['b'],
                           isTrainable=False, name=bn2_name)
         X_3x3 = tf.nn.relu(X_3x3)
-        print('inception_3x3 Chain 2: ', X_3x3.shape)
+        logging.info('inception_3x3 Chain 2: shape = %s', str(X_3x3.shape))
         return X_3x3
     
     def inception_5x5(self, X, cnv1s=1, cnv2s=1, padTD=(2,2), padLR=(2,2), name='3a'):
@@ -117,7 +123,7 @@ class Inception():
                           gamma=self.params[bn2_name]['w'], beta=self.params[bn2_name]['b'],
                           isTrainable=False, name=bn2_name)
         X_5x5 = tf.nn.relu(X_5x5)
-        print('inception_5x5 Chain 3: ', X_5x5.shape)
+        logging.info('inception_5x5 Chain 3: shape = %s', str(X_5x5.shape))
         return X_5x5
     
     def inception_pool(self, X, cnv1s=1, padTD=(4,4), padLR=(4,4), poolSize=3, poolStride=3,
@@ -144,7 +150,7 @@ class Inception():
         X_pool = tf.nn.relu(X_pool)
         X_pool = tf.pad(X_pool, paddings=[[0, 0], [padTD[0], padTD[1]],
                                           [padLR[0], padLR[1]], [0, 0]])
-        print('inception_pool Chain 4: ', X_pool.shape)
+        logging.info('inception_pool Chain 4: shape = %s', str(X_pool.shape))
         return X_pool
     
     def pool_pad(self, X, padTD=None, padLR=None, poolSize=3, poolStride=2,
@@ -161,7 +167,7 @@ class Inception():
         if padTD:
             X_pool_pad = tf.pad(X_pool_pad, paddings=[[0, 0], [padTD[0], padTD[1]],
                                                       [padLR[0],padLR[1]], [0, 0]])
-        print('pool_pad Chain 4: ', X_pool_pad.shape)
+        logging.info('pool_pad Chain 4: shape = %s', str(X_pool_pad.shape))
         return X_pool_pad
         
             
