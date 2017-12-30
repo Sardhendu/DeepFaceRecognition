@@ -4,51 +4,60 @@ import tensorflow as tf
 from nn.load_params import convShape
 import numpy as np
 import logging
+
+
+
 def convLayer_FT(inpTensor, kShape, s, name):
     inpTensor = tf.cast(inpTensor, tf.float32)
     
-    with tf.variable_scope(name+'_wb'):
-        w = tf.get_variable(
-                dtype='float32',
-                shape=kShape,
-                initializer=tf.truncated_normal_initializer(
-                         stddev=0.1, seed=6752
-                ),
-                name="convWeight",
-                trainable=True
-        )
+    with tf.variable_scope(name):
+        weight = tf.get_variable(
+                    dtype='float32',
+                    shape=kShape,
+                    initializer=tf.truncated_normal_initializer(
+                             stddev=0.1, seed=6752
+                    ),
+                    name="w",
+                    trainable=True
+            )
     
-        b = tf.get_variable(
+        bias = tf.get_variable(
                 dtype='float32',
                 shape=[kShape[-1]],
                 initializer=tf.constant_initializer(1),
-                name="convBias",
+                name="b",
                 trainable=True
     
         )
 
-    tf.summary.histogram("convWeights", w)
-    tf.summary.histogram("convbias", b)
-    act = tf.nn.conv2d(inpTensor, w, [1, s, s, 1], padding='VALID', name=name) + b
+    tf.summary.histogram("convWeights", weight)
+    tf.summary.histogram("convbias", bias)
+    act = tf.nn.conv2d(inpTensor, weight, [1, s, s, 1], padding='VALID', name=name) + bias
     
     return act
 
 def batchNorm_FT(inpTensor, numOUT, axis=[0,1,2], name=None):
-    with tf.variable_scope(name+'_bn'):
+    with tf.variable_scope(name):
         beta = tf.get_variable(
                 dtype='float32',
                 shape=[numOUT],
                 initializer=tf.constant_initializer(0.0),
-                name="beta",
+                name="b",  # offset (bias)
                 trainable=True
         )
         gamma = tf.get_variable(
                 dtype='float32',
                 shape=[numOUT],
                 initializer=tf.constant_initializer(1.0),
-                name="gamma",
+                name="w",  # scale(weight)
                 trainable=True)
+        
+        
+        # Basically in real world application batchMean and batachVar are updated using
+        # exponential weighted average. For now we dont do it here
         batchMean, batchVar = tf.nn.moments(inpTensor, axes=axis, name="moments")
+        
+        
         bn = tf.nn.batch_normalization(inpTensor, mean=batchMean, variance=batchVar,
                                        offset=beta, scale=gamma,
                                        variance_epsilon=1e-5, name=name)

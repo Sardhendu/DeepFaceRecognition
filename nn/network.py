@@ -197,9 +197,9 @@ def fullyConnected(X, params, trainable):
             w = tf.constant(params['dense']['w'], name="weights", dtype=tf.float32)
             b = tf.constant(params['dense']['b'], name="bias", dtype=tf.float32)
         else:
-            with tf.variable_scope('FC_layer_wb'):
-                w = tf.Variable(params['dense']['w'], dtype='float32', name='weight', trainable=True)
-                b = tf.Variable(params['dense']['b'], dtype='float32', name="biases", trainable=True)
+            with tf.variable_scope('dense'):
+                w = tf.Variable(params['dense']['w'], dtype='float32', name='w', trainable=True)
+                b = tf.Variable(params['dense']['b'], dtype='float32', name="b", trainable=True)
                 
         X = tf.layers.average_pooling2d(X, pool_size=3, strides=1,
                                         data_format='channels_last')
@@ -261,14 +261,14 @@ def fullyConnected_FT(X, k_shape):
                                         data_format='channels_last')
         logging.info('X after FC pool: %s', str(X.shape))
         
-        with tf.variable_scope(name+'_wb'):
+        with tf.variable_scope('dense'):
             w = tf.get_variable(
                     dtype='float32',
                     shape=k_shape,
                     initializer=tf.truncated_normal_initializer(
                             stddev=0.1, seed=6752
                     ),
-                    name="convWeight",
+                    name="w",
                     trainable=True
             )
             
@@ -276,7 +276,7 @@ def fullyConnected_FT(X, k_shape):
                     dtype='float32',
                     shape=[k_shape[-1]],
                     initializer=tf.constant_initializer(1),
-                    name="convBias",
+                    name="b",
                     trainable=True
             
             )
