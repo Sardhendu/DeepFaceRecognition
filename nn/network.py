@@ -71,9 +71,9 @@ def conv3(X, params):
 
 
 
-def inception3a(X, params):
+def inception3a(X, params, trainable):
     with tf.name_scope("Inception3a"):
-        objInception = Inception(params)
+        objInception = Inception(params, trainable)
         logging.info('Inside Inception module 3a: %s', str(X.shape))
         inception3a = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
@@ -89,9 +89,9 @@ def inception3a(X, params):
     return inception3a
 
 
-def inception3b(X, params):
+def inception3b(X, params, trainable):
     with tf.name_scope("Inception3b"):
-        objInception = Inception(params)
+        objInception = Inception(params, trainable)
         logging.info('Inside Inception module 3b: %s', str(X.shape))
         inception3b = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
@@ -107,9 +107,9 @@ def inception3b(X, params):
     return inception3b
 
 
-def inception3c(X, params):
+def inception3c(X, params, trainable):
     with tf.name_scope("Inception3c"):
-        objInception = Inception(params)
+        objInception = Inception(params, trainable)
         logging.info('Inside Inception module 3c: %s', str(X.shape))
         inception3c = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=2, padTD=(1, 1),
@@ -123,9 +123,9 @@ def inception3c(X, params):
     return inception3c
 
 
-def inception4a(X, params):
+def inception4a(X, params, trainable):
     with tf.name_scope("Inception4a"):
-        objInception = Inception(params)
+        objInception = Inception(params, trainable=trainable)
         logging.info('Inside Inception module 4a: %s', str(X.shape))
         inception4a = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
@@ -141,9 +141,9 @@ def inception4a(X, params):
     return inception4a
 
 
-def inception4e(X, params):
+def inception4e(X, params, trainable):
     with tf.name_scope("Inception4e"):
-        objInception = Inception(params)
+        objInception = Inception(params, trainable=trainable)
         logging.info('Inside Inception module 4e: %s', str(X.shape))
         inception4e = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=2, padTD=(1, 1),
@@ -157,9 +157,9 @@ def inception4e(X, params):
     return inception4e
 
 
-def inception5a(X, params):
+def inception5a(X, params, trainable):
     with tf.name_scope("Inception5a"):
-        objInception = Inception(params)
+        objInception = Inception(params, trainable=trainable)
         logging.info('Inside Inception module 5a: %s', str(X.shape))
         inception5a = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
@@ -173,9 +173,9 @@ def inception5a(X, params):
     return inception5a
 
 
-def inception5b(X, params):
+def inception5b(X, params, trainable):
     with tf.name_scope("Inception5b"):
-        objInception = Inception(params)
+        objInception = Inception(params, trainable=trainable)
         logging.info('Inside Inception module 5b: %s', str(X.shape))
         inception5b = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
@@ -190,11 +190,17 @@ def inception5b(X, params):
 
 
 
-def fullyConnected(X, params):
+def fullyConnected(X, params, trainable):
     with tf.name_scope("InceptionFC"):
         X = tf.cast(X, tf.float32)
-        w = tf.constant(params['dense']['w'], name="weights", dtype=tf.float32)
-        b = tf.constant(params['dense']['b'], name="bias", dtype=tf.float32)
+        if not trainable:
+            w = tf.constant(params['dense']['w'], name="weights", dtype=tf.float32)
+            b = tf.constant(params['dense']['b'], name="bias", dtype=tf.float32)
+        else:
+            with tf.variable_scope('FC_layer_wb'):
+                w = tf.Variable(params['dense']['w'], dtype='float32', name='weight', trainable=True)
+                b = tf.Variable(params['dense']['b'], dtype='float32', name="biases", trainable=True)
+                
         X = tf.layers.average_pooling2d(X, pool_size=3, strides=1,
                                         data_format='channels_last')
         logging.info('X after FC pool: %s', str(X.shape))
@@ -314,49 +320,49 @@ def loss(encodingDict, img_per_label, num_labels, alpha):
     return encodingDict
 
 
-def optimize(encodingDict):
-    optimizer = tf.train.AdamOptimizer(learning_rate=0.0001).minimize(encodingDict['loss'])
+def optimize(encodingDict, learning_rate):
+    optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(encodingDict['loss'])
     encodingDict['optimizer'] = optimizer
     return encodingDict
 
-
-def optimize2(xIN, yIN, optimizerParams, learningRateDecay=True):
-    learningRate = optimizerParams["learningRate"]
-    momentum = optimizerParams["momentum"]
-    optimizerType = optimizerParams["optimizer"]
-    
-    globalStep = tf.Variable(0, dtype=tf.float32)
-    if learningRateDecay:
-        decayRate = optimizerParams["learningDecayRate"]
-        trainSize = optimizerParams["trainSize"]
-        batchSize = optimizerParams["batchSize"]
-        
-        learningRate = tf.train.exponential_decay(learningRate,
-                                                  globalStep * batchSize,  # Used for decay computation
-                                                  trainSize,  # Decay steps
-                                                  decayRate,  # Decay rate
-                                                  staircase=True)  # Will decay the learning rate in discrete interval
-        tf.summary.scalar('learningRate', learningRate)
-    
-    # We would like to store the summary of the loss to watch the decrease in loss.
-    with tf.name_scope("Loss"):
-        lossCE = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=xIN, labels=yIN))
-        tf.summary.scalar('loss', lossCE)
-    
-    with tf.name_scope("Optimizer"):
-        if optimizerType == 'ADAM':
-            optimizer = (tf.train.AdamOptimizer(learning_rate=learningRate)
-                         .minimize(lossCE, global_step=globalStep))
-        
-        elif optimizerType == 'RMSPROP':
-            optimizer = (tf.train.RMSPropOptimizer(learning_rate=learningRate,
-                                                   momentum=momentum)
-                         .minimize(lossCE, global_step=globalStep)
-                         )
-        else:
-            raise ValueError('Your provided optimizers do not match with any of the initialized optimizers')
-    
-    return lossCE, optimizer, learningRate
+#
+# def optimize2(xIN, yIN, optimizerParams, learningRateDecay=True):
+#     learningRate = optimizerParams["learningRate"]
+#     momentum = optimizerParams["momentum"]
+#     optimizerType = optimizerParams["optimizer"]
+#
+#     globalStep = tf.Variable(0, dtype=tf.float32)
+#     if learningRateDecay:
+#         decayRate = optimizerParams["learningDecayRate"]
+#         trainSize = optimizerParams["trainSize"]
+#         batchSize = optimizerParams["batchSize"]
+#
+#         learningRate = tf.train.exponential_decay(learningRate,
+#                                                   globalStep * batchSize,  # Used for decay computation
+#                                                   trainSize,  # Decay steps
+#                                                   decayRate,  # Decay rate
+#                                                   staircase=True)  # Will decay the learning rate in discrete interval
+#         tf.summary.scalar('learningRate', learningRate)
+#
+#     # We would like to store the summary of the loss to watch the decrease in loss.
+#     with tf.name_scope("Loss"):
+#         lossCE = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=xIN, labels=yIN))
+#         tf.summary.scalar('loss', lossCE)
+#
+#     with tf.name_scope("Optimizer"):
+#         if optimizerType == 'ADAM':
+#             optimizer = (tf.train.AdamOptimizer(learning_rate=learningRate)
+#                          .minimize(lossCE, global_step=globalStep))
+#
+#         elif optimizerType == 'RMSPROP':
+#             optimizer = (tf.train.RMSPropOptimizer(learning_rate=learningRate,
+#                                                    momentum=momentum)
+#                          .minimize(lossCE, global_step=globalStep)
+#                          )
+#         else:
+#             raise ValueError('Your provided optimizers do not match with any of the initialized optimizers')
+#
+#     return lossCE, optimizer, learningRate
     
 #
 #
