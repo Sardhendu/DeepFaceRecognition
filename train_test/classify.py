@@ -4,8 +4,8 @@ import os
 import numpy as np
 from sklearn.svm import SVC
 from sklearn.externals import joblib
+from config import path_dict
 
-where_to_dump_model = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/data_models/classification_model'
 
 class SVM():
     '''
@@ -27,16 +27,17 @@ class SVM():
         '''
         model = SVC(kernel='linear', probability=True)
         model.fit(embeddings, labels)
-        joblib.dump(model, os.path.join(where_to_dump_model, iter_num+"_svm.sav"))
-        
+        joblib.dump(model, os.path.join(path_dict['classification_model_path'], str(iter_num) + "_svm.sav"))
+    
     def classify(self, embeddings, iter_num=None):
         '''
-        :param embeddings:
+        :param embeddings: Image embeddings to classify
         :param iter_num:
         :return:
         '''
-        model = joblib.load(os.path.join(where_to_dump_model, iter_num+"_svm.sav"))
+        model = joblib.load(os.path.join(path_dict['classification_model_path'], str(iter_num) + "_svm.sav"))
         predLabels = model.predict_proba(embeddings)
-        best_label_idx = np.argmax(predLabels, axis=1)
-        print (predLabels)
+        top_label_idx = np.argmax(predLabels, axis=1)
+        labelProb = predLabels[np.arange(len(top_label_idx)), top_label_idx]
+        return top_label_idx, labelProb
         

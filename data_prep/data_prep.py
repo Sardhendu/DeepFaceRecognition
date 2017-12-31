@@ -3,10 +3,11 @@ from __future__ import division, print_function, absolute_import
 import numpy as np
 import os, pickle
 import logging
+from config import path_dict
 
-parentPath = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition'
-batchFolderPath = os.path.join(parentPath, 'data_models', 'batch_img_arr')
-training_encoding_path = os.path.join(parentPath, 'data_models')
+# parentPath = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition'
+# batchFolderPath = os.path.join(parentPath, 'data_models', 'batch_img_arr')
+# training_encoding_path = os.path.join(parentPath, 'data_models')
 
 class DataIO():
     @staticmethod
@@ -75,7 +76,7 @@ def generateRandomBatches(dataX, dataY, imgPerLabels=6, numBatches=10, fileName=
         DataIO.dumpPickleFile(dataX=dataBatchX,
                               dataY=dataBatchY,
                               labelDict=None,
-                              folderPath=batchFolderPath,
+                              folderPath=path_dict['batchFolderPath'],
                               picklefileName=fileName)
 
     
@@ -83,9 +84,9 @@ def generateRandomBatches(dataX, dataY, imgPerLabels=6, numBatches=10, fileName=
 debugg = False
 
 if debugg:
-    trainX, trainY, trainLabelDict = DataIO.getPickleFile(training_encoding_path,
+    trainX, trainY, trainLabelDict = DataIO.getPickleFile(path_dict['training_encoding_path'],
                                                                  'training_imgarr.pickle')
-    verX, verY, verLabelDict = DataIO.getPickleFile(training_encoding_path,
+    verX, verY, verLabelDict = DataIO.getPickleFile(path_dict['training_encoding_path'],
                                                            'verification_imgarr.pickle')
     print(trainX.shape, trainY.shape)
     print(verX.shape, verY.shape)

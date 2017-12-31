@@ -167,3 +167,4 @@ def getWeights(modelPath):
             logging.info('BatchNorm: %s, Offset = %s, bias = %s, mean = %s, variance = %s  ', str(name), str(bn_w.shape), str(bn_b.shape), str(bn_m.shape), str(bn_v.shape))
     logging.info('\n')
     return moduleWeightDict
+
