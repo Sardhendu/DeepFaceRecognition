@@ -31,29 +31,29 @@ def trainModel_FT(imgShape, params, init_wght_type='random'):
     return dict(inpTensor=inpTensor, output=X)
 
 
-def getInceptionEmbedding(imgShape, params):  # , which_model='inception', use_wght_type='random'):
-    inpTensor = tf.placeholder(dtype=tf.float32, shape=[None, imgShape[0], imgShape[1], imgShape[2]])
-    logging.info('SHAPE: inpTensor %s', str(inpTensor.shape))
-    
-    # Pad the input to make of actual size
-    X = tf.pad(inpTensor, paddings=[[0, 0], [3, 3], [3, 3], [0, 0]])
-    X = conv1(X, params)
-    X = conv2(X, params)
-    X = conv3(X, params)
-    X = inception3a(X, params, trainable=False)
-    X = inception3b(X, params, trainable=False)
-    X = inception3c(X, params, trainable=False)
-    X = inception4a(X, params, trainable=False)
-    X = inception4e(X, params, trainable=False)
-    X = inception5a(X, params, trainable=False)
-    X = inception5b(X, params, trainable=False)
-    X = fullyConnected(X, params, trainable=False)
-    return dict(inpTensor=inpTensor, output=X)
+# def getInceptionEmbedding(imgShape, params):  # , which_model='inception', use_wght_type='random'):
+#     inpTensor = tf.placeholder(dtype=tf.float32, shape=[None, imgShape[0], imgShape[1], imgShape[2]])
+#     logging.info('SHAPE: inpTensor %s', str(inpTensor.shape))
+#
+#     # Pad the input to make of actual size
+#     X = tf.pad(inpTensor, paddings=[[0, 0], [3, 3], [3, 3], [0, 0]])
+#     X = conv1(X, params)
+#     X = conv2(X, params)
+#     X = conv3(X, params)
+#     X = inception3a(X, params, trainable=False)
+#     X = inception3b(X, params, trainable=False)
+#     X = inception3c(X, params, trainable=False)
+#     X = inception4a(X, params, trainable=False)
+#     X = inception4e(X, params, trainable=False)
+#     X = inception5a(X, params, trainable=False)
+#     X = inception5b(X, params, trainable=False)
+#     X = fullyConnected(X, params, trainable=False)
+#     return dict(inpTensor=inpTensor, output=X)
 
 
 # encodingDict = getEmbeddings([96, 96, 3], params=weightDict)
 
-def getFineTunedEmbeddings(imgShape, params, trainableVars, sess):
+def getEmbeddings(imgShape, params):
     inpTensor = tf.placeholder(dtype=tf.float32, shape=[None, imgShape[0], imgShape[1], imgShape[2]])
     logging.info('SHAPE: inpTensor %s', str(inpTensor.shape))
     
@@ -67,15 +67,15 @@ def getFineTunedEmbeddings(imgShape, params, trainableVars, sess):
     X = inception3c(X, params, trainable=False)
     X = inception4a(X, params, trainable=False)
     X = inception4e(X, params, trainable=False)
-    for var in trainableVars:
-        scope, name = var.name.split(':')[0].split('/')
-        if len(params[scope][name]) != 0:
-            var_ = sess.run(var)
-            logging.info('Updating param with scope %s and name %s and shape %s with shape %s',
-                         str(scope), str(name), str(params[scope][name].shape), str(var_.shape))
-            params[scope][name] = var_
-        else:
-            print('It seems that the scope %s or variable %s didnt exist in the dictionary ' % (str(scope), str(name)))
+    # for var in trainableVars:
+    #     scope, name = var.name.split(':')[0].split('/')
+    #     if len(params[scope][name]) != 0:
+    #         var_ = sess.run(var)
+    #         logging.info('Updating param with scope %s and name %s and shape %s with shape %s',
+    #                      str(scope), str(name), str(params[scope][name].shape), str(var_.shape))
+    #         params[scope][name] = var_
+    #     else:
+    #         print('It seems that the scope %s or variable %s didnt exist in the dictionary ' % (str(scope), str(name)))
     X = inception5a(X, params, trainable=False)
     X = inception5b(X, params, trainable=False)
     X = fullyConnected(X, params, trainable=False)
