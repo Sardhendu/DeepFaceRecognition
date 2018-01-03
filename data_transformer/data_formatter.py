@@ -3,8 +3,8 @@ import numpy as np
 import pickle
 from scipy import ndimage, misc
 from skimage import io, img_as_uint
-
-parent_path = "/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/"
+from config import path_dict
+# parent_path = "/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/"
 
 
 class DataFormatter():
@@ -113,25 +113,3 @@ class DataFormatter():
             print('Unique labels in dataY is: ', np.unique(dataY))
             print('Label dict: ', labelDict)
         return dataX, dataY, labelDict
-
-
-training = False
-verification = False
-
-if training:
-    objDP = DataFormatter(parent_path, 'training')
-    objDP.createResizedData()
-    dataX, dataY, labelDict = objDP.imageToArray()
-    DataFormatter.dumpPickleFile(dataX, dataY, labelDict,
-                               folderPath=os.path.join(parent_path, 'data_models'),
-                               picklefileName='training_imgarr.pickle')
-if verification:
-    objDP = DataFormatter(parent_path, 'verification')
-    objDP.createResizedData()
-    dataX, dataY, labelDict = objDP.imageToArray()
-    DataFormatter.dumpPickleFile(dataX, dataY, labelDict,
-                               folderPath=os.path.join(parent_path, 'data_models'),
-                               picklefileName='verification_imgarr.pickle')
-    
- 
-
