@@ -1,6 +1,7 @@
 import tensorflow as tf
 import numpy as np
 from itertools import combinations
+import logging
 
 
 def tripletLoss(anchor, positive, negative, alpha=0.2):
@@ -64,6 +65,7 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha):
                 
                 # Get triplet indexes in order to work on offline mode
                 batch_tripet_idx.append([anc_idx, pos_idx, neg_idxs[rnd_idx]])
+    logging.info('TRIPLETS %s == %s', str(len(batch_tripet_idx)), str(batch_tripet_idx))
     return [batch_tripet_idx]
 
 

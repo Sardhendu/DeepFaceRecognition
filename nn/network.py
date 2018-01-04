@@ -312,7 +312,8 @@ def loss(encodingDict):
     tripletIDX = tf.py_func(getTriplets,
                             [encodingDict['output'], myNet['img_per_label'],
                              myNet['num_labels'], myNet['triplet_selection_alpha']],
-                            [tf.int64])
+                             tf.int64)
+
     loss = tripletLoss(
         tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,0]),
         tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,1]),

@@ -58,8 +58,11 @@ def trainEmbeddings(weightDict, init_wght_type):
     
     embeddingDict = trainModel_FT(myNet['image_shape'], params=weightDict,
                                   init_wght_type=init_wght_type)
+    
     embeddingDict = loss(embeddingDict)
+    
     embeddingDict = optimize(embeddingDict, myNet['learning_rate'])
+        
     return embeddingDict
 
 def summaryBuilder(sess, outFilePath):
