@@ -1,84 +1,77 @@
-2018-01-03 05:35:58,246 INFO     Running for batch 0 
-2018-01-03 05:35:58,247 INFO     Running for label 0 
-2018-01-03 05:35:58,249 INFO     Running for label 1 
-2018-01-03 05:35:58,249 INFO     Running for label 2 
-2018-01-03 05:35:58,250 INFO     Running for batch 1 
-2018-01-03 05:35:58,250 INFO     Running for label 0 
-2018-01-03 05:35:58,251 INFO     Running for label 1 
-2018-01-03 05:35:58,251 INFO     Running for label 2 
-2018-01-03 05:35:58,252 INFO     Running for batch 2 
-2018-01-03 05:35:58,252 INFO     Running for label 0 
-2018-01-03 05:35:58,252 INFO     Running for label 1 
-2018-01-03 05:35:58,253 INFO     Running for label 2 
-2018-01-03 05:35:58,254 INFO     Running for batch 3 
-2018-01-03 05:35:58,254 INFO     Running for label 0 
-2018-01-03 05:35:58,254 INFO     Running for label 1 
-2018-01-03 05:35:58,254 INFO     Running for label 2 
-2018-01-03 05:35:58,255 INFO     Running for batch 4 
-2018-01-03 05:35:58,255 INFO     Running for label 0 
-2018-01-03 05:35:58,256 INFO     Running for label 1 
-2018-01-03 05:35:58,256 INFO     Running for label 2 
-2018-01-03 05:35:58,257 INFO     Running for batch 5 
-2018-01-03 05:35:58,257 INFO     Running for label 0 
-2018-01-03 05:35:58,258 INFO     Running for label 1 
-2018-01-03 05:35:58,258 INFO     Running for label 2 
-2018-01-03 05:35:58,259 INFO     Running for batch 6 
-2018-01-03 05:35:58,259 INFO     Running for label 0 
-2018-01-03 05:35:58,259 INFO     Running for label 1 
-2018-01-03 05:35:58,260 INFO     Running for label 2 
-2018-01-03 05:35:58,260 INFO     Running for batch 7 
-2018-01-03 05:35:58,261 INFO     Running for label 0 
-2018-01-03 05:35:58,261 INFO     Running for label 1 
-2018-01-03 05:35:58,261 INFO     Running for label 2 
-2018-01-03 05:35:58,262 INFO     Running for batch 8 
-2018-01-03 05:35:58,262 INFO     Running for label 0 
-2018-01-03 05:35:58,263 INFO     Running for label 1 
-2018-01-03 05:35:58,263 INFO     Running for label 2 
-2018-01-03 05:35:58,264 INFO     Running for batch 9 
-2018-01-03 05:35:58,264 INFO     Running for label 0 
-2018-01-03 05:35:58,264 INFO     Running for label 1 
-2018-01-03 05:35:58,265 INFO     Running for label 2 
-2018-01-03 05:35:58,265 INFO     The Data batches dumped has shape: (10, 18, 96, 96, 3)
-2018-01-03 05:35:58,266 INFO     The Label batch dumped has shape: (10, 18)
-2018-01-03 05:36:13,655 INFO     Running for batch 0 
-2018-01-03 05:36:13,655 INFO     Running for label 0 
-2018-01-03 05:36:13,656 INFO     Running for label 1 
-2018-01-03 05:36:13,657 INFO     Running for label 2 
-2018-01-03 05:36:13,658 INFO     Running for batch 1 
-2018-01-03 05:36:13,658 INFO     Running for label 0 
-2018-01-03 05:36:13,659 INFO     Running for label 1 
-2018-01-03 05:36:13,659 INFO     Running for label 2 
-2018-01-03 05:36:13,660 INFO     Running for batch 2 
-2018-01-03 05:36:13,661 INFO     Running for label 0 
-2018-01-03 05:36:13,661 INFO     Running for label 1 
-2018-01-03 05:36:13,661 INFO     Running for label 2 
-2018-01-03 05:36:13,662 INFO     Running for batch 3 
-2018-01-03 05:36:13,662 INFO     Running for label 0 
-2018-01-03 05:36:13,663 INFO     Running for label 1 
-2018-01-03 05:36:13,664 INFO     Running for label 2 
-2018-01-03 05:36:13,665 INFO     Running for batch 4 
-2018-01-03 05:36:13,666 INFO     Running for label 0 
-2018-01-03 05:36:13,667 INFO     Running for label 1 
-2018-01-03 05:36:13,667 INFO     Running for label 2 
-2018-01-03 05:36:13,668 INFO     Running for batch 5 
-2018-01-03 05:36:13,668 INFO     Running for label 0 
-2018-01-03 05:36:13,669 INFO     Running for label 1 
-2018-01-03 05:36:13,669 INFO     Running for label 2 
-2018-01-03 05:36:13,670 INFO     Running for batch 6 
-2018-01-03 05:36:13,670 INFO     Running for label 0 
-2018-01-03 05:36:13,671 INFO     Running for label 1 
-2018-01-03 05:36:13,671 INFO     Running for label 2 
-2018-01-03 05:36:13,672 INFO     Running for batch 7 
-2018-01-03 05:36:13,672 INFO     Running for label 0 
-2018-01-03 05:36:13,672 INFO     Running for label 1 
-2018-01-03 05:36:13,673 INFO     Running for label 2 
-2018-01-03 05:36:13,674 INFO     Running for batch 8 
-2018-01-03 05:36:13,674 INFO     Running for label 0 
-2018-01-03 05:36:13,674 INFO     Running for label 1 
-2018-01-03 05:36:13,675 INFO     Running for label 2 
-2018-01-03 05:36:13,676 INFO     Running for batch 9 
-2018-01-03 05:36:13,676 INFO     Running for label 0 
-2018-01-03 05:36:13,676 INFO     Running for label 1 
-2018-01-03 05:36:13,677 INFO     Running for label 2 
-2018-01-03 05:36:13,678 INFO     The Data batches dumped has shape: (10, 18, 96, 96, 3)
-2018-01-03 05:36:13,678 INFO     The Label batch dumped has shape: (10, 18)
+2018-01-03 19:23:49,568 INFO     LOADING WEIGHTS FOR THE NETWORK !! .........................
+2018-01-03 19:23:49,760 INFO     ConvLayer: conv1, weight_shape = (7, 7, 3, 64), bias_shape = (64,)
+2018-01-03 19:23:49,770 INFO     BatchNorm: bn1, Offset = (64,), bias = (64,), mean = (64,), variance = (64,)  
+2018-01-03 19:23:49,935 INFO     ConvLayer: conv2, weight_shape = (1, 1, 64, 64), bias_shape = (64,)
+2018-01-03 19:23:49,943 INFO     BatchNorm: bn2, Offset = (64,), bias = (64,), mean = (64,), variance = (64,)  
+2018-01-03 19:23:52,713 INFO     ConvLayer: conv3, weight_shape = (3, 3, 64, 192), bias_shape = (192,)
+2018-01-03 19:23:52,731 INFO     BatchNorm: bn3, Offset = (192,), bias = (192,), mean = (192,), variance = (192,)  
+2018-01-03 19:23:53,128 INFO     ConvLayer: inception_3a_1x1_conv, weight_shape = (1, 1, 192, 64), bias_shape = (64,)
+2018-01-03 19:23:53,135 INFO     BatchNorm: inception_3a_1x1_bn, Offset = (64,), bias = (64,), mean = (64,), variance = (64,)  
+2018-01-03 19:23:53,192 INFO     ConvLayer: inception_3a_5x5_conv1, weight_shape = (1, 1, 192, 16), bias_shape = (16,)
+2018-01-03 19:23:53,514 INFO     ConvLayer: inception_3a_5x5_conv2, weight_shape = (5, 5, 16, 32), bias_shape = (32,)
+2018-01-03 19:23:53,519 INFO     BatchNorm: inception_3a_5x5_bn1, Offset = (16,), bias = (16,), mean = (16,), variance = (16,)  
+2018-01-03 19:23:53,525 INFO     BatchNorm: inception_3a_5x5_bn2, Offset = (32,), bias = (32,), mean = (32,), variance = (32,)  
+2018-01-03 19:23:54,045 INFO     ConvLayer: inception_3a_3x3_conv1, weight_shape = (1, 1, 192, 96), bias_shape = (96,)
+2018-01-03 19:23:56,702 INFO     ConvLayer: inception_3a_3x3_conv2, weight_shape = (3, 3, 96, 128), bias_shape = (128,)
+2018-01-03 19:23:56,712 INFO     BatchNorm: inception_3a_3x3_bn1, Offset = (96,), bias = (96,), mean = (96,), variance = (96,)  
+2018-01-03 19:23:56,726 INFO     BatchNorm: inception_3a_3x3_bn2, Offset = (128,), bias = (128,), mean = (128,), variance = (128,)  
+2018-01-03 19:23:57,021 INFO     ConvLayer: inception_3a_pool_conv, weight_shape = (1, 1, 192, 32), bias_shape = (32,)
+2018-01-03 19:23:57,028 INFO     BatchNorm: inception_3a_pool_bn, Offset = (32,), bias = (32,), mean = (32,), variance = (32,)  
+2018-01-03 19:23:57,408 INFO     ConvLayer: inception_3b_1x1_conv, weight_shape = (1, 1, 256, 64), bias_shape = (64,)
+2018-01-03 19:23:57,417 INFO     BatchNorm: inception_3b_1x1_bn, Offset = (64,), bias = (64,), mean = (64,), variance = (64,)  
+2018-01-03 19:23:58,053 INFO     ConvLayer: inception_3b_3x3_conv1, weight_shape = (1, 1, 256, 96), bias_shape = (96,)
+2018-01-03 19:24:00,969 INFO     ConvLayer: inception_3b_3x3_conv2, weight_shape = (3, 3, 96, 128), bias_shape = (128,)
+2018-01-03 19:24:00,981 INFO     BatchNorm: inception_3b_3x3_bn1, Offset = (96,), bias = (96,), mean = (96,), variance = (96,)  
+2018-01-03 19:24:00,995 INFO     BatchNorm: inception_3b_3x3_bn2, Offset = (128,), bias = (128,), mean = (128,), variance = (128,)  
+2018-01-03 19:24:01,150 INFO     ConvLayer: inception_3b_5x5_conv1, weight_shape = (1, 1, 256, 32), bias_shape = (32,)
+2018-01-03 19:24:02,518 INFO     ConvLayer: inception_3b_5x5_conv2, weight_shape = (5, 5, 32, 64), bias_shape = (64,)
+2018-01-03 19:24:02,522 INFO     BatchNorm: inception_3b_5x5_bn1, Offset = (32,), bias = (32,), mean = (32,), variance = (32,)  
+2018-01-03 19:24:02,530 INFO     BatchNorm: inception_3b_5x5_bn2, Offset = (64,), bias = (64,), mean = (64,), variance = (64,)  
+2018-01-03 19:24:02,987 INFO     ConvLayer: inception_3b_pool_conv, weight_shape = (1, 1, 256, 64), bias_shape = (64,)
+2018-01-03 19:24:02,994 INFO     BatchNorm: inception_3b_pool_bn, Offset = (64,), bias = (64,), mean = (64,), variance = (64,)  
+2018-01-03 19:24:04,105 INFO     ConvLayer: inception_3c_3x3_conv1, weight_shape = (1, 1, 320, 128), bias_shape = (128,)
+2018-01-03 19:24:11,241 INFO     ConvLayer: inception_3c_3x3_conv2, weight_shape = (3, 3, 128, 256), bias_shape = (256,)
+2018-01-03 19:24:11,252 INFO     BatchNorm: inception_3c_3x3_bn1, Offset = (128,), bias = (128,), mean = (128,), variance = (128,)  
+2018-01-03 19:24:11,272 INFO     BatchNorm: inception_3c_3x3_bn2, Offset = (256,), bias = (256,), mean = (256,), variance = (256,)  
+2018-01-03 19:24:11,447 INFO     ConvLayer: inception_3c_5x5_conv1, weight_shape = (1, 1, 320, 32), bias_shape = (32,)
+2018-01-03 19:24:13,029 INFO     ConvLayer: inception_3c_5x5_conv2, weight_shape = (5, 5, 32, 64), bias_shape = (64,)
+2018-01-03 19:24:13,035 INFO     BatchNorm: inception_3c_5x5_bn1, Offset = (32,), bias = (32,), mean = (32,), variance = (32,)  
+2018-01-03 19:24:13,044 INFO     BatchNorm: inception_3c_5x5_bn2, Offset = (64,), bias = (64,), mean = (64,), variance = (64,)  
+2018-01-03 19:24:17,138 INFO     ConvLayer: inception_4a_1x1_conv, weight_shape = (1, 1, 640, 256), bias_shape = (256,)
+2018-01-03 19:24:17,167 INFO     BatchNorm: inception_4a_1x1_bn, Offset = (256,), bias = (256,), mean = (256,), variance = (256,)  
+2018-01-03 19:24:18,793 INFO     ConvLayer: inception_4a_3x3_conv1, weight_shape = (1, 1, 640, 96), bias_shape = (96,)
+2018-01-03 19:24:22,958 INFO     ConvLayer: inception_4a_3x3_conv2, weight_shape = (3, 3, 96, 192), bias_shape = (192,)
+2018-01-03 19:24:22,968 INFO     BatchNorm: inception_4a_3x3_bn1, Offset = (96,), bias = (96,), mean = (96,), variance = (96,)  
+2018-01-03 19:24:22,985 INFO     BatchNorm: inception_4a_3x3_bn2, Offset = (192,), bias = (192,), mean = (192,), variance = (192,)  
+2018-01-03 19:24:23,348 INFO     ConvLayer: inception_4a_5x5_conv1, weight_shape = (1, 1, 640, 32), bias_shape = (32,)
+2018-01-03 19:24:24,871 INFO     ConvLayer: inception_4a_5x5_conv2, weight_shape = (5, 5, 32, 64), bias_shape = (64,)
+2018-01-03 19:24:24,877 INFO     BatchNorm: inception_4a_5x5_bn1, Offset = (32,), bias = (32,), mean = (32,), variance = (32,)  
+2018-01-03 19:24:24,884 INFO     BatchNorm: inception_4a_5x5_bn2, Offset = (64,), bias = (64,), mean = (64,), variance = (64,)  
+2018-01-03 19:24:26,925 INFO     ConvLayer: inception_4a_pool_conv, weight_shape = (1, 1, 640, 128), bias_shape = (128,)
+2018-01-03 19:24:26,937 INFO     BatchNorm: inception_4a_pool_bn, Offset = (128,), bias = (128,), mean = (128,), variance = (128,)  
+2018-01-03 19:24:29,532 INFO     ConvLayer: inception_4e_3x3_conv1, weight_shape = (1, 1, 640, 160), bias_shape = (160,)
+2018-01-03 19:24:38,299 INFO     ConvLayer: inception_4e_3x3_conv2, weight_shape = (3, 3, 160, 256), bias_shape = (256,)
+2018-01-03 19:24:38,314 INFO     BatchNorm: inception_4e_3x3_bn1, Offset = (160,), bias = (160,), mean = (160,), variance = (160,)  
+2018-01-03 19:24:38,335 INFO     BatchNorm: inception_4e_3x3_bn2, Offset = (256,), bias = (256,), mean = (256,), variance = (256,)  
+2018-01-03 19:24:39,075 INFO     ConvLayer: inception_4e_5x5_conv1, weight_shape = (1, 1, 640, 64), bias_shape = (64,)
+2018-01-03 19:24:44,279 INFO     ConvLayer: inception_4e_5x5_conv2, weight_shape = (5, 5, 64, 128), bias_shape = (128,)
+2018-01-03 19:24:44,288 INFO     BatchNorm: inception_4e_5x5_bn1, Offset = (64,), bias = (64,), mean = (64,), variance = (64,)  
+2018-01-03 19:24:44,299 INFO     BatchNorm: inception_4e_5x5_bn2, Offset = (128,), bias = (128,), mean = (128,), variance = (128,)  
+2018-01-03 19:24:50,627 INFO     ConvLayer: inception_5a_1x1_conv, weight_shape = (1, 1, 1024, 256), bias_shape = (256,)
+2018-01-03 19:24:50,647 INFO     BatchNorm: inception_5a_1x1_bn, Offset = (256,), bias = (256,), mean = (256,), variance = (256,)  
+2018-01-03 19:24:53,121 INFO     ConvLayer: inception_5a_3x3_conv1, weight_shape = (1, 1, 1024, 96), bias_shape = (96,)
+2018-01-03 19:25:01,622 INFO     ConvLayer: inception_5a_3x3_conv2, weight_shape = (3, 3, 96, 384), bias_shape = (384,)
+2018-01-03 19:25:01,633 INFO     BatchNorm: inception_5a_3x3_bn1, Offset = (96,), bias = (96,), mean = (96,), variance = (96,)  
+2018-01-03 19:25:01,668 INFO     BatchNorm: inception_5a_3x3_bn2, Offset = (384,), bias = (384,), mean = (384,), variance = (384,)  
+2018-01-03 19:25:04,425 INFO     ConvLayer: inception_5a_pool_conv, weight_shape = (1, 1, 1024, 96), bias_shape = (96,)
+2018-01-03 19:25:04,438 INFO     BatchNorm: inception_5a_pool_bn, Offset = (96,), bias = (96,), mean = (96,), variance = (96,)  
+2018-01-03 19:25:09,008 INFO     ConvLayer: inception_5b_1x1_conv, weight_shape = (1, 1, 736, 256), bias_shape = (256,)
+2018-01-03 19:25:09,032 INFO     BatchNorm: inception_5b_1x1_bn, Offset = (256,), bias = (256,), mean = (256,), variance = (256,)  
+2018-01-03 19:25:10,726 INFO     ConvLayer: inception_5b_3x3_conv1, weight_shape = (1, 1, 736, 96), bias_shape = (96,)
+2018-01-03 19:25:18,805 INFO     ConvLayer: inception_5b_3x3_conv2, weight_shape = (3, 3, 96, 384), bias_shape = (384,)
+2018-01-03 19:25:18,816 INFO     BatchNorm: inception_5b_3x3_bn1, Offset = (96,), bias = (96,), mean = (96,), variance = (96,)  
+2018-01-03 19:25:18,847 INFO     BatchNorm: inception_5b_3x3_bn2, Offset = (384,), bias = (384,), mean = (384,), variance = (384,)  
+2018-01-03 19:25:20,633 INFO     ConvLayer: inception_5b_pool_conv, weight_shape = (1, 1, 736, 96), bias_shape = (96,)
+2018-01-03 19:25:20,647 INFO     BatchNorm: inception_5b_pool_bn, Offset = (96,), bias = (96,), mean = (96,), variance = (96,)  
+2018-01-03 19:25:23,105 INFO     
+

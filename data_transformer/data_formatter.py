@@ -4,6 +4,8 @@ import pickle
 from scipy import ndimage, misc
 from skimage import io, img_as_uint
 from config import path_dict
+
+import logging
 # parent_path = "/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/"
 
 
@@ -83,7 +85,8 @@ class DataFormatter():
             os.makedirs(folderPath)
         
         path_to_dump = os.path.join(folderPath, picklefileName)
-        
+
+        logging.info('DATA FORMATTER: Dumping the pickle file %s to disk', str(picklefileName))
         if getStats:
             print('The shape of input data (X) is: ', np.array(dataX).shape)
             print('The shape of input data (Y) is: ', np.array(dataY).shape)
@@ -100,7 +103,7 @@ class DataFormatter():
          
     @staticmethod
     def getPickleFile(folderPath, picklefileName, getStats=None):
-        
+        logging.info('DATA FORMATTER: Retriving the pickle file %s from disk', str(picklefileName))
         path_from = os.path.join(folderPath, picklefileName)
         with open(path_from, "rb") as p:
             data = pickle.load(p)

@@ -1,8 +1,7 @@
 from __future__ import division
 from __future__ import print_function
 
-import numpy as np
-import pandas as pd
+import logging
 import tensorflow as tf
 
 
@@ -20,20 +19,24 @@ class Preprocessing():
         pass
     
     def randomFlip(self, imageIN):
+        logging.info('Initialing random horizontal flip')
         # Given an image this operation may or may not flip the image
         return tf.image.random_flip_left_right(imageIN)
     
     def addRandBrightness(self, imageIN):
+        logging.info('Adding random brightness')
         # Add random brightness
         return tf.image.random_brightness(imageIN, max_delta=63)
     
     def addRandContrast(self, imageIN):
+        logging.info('Adding random Contrast')
         return tf.image.random_contrast(imageIN, lower=0.2, upper=1.8)
     
     def standarize(self, imageIN):
+        logging.info('Standarizing the image')
         return tf.image.per_image_standardization(imageIN)
     
-    def preprocessImageGraph(self, imageSize, numChannels):
+    def preprocessImageGraph(self, imageShape):
         """
         :param imageSize:   The size of image
         :param numChannels: The number of channels
@@ -44,8 +47,9 @@ class Preprocessing():
             operations like brightness, contrast and whitening that doest arithmatic operation which many make the
             pixels value as floating point.
         '''
+        logging.info('PREPROCESSING THE DATASET ..........')
         imageIN = tf.placeholder(dtype=tf.float32,
-                                 shape=[imageSize[0], imageSize[1], numChannels],
+                                 shape=[imageShape[0], imageShape[1], imageShape[2]],
                                  name="Preprocessor-variableHolder")
         
         # Add random contrast

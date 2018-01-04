@@ -1,5 +1,6 @@
 from __future__ import division, print_function, absolute_import
 import tensorflow as tf
+from config import myNet
 from nn.utils import getTriplets, tripletLoss
 from nn.inception import convLayer, activation, Inception, batchNorm
 from nn.inception_finetune import Inception_FT
@@ -303,19 +304,20 @@ def fullyConnected_FT(X, k_shape):
 ## MAIN CALL: TRIPLET LOSS AND OPTIMIZATION
 ########################################################################################
 
-def loss(encodingDict, img_per_label, num_labels, alpha):
+def loss(encodingDict):
     '''
         Implementing the Tensor Graph for Triplet loss function.
         The output tripletIDX is a numpy ND array.
     '''
     tripletIDX = tf.py_func(getTriplets,
-                            [encodingDict['output'], img_per_label, num_labels, alpha],
-                            tf.int64)
+                            [encodingDict['output'], myNet['img_per_label'],
+                             myNet['num_labels'], myNet['triplet_selection_alpha']],
+                            [tf.int64])
     loss = tripletLoss(
         tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,0]),
         tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,1]),
         tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,2]),
-        alpha=0.2)
+        alpha=myNet['triplet_loss_penalty'])
     encodingDict['loss'] = loss
     return encodingDict
 

@@ -1,5 +1,6 @@
 from __future__ import division, print_function, absolute_import
 from nn.network import *
+from config import myNet
 
 def trainModel_FT(imgShape, params, init_wght_type='random'):
     inpTensor = tf.placeholder(dtype=tf.float32, shape=[None, imgShape[0], imgShape[1], imgShape[2]])
@@ -54,14 +55,11 @@ def getEmbeddings(imgShape, params):
 def trainEmbeddings(weightDict, init_wght_type):
     logging.info('INITIALIZING THE NETWORK !! ...............................')
     
-    img_per_label = 6
-    num_labels = 3
-    alpha = 0.01
-    learning_rate = 0.0001
-    embeddingDict = trainModel_FT([96, 96, 3], params=weightDict,
+    
+    embeddingDict = trainModel_FT(myNet['image_shape'], params=weightDict,
                                   init_wght_type=init_wght_type)
-    embeddingDict = loss(embeddingDict, img_per_label, num_labels, alpha)
-    embeddingDict = optimize(embeddingDict, learning_rate)
+    embeddingDict = loss(embeddingDict)
+    embeddingDict = optimize(embeddingDict, myNet['learning_rate'])
     return embeddingDict
 
 def summaryBuilder(sess, outFilePath):

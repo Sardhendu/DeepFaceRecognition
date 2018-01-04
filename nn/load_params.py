@@ -123,7 +123,7 @@ convShape = {
     # Chain 3
     'inception_5a_pool_conv': [96, 1024, 1, 1],
     
-    # Bloack 7
+    # Block 7
     # Chain 1
     'inception_5b_1x1_conv': [256, 736, 1, 1],
     # Chain 2
