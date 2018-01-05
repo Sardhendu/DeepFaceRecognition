@@ -64,18 +64,18 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha):
                     config.triplet_seed_idx = 0
                 np.random.seed(config.seed_arr[config.triplet_seed_idx])
                 
-                logging.info('Shuffling hard negative selection with seed idx = %s and seed %s', str(config.triplet_seed_idx), str(config.seed_arr[config.triplet_seed_idx]))
+                # logging.info('Shuffling hard negative selection with seed idx = %s and seed %s', str(config.triplet_seed_idx), str(config.seed_arr[config.triplet_seed_idx]))
                 config.triplet_seed_idx += 1
                 
                 np.random.shuffle(hard_neg_idx)
-                logging.info('Hard Negative Index %s', str(hard_neg_idx))
+                # logging.info('Hard Negative Index %s', str(hard_neg_idx))
                 
                 np.random.shuffle(hard_neg_idx)
                 
-                logging.info('Shuffled Hard Negative Index %s', str(hard_neg_idx))
+                # logging.info('Shuffled Hard Negative Index %s', str(hard_neg_idx))
                 rnd_idx = hard_neg_idx[0]
                 
-                logging.info('chosen Hard Negative Index %s', str([anc_idx, pos_idx, neg_idxs[rnd_idx]]))
+                # logging.info('chosen Hard Negative Index %s', str([anc_idx, pos_idx, neg_idxs[rnd_idx]]))
                 # Get triplet indexes in order to work on offline/online mode
                 batch_tripet_idx.append([anc_idx, pos_idx, neg_idxs[rnd_idx]])
             # else:
