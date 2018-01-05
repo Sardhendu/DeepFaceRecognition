@@ -5,17 +5,25 @@ from nn.load_params import convShape
 import numpy as np
 import logging
 
+import config
 
+# w_seed_idx  = 0
 
 def convLayer_FT(inpTensor, kShape, s, name):
     inpTensor = tf.cast(inpTensor, tf.float32)
-    
+    logging.info('Initializing random weights using seed idx %s and seed %s',
+                 str(config.weight_seed_idx),
+                 str(config.seed_arr[config.weight_seed_idx]))
+
+    if config.weight_seed_idx == len(config.seed_arr) - 1:
+        config.weight_seed_idx = 0
     with tf.variable_scope(name):
         weight = tf.get_variable(
                     dtype='float32',
                     shape=kShape,
                     initializer=tf.truncated_normal_initializer(
-                             stddev=0.1, seed=6752
+                             stddev=0.1,
+                            seed=config.seed_arr[config.weight_seed_idx]
                     ),
                     name="w",
                     trainable=True
@@ -29,6 +37,7 @@ def convLayer_FT(inpTensor, kShape, s, name):
                 trainable=True
     
         )
+    config.weight_seed_idx += 1
 
     tf.summary.histogram("convWeights", weight)
     tf.summary.histogram("convbias", bias)

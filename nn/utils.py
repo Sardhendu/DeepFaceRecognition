@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 from itertools import combinations
 import logging
-
+import config
 
 def tripletLoss(anchor, positive, negative, alpha=0.2):
      # = predTensor[0], predTensor[1], predTensor[2]
@@ -60,13 +60,45 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha):
             
             # Randomly sample 1 record from the hard negative idx, and create a triplet
             if len(hard_neg_idx) > 0:
+                if config.triplet_seed_idx == len(config.seed_arr) - 1:
+                    config.triplet_seed_idx = 0
+                np.random.seed(config.seed_arr[config.triplet_seed_idx])
+                
+                logging.info('Shuffling hard negative selection with seed idx = %s and seed %s', str(config.triplet_seed_idx), str(config.seed_arr[config.triplet_seed_idx]))
+                config.triplet_seed_idx += 1
+                
                 np.random.shuffle(hard_neg_idx)
+                logging.info('Hard Negative Index %s', str(hard_neg_idx))
+                
+                np.random.shuffle(hard_neg_idx)
+                
+                logging.info('Shuffled Hard Negative Index %s', str(hard_neg_idx))
                 rnd_idx = hard_neg_idx[0]
                 
-                # Get triplet indexes in order to work on offline mode
+                logging.info('chosen Hard Negative Index %s', str([anc_idx, pos_idx, neg_idxs[rnd_idx]]))
+                # Get triplet indexes in order to work on offline/online mode
                 batch_tripet_idx.append([anc_idx, pos_idx, neg_idxs[rnd_idx]])
+            # else:
+            #     logging.info('No hard negative index found for anc_idx = %s and  pos_idx = %s ', str(anc_idx), str(pos_idx))
     logging.info('TRIPLETS %s == %s', str(len(batch_tripet_idx)), str(batch_tripet_idx))
     return [batch_tripet_idx]
+
+
+#
+# debugg = True
+# if debugg:
+#     np.random.seed(327)
+#     batch_embedding = np.random.rand(40, 2)
+#     batch_size, num_embeddings = batch_embedding.shape
+#     img_per_label = 10
+#     num_labels = int( batch_size /img_per_label)
+#
+#     alpha = 0.01
+#
+#
+#     batch_tripet_idx = getTriplets(batch_embedding, img_per_label, num_labels, 0.2)
+#
+#     print (batch_tripet_idx)
 
 
 
@@ -149,16 +181,21 @@ def getTriplets_TF(batch_embedding, img_per_label, num_labels, alpha=0.01):
 
 
 
+        
 
-# np.random.seed(327)
-# batch_embedding = np.random.rand(40, 2)
-# batch_size, num_embeddings = batch_embedding.shape
-# img_per_label = 10
-# num_labels = int( batch_size /img_per_label)
 #
-# alpha = 0.01
+#[[[0, 1, 39], [0, 2, 15], [0, 3, 22], [0, 4, 28], [0, 5, 14], [0, 6, 20], [0, 7, 38], [0, 8, 22], [0, 9, 15], [1, 2, 23], [1, 3, 31], [1, 4, 34], [1, 5, 39], [1, 6, 29], [1, 7, 35], [1, 8, 32], [1, 9, 21], [2, 3, 28], [2, 4, 22], [2, 5, 32], [2, 6, 13], [2, 7, 12], [2, 8, 16], [2, 9, 27], [3, 4, 29], [3, 5, 31], [3, 6, 26], [3, 7, 16], [3, 8, 28], [3, 9, 23], [4, 5, 35], [4, 6, 22], [4, 7, 32], [4, 8, 30], [4, 9, 23], [5, 6, 13], [5, 7, 30], [5, 8, 31], [5, 9, 29], [6, 7, 11], [6, 8, 23], [6, 9, 17], [7, 8, 12], [7, 9, 11], [8, 9, 36], [10, 11, 5], [10, 12, 8], [10, 13, 39], [10, 14, 8], [10, 15, 9], [10, 16, 24], [10, 17, 9], [10, 18, 20], [10, 19, 1], [11, 12, 33], [11, 13, 2], [11, 14, 39], [11, 15, 5], [11, 16, 38], [11, 17, 39], [11, 18, 2], [11, 19, 26], [12, 13, 4], [12, 14, 30], [12, 15, 26], [12, 16, 0], [12, 17, 4], [12, 18, 9], [12, 19, 25], [13, 14, 1], [13, 15, 25], [13, 16, 22], [13, 17, 31], [13, 18, 32], [13, 19, 20], [14, 15, 30], [14, 16, 21], [14, 17, 1], [14, 18, 27], [14, 19, 28], [15, 16, 35], [15, 17, 39], [15, 18, 2], [15, 19, 30], [16, 17, 8], [16, 18, 25], [16, 19, 28], [17, 18, 5], [17, 19, 3], [18, 19, 21], [20, 21, 13], [20, 22, 18], [20, 23, 37], [20, 24, 5], [20, 25, 19], [20, 26, 14], [20, 27, 30], [20, 28, 14], [20, 29, 6], [21, 22, 2], [21, 23, 2], [21, 24, 12], [21, 25, 10], [21, 26, 12], [21, 27, 39], [21, 28, 3], [21, 29, 14], [22, 23, 4], [22, 24, 39], [22, 25, 16], [22, 26, 11], [22, 27, 2], [22, 28, 19], [22, 29, 4], [23, 24, 10], [23, 25, 17], [23, 26, 30], [23, 27, 19], [23, 28, 30], [23, 29, 6], [24, 25, 36], [24, 26, 37], [24, 27, 32], [24, 28, 8], [24, 29, 15], [25, 26, 30], [25, 27, 17], [25, 28, 10], [25, 29, 35], [26, 27, 1], [26, 28, 6], [26, 29, 14], [27, 28, 3], [27, 29, 6], [28, 29, 17], [30, 31, 14], [30, 32, 25], [30, 33, 16], [30, 34, 18], [30, 35, 27], [30, 36, 28], [30, 37, 26], [30, 38, 4], [30, 39, 29], [31, 32, 22], [31, 33, 18], [31, 34, 5], [31, 35, 8], [31, 36, 2], [31, 37, 1], [31, 38, 29], [31, 39, 8], [32, 33, 16], [32, 34, 1], [32, 35, 1], [32, 36, 23], [32, 37, 13], [32, 38, 10], [32, 39, 29], [33, 34, 1], [33, 35, 24], [33, 36, 0], [33, 37, 23], [33, 38, 8], [33, 39, 5], [34, 35, 7], [34, 36, 19], [34, 37, 19], [34, 38, 1], [34, 39, 6], [35, 36, 6], [35, 37, 7], [35, 38, 1], [35, 39, 5], [36, 37, 12], [36, 38, 16], [36, 39, 17], [37, 38, 10], [37, 39, 28], [38, 39, 22]]]
+
+
+#
+# from random import randint
+#
+# def random_with_N_digits(n, how_many):
+#     random.seed(8271)
+#     f
+#     range_start = 10**(n-1)
+#     range_end = (10**n)-1
+#     return randint(range_start, range_end)
 #
 #
-# batch_tripet_idx = getTriplets(batch_embedding, img_per_label, num_labels)
-#
-# print (batch_tripet_idx)
+# print (random_with_N_digits(4))

@@ -261,7 +261,7 @@ def fullyConnected_FT(X, k_shape):
         X = tf.layers.average_pooling2d(X, pool_size=3, strides=1,
                                         data_format='channels_last')
         logging.info('X after FC pool: %s', str(X.shape))
-        
+        logging.info('Initializing random weights using seed %s',str(6752))
         with tf.variable_scope('dense'):
             w = tf.get_variable(
                     dtype='float32',

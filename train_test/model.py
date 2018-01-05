@@ -55,7 +55,6 @@ def getEmbeddings(imgShape, params):
 def trainEmbeddings(weightDict, init_wght_type):
     logging.info('INITIALIZING THE NETWORK !! ...............................')
     
-    
     embeddingDict = trainModel_FT(myNet['image_shape'], params=weightDict,
                                   init_wght_type=init_wght_type)
     

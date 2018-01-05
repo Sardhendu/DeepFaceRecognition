@@ -4,6 +4,7 @@ from __future__ import print_function
 import logging
 import tensorflow as tf
 
+import config
 
 class Preprocessing():
     '''
@@ -20,17 +21,26 @@ class Preprocessing():
     
     def randomFlip(self, imageIN):
         logging.info('Initialing random horizontal flip')
+        if config.preprocess_seed_idx == len(config.seed_arr) -1:
+            config.preprocess_seed_idx = 0
         # Given an image this operation may or may not flip the image
-        return tf.image.random_flip_left_right(imageIN)
+        return tf.image.random_flip_left_right(imageIN,
+                                               seed=config.seed_arr[config.preprocess_seed_idx])
     
     def addRandBrightness(self, imageIN):
         logging.info('Adding random brightness')
+        if config.preprocess_seed_idx == len(config.seed_arr) -1:
+            config.preprocess_seed_idx = 0
         # Add random brightness
-        return tf.image.random_brightness(imageIN, max_delta=63)
+        return tf.image.random_brightness(imageIN, max_delta=63,
+                                          seed=config.seed_arr[config.preprocess_seed_idx])
     
     def addRandContrast(self, imageIN):
         logging.info('Adding random Contrast')
-        return tf.image.random_contrast(imageIN, lower=0.2, upper=1.8)
+        if config.preprocess_seed_idx == len(config.seed_arr) -1:
+            config.preprocess_seed_idx = 0
+        return tf.image.random_contrast(imageIN, lower=0.2, upper=1.8,
+                                        seed=config.seed_arr[config.preprocess_seed_idx])
     
     def standarize(self, imageIN):
         logging.info('Standarizing the image')
