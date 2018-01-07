@@ -2,6 +2,7 @@
 import os
 global path_dict
 global myNet
+global vars
 global seed_arr
 global weight_seed_idx
 global finetune_layer_scope_names
@@ -27,18 +28,22 @@ path_dict['summary_path'] = os.path.join(path_dict['data_model_path'], 'summary'
 
 myNet = {}
 
+
 myNet['image_shape'] = [96, 96, 3]
 myNet['use_checkpoint'] = False
 
 myNet['triplet_selection_alpha'] = 0.01
 myNet['triplet_loss_penalty'] = 0.2
 
-myNet['img_per_label'] = 6
+myNet['img_per_label'] = 10
 myNet['num_labels'] = 3
 myNet['learning_rate'] = 0.0001
 myNet['batch_norm_decay'] = 0.9
 
 
+vars = {}
+vars['numBatches'] = 10
+vars['numImgsPerLabels'] = 100
 
 #############  ACT IN SEED
 seed_arr = [213,436,754,991,302,992,223,645,724,944,232,123,321,

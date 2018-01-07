@@ -4,7 +4,7 @@ import numpy as np
 import os, pickle
 import random
 import logging
-from config import path_dict
+from config import path_dict, vars
 
 # parentPath = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition'
 # batchFolderPath = os.path.join(parentPath, 'data_models', 'batch_img_arr')
@@ -41,7 +41,7 @@ class DataIO():
         return dataX, dataY, labelDict
 
 
-def genRandomStratifiedBatches(dataX, dataY, numImgsPerLabels=60, numBatches=10, fileName=None):
+def genRandomStratifiedBatches(dataX, dataY, fileName=None):
     if isinstance(dataX, list) and len(dataX) == 1:
         dataX = dataX[0]
 
@@ -51,17 +51,17 @@ def genRandomStratifiedBatches(dataX, dataY, numImgsPerLabels=60, numBatches=10,
     if isinstance(dataY, np.ndarray):
         dataY = dataY.flatten()
 
-    img_per_lbl_per_btch = int(np.round(numImgsPerLabels/numBatches))
+    img_per_lbl_per_btch = int(np.round(vars['numImgsPerLabels']/vars['numBatches']))
 
     numLabels = len(np.unique(dataY))
     batchSize = img_per_lbl_per_btch * numLabels
 
-    dataBatchX = np.ndarray(shape=(numBatches, batchSize,
+    dataBatchX = np.ndarray(shape=(vars['numBatches'], batchSize,
                                    dataX.shape[1], dataX.shape[2], dataX.shape[3]))
-    dataBatchY = np.ndarray(shape=(numBatches, batchSize))
+    dataBatchY = np.ndarray(shape=(vars['numBatches'], batchSize))
 
 
-    for batch_num in np.arange(numBatches):
+    for batch_num in np.arange(vars['numBatches']):
         logging.info('Running for batch %s ', str(batch_num))
         batchX = np.ndarray(shape=(batchSize, dataX.shape[1], dataX.shape[2], dataX.shape[3]))
         batchY = np.zeros(batchSize)
@@ -86,7 +86,7 @@ def genRandomStratifiedBatches(dataX, dataY, numImgsPerLabels=60, numBatches=10,
                               picklefileName=fileName)
 
 
-def genDistinctStratifiedBatches(dataX, dataY, numImgsPerLabels=60, numBatches=10, fileName=None):
+def genDistinctStratifiedBatches(dataX, dataY, fileName=None):
     if isinstance(dataX, list) and len(dataX) == 1:
         dataX = dataX[0]
 
@@ -96,17 +96,17 @@ def genDistinctStratifiedBatches(dataX, dataY, numImgsPerLabels=60, numBatches=1
     if isinstance(dataY, np.ndarray):
         dataY = dataY.flatten()
 
-    img_per_lbl_per_btch = int(np.round(numImgsPerLabels/numBatches))
+    img_per_lbl_per_btch = int(np.round(vars['numImgsPerLabels']/vars['numBatches']))
 
     numLabels = len(np.unique(dataY))
     batchSize = img_per_lbl_per_btch * numLabels
 
-    dataBatchX = np.ndarray(shape=(numBatches, batchSize,
+    dataBatchX = np.ndarray(shape=(vars['numBatches'], batchSize,
                                    dataX.shape[1], dataX.shape[2], dataX.shape[3]))
-    dataBatchY = np.ndarray(shape=(numBatches, batchSize))
+    dataBatchY = np.ndarray(shape=(vars['numBatches'], batchSize))
 
 
-    for batch_num in np.arange(numBatches):
+    for batch_num in np.arange(vars['numBatches']):
         logging.info('Running for batch %s ', str(batch_num))
         batchX = np.ndarray(shape=(batchSize, dataX.shape[1], dataX.shape[2], dataX.shape[3]))
         batchY = np.zeros(batchSize)

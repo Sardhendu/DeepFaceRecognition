@@ -86,7 +86,10 @@ class DataFormatter():
         
         path_to_dump = os.path.join(folderPath, picklefileName)
 
-        logging.info('DATA FORMATTER: Dumping the pickle file %s to disk', str(picklefileName))
+        logging.info('DATA FORMATTER: Dumping the pickle file %s to disk, dataX shape = %s, dataY shape = %s',
+                     str(picklefileName),
+                     str(dataX.shape),
+                     str(dataY.shape))
         if getStats:
             print('The shape of input data (X) is: ', np.array(dataX).shape)
             print('The shape of input data (Y) is: ', np.array(dataY).shape)
@@ -103,13 +106,17 @@ class DataFormatter():
          
     @staticmethod
     def getPickleFile(folderPath, picklefileName, getStats=None):
-        logging.info('DATA FORMATTER: Retriving the pickle file %s from disk', str(picklefileName))
         path_from = os.path.join(folderPath, picklefileName)
         with open(path_from, "rb") as p:
             data = pickle.load(p)
             dataX = data['dataX']
             dataY = data['dataY']
             labelDict = data['labelDict']
+
+        logging.info('DATA FORMATTER: Retrieved the pickle file %s from disk, dataX shape = %s, dataY shape = %s',
+                     str(picklefileName),
+                     str(dataX.shape),
+                     str(dataY.shape))
         if getStats:
             print('The shape of input data (X) is: ', np.array(dataX).shape)
             print('The shape of input data (Y) is: ', np.array(dataY).shape)
