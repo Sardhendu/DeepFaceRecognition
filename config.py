@@ -37,13 +37,16 @@ myNet['triplet_loss_penalty'] = 0.2
 
 myNet['img_per_label'] = 10
 myNet['num_labels'] = 3
-myNet['learning_rate'] = 0.0001
+myNet['learning_rate'] = 0.001
+myNet['learning_rate_decay_rate'] = 0.95
 myNet['batch_norm_decay'] = 0.9
 
 
 vars = {}
 vars['numBatches'] = 10
 vars['numImgsPerLabels'] = 100
+vars['batchSize'] = 30
+vars['trainSize'] = vars['numImgsPerLabels'] * myNet['num_labels'] - vars['batchSize']
 
 #############  ACT IN SEED
 seed_arr = [213,436,754,991,302,992,223,645,724,944,232,123,321,

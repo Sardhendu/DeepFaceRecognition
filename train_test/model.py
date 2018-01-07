@@ -1,6 +1,6 @@
 from __future__ import division, print_function, absolute_import
 from nn.network import *
-from config import myNet
+from config import myNet, vars
 
 def trainModel_FT(imgShape, params, init_wght_type='random'):
     inpTensor = tf.placeholder(dtype=tf.float32, shape=[None, imgShape[0], imgShape[1], imgShape[2]])
@@ -54,14 +54,20 @@ def getEmbeddings(imgShape, params):
 
 def trainEmbeddings(weightDict, init_wght_type):
     logging.info('INITIALIZING THE NETWORK !! ...............................')
-    
+    global_step = tf.Variable(0, trainable=False)
+    learning_rate = tf.train.exponential_decay(myNet['learning_rate'],
+                                               global_step * vars['batchSize'],  # Used for decay computation
+                                               vars['trainSize'],  # Decay steps
+                                               myNet['learning_rate_decay_rate'],  # Decay rate
+                                               staircase=True)
+
     embeddingDict = trainModel_FT(myNet['image_shape'], params=weightDict,
                                   init_wght_type=init_wght_type)
     
     embeddingDict = loss(embeddingDict)
     
-    embeddingDict = optimize(embeddingDict, myNet['learning_rate'])
-        
+    embeddingDict = optimize(embeddingDict, learning_rate, global_step)
+    embeddingDict['learning_rate'] = learning_rate
     return embeddingDict
 
 def summaryBuilder(sess, outFilePath):

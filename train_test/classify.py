@@ -1,11 +1,12 @@
 from __future__ import division, print_function, absolute_import
 
+from config import path_dict
+
+
 import os
 import numpy as np
 from sklearn.svm import SVC
 from sklearn.externals import joblib
-from config import path_dict
-
 
 class SVM():
     '''
@@ -15,11 +16,11 @@ class SVM():
     # embeddings as the feature space and see for the given embedding, how many times we are able to predict the
     # correct class
     '''
-    
+
     def __init__(self):
         pass
-    
-    def train(self, embeddings, labels, iter_num=None):
+
+    def train(self, embeddings, labels, model_name=None):
         '''
         :param embeddings:   Embeddings of the image
         :param labels:       labels
@@ -27,17 +28,16 @@ class SVM():
         '''
         model = SVC(kernel='linear', probability=True)
         model.fit(embeddings, labels)
-        joblib.dump(model, os.path.join(path_dict['classification_model_path'], str(iter_num) + "_svm.sav"))
-    
-    def classify(self, embeddings, iter_num=None):
+        joblib.dump(model, os.path.join(path_dict['classification_model_path'], str(model_name)+"_svm.sav"))
+
+    def classify(self, embeddings, model_name=None):
         '''
         :param embeddings: Image embeddings to classify
-        :param iter_num:
+        :param model_name:
         :return:
         '''
-        model = joblib.load(os.path.join(path_dict['classification_model_path'], str(iter_num) + "_svm.sav"))
+        model = joblib.load(os.path.join(path_dict['classification_model_path'], str(model_name)+"_svm.sav"))
         predLabels = model.predict_proba(embeddings)
         top_label_idx = np.argmax(predLabels, axis=1)
         labelProb = predLabels[np.arange(len(top_label_idx)), top_label_idx]
         return top_label_idx, labelProb
-        
