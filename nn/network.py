@@ -323,6 +323,9 @@ def loss(encodingDict):
     return encodingDict
 
 
+
+
+
 def optimize(encodingDict, learning_rate, global_step):
     optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(encodingDict['loss'],
                                                                              global_step=global_step)

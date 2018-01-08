@@ -2,13 +2,14 @@ from __future__ import division, print_function, absolute_import
 from nn.network import *
 from config import myNet, vars
 
+
 def trainModel_FT(imgShape, params, init_wght_type='random'):
     inpTensor = tf.placeholder(dtype=tf.float32, shape=[None, imgShape[0], imgShape[1], imgShape[2]])
     logging.info('SHAPE: inpTensor %s', str(inpTensor.shape))
     
     # Pad the input to make of actual size
     X = tf.pad(inpTensor, paddings=[[0, 0], [3, 3], [3, 3], [0, 0]])
-    X = conv1(X, params)
+    X = conv1(X, params)cd
     X = conv2(X, params)
     X = conv3(X, params)
     X = inception3a(X, params, trainable=False)
@@ -18,7 +19,8 @@ def trainModel_FT(imgShape, params, init_wght_type='random'):
     X = inception4e(X, params, trainable=False)
     if init_wght_type == 'pretrained':
         logging.info(
-            'Initializing the last layer weights with inception pre-trained weight but the parameters are trainable')
+                'Initializing the last layer weights with inception pre-trained weight but the parameters are '
+                'trainable')
         X = inception5a(X, params, trainable=True)
         X = inception5b(X, params, trainable=True)
         X = fullyConnected(X, params, trainable=True)
@@ -60,7 +62,7 @@ def trainEmbeddings(weightDict, init_wght_type):
                                                vars['trainSize'],  # Decay steps
                                                myNet['learning_rate_decay_rate'],  # Decay rate
                                                staircase=True)
-
+    
     embeddingDict = trainModel_FT(myNet['image_shape'], params=weightDict,
                                   init_wght_type=init_wght_type)
     
@@ -70,8 +72,12 @@ def trainEmbeddings(weightDict, init_wght_type):
     embeddingDict['learning_rate'] = learning_rate
     return embeddingDict
 
+
 def summaryBuilder(sess, outFilePath):
     mergedSummary = tf.summary.merge_all()
     writer = tf.summary.FileWriter(outFilePath)
     writer.add_graph(sess.graph)
     return mergedSummary, writer
+
+
+
