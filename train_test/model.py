@@ -9,7 +9,7 @@ def trainModel_FT(imgShape, params, init_wght_type='random'):
     
     # Pad the input to make of actual size
     X = tf.pad(inpTensor, paddings=[[0, 0], [3, 3], [3, 3], [0, 0]])
-    X = conv1(X, params)cd
+    X = conv1(X, params)
     X = conv2(X, params)
     X = conv3(X, params)
     X = inception3a(X, params, trainable=False)
