@@ -201,7 +201,9 @@ def fullyConnected(X, params, trainable):
             with tf.variable_scope('dense'):
                 w = tf.Variable(params['dense']['w'], dtype='float32', name='w', trainable=True)
                 b = tf.Variable(params['dense']['b'], dtype='float32', name="b", trainable=True)
-                
+
+        tf.summary.histogram("FC_Weights", w)
+        tf.summary.histogram("FC_bias", b)
         X = tf.layers.average_pooling2d(X, pool_size=3, strides=1,
                                         data_format='channels_last')
         logging.info('X after FC pool: %s', str(X.shape))
@@ -239,7 +241,7 @@ def inception5a_FT(X):
 
 
 def inception5b_FT(X):
-    with tf.name_scope("Inception5a_FT"):
+    with tf.name_scope("Inception5b_FT"):
         logging.info('Inside Inception module 5a FT: %s', str(X.shape))
         objInception = Inception_FT()
         inception5a = tf.concat(
@@ -313,12 +315,13 @@ def loss(encodingDict):
                             [encodingDict['output'], myNet['img_per_label'],
                              myNet['num_labels'], myNet['triplet_selection_alpha']],
                              tf.int64)
-
-    loss = tripletLoss(
-        tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,0]),
-        tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,1]),
-        tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,2]),
-        alpha=myNet['triplet_loss_penalty'])
+    with tf.name_scope('triplet_loss'):
+        loss = tripletLoss(
+            tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,0]),
+            tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,1]),
+            tf.gather(tf.cast(encodingDict['output'], dtype=tf.float32), tripletIDX[:,2]),
+            alpha=myNet['triplet_loss_penalty'])
+    tf.summary.scalar('triplet_loss', loss)
     encodingDict['loss'] = loss
     return encodingDict
 

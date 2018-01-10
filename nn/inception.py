@@ -20,8 +20,8 @@ def convLayer(inpTensor, w, b, s, isTrainable, name):
             weights = tf.Variable( w, dtype='float32', name='weight', trainable=True)
             bias = tf.Variable(b, dtype='float32', name="biases", trainable=True)
     
-    tf.summary.histogram("weights", w)
-    tf.summary.histogram("bias", b)
+    tf.summary.histogram("convWeights", weights)
+    tf.summary.histogram("convBias", bias)
     act = tf.nn.conv2d(inpTensor, weights, [1, s, s, 1], padding='VALID', name=name) + bias
     
     return act

@@ -9,6 +9,7 @@ global finetune_layer_scope_names
 
 path_dict = {}
 
+# /Users/sam/All-Program/App-DataSet/DeepFaceRecognition/summary
 
 path_dict['parent_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition'
 path_dict['data_model_path'] = os.path.join(path_dict['parent_path'] , 'data_models')
@@ -43,6 +44,7 @@ myNet['batch_norm_decay'] = 0.9
 
 
 vars = {}
+vars['numEpochs'] = 10
 vars['numBatches'] = 10
 vars['numImgsPerLabels'] = 100
 vars['batchSize'] = 30
