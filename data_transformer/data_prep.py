@@ -3,6 +3,7 @@ from __future__ import division, print_function, absolute_import
 import numpy as np
 import os, pickle
 import random
+import pandas as pd
 import logging
 from config import path_dict, vars
 
@@ -75,10 +76,10 @@ def genRandomStratifiedBatches(dataX, dataY, fileName=None):
             batchY[i:j] = dataY[label_idx[0:img_per_lbl_per_btch]]
         dataBatchX[batch_num, :] = batchX
         dataBatchY[batch_num, :] = batchY
-    logging.info('The Data batches dumped has shape: %s', str(dataBatchX.shape))
-    logging.info('The Label batch dumped has shape: %s', str(dataBatchY.shape))
 
     if fileName:
+        logging.info('The Data batches dumped has shape: %s', str(dataBatchX.shape))
+        logging.info('The Label batch dumped has shape: %s', str(dataBatchY.shape))
         DataIO.dumpPickleFile(dataX=dataBatchX,
                               dataY=dataBatchY,
                               labelDict=None,
@@ -86,7 +87,7 @@ def genRandomStratifiedBatches(dataX, dataY, fileName=None):
                               picklefileName=fileName)
 
 
-def genDistinctStratifiedBatches(dataX, dataY, fileName=None):
+def genDistinctStratifiedBatches(dataX, dataY, fileName=None, statsFileName=None):
     if isinstance(dataX, list) and len(dataX) == 1:
         dataX = dataX[0]
 
@@ -105,34 +106,73 @@ def genDistinctStratifiedBatches(dataX, dataY, fileName=None):
                                    dataX.shape[1], dataX.shape[2], dataX.shape[3]))
     dataBatchY = np.ndarray(shape=(vars['numBatches'], batchSize))
 
-
+    label_arr = []
+    batch_num_arr = []
+    image_idx_arr = []
+    print (vars['numBatches'])
     for batch_num in np.arange(vars['numBatches']):
         logging.info('Running for batch %s ', str(batch_num))
         batchX = np.ndarray(shape=(batchSize, dataX.shape[1], dataX.shape[2], dataX.shape[3]))
         batchY = np.zeros(batchSize)
         a = batch_num * img_per_lbl_per_btch
         b = (batch_num + 1) * img_per_lbl_per_btch
-        # print (a,b)
+        # print ('a,b ', a,b)
         for iter, labels in enumerate(np.unique(dataY)):
             logging.info('Running for label %s ', str(labels))
             label_idx = np.where(dataY == labels)[0]
             np.random.seed(1782)
             np.random.shuffle(label_idx)
+            # print ('Running for label :', labels)
             # print (label_idx)
             i = iter * img_per_lbl_per_btch
             j = (iter + 1) * img_per_lbl_per_btch
-            # print(i, j)
+            # print('i, j ',i, j)
             batchX[i:j, :] = dataX[label_idx[a:b]]
             batchY[i:j] = dataY[label_idx[a:b]]
-        # print ('############')
+            # print ('label_idx[a:b]', label_idx[a:b])
+            label_arr += [labels]*(j-i)
+            image_idx_arr += list(label_idx[a:b])
+        batch_num_arr += [batch_num+1]*len(batchX)
         dataBatchX[batch_num, :] = batchX
         dataBatchY[batch_num, :] = batchY
-    logging.info('The Data batches dumped has shape: %s', str(dataBatchX.shape))
-    logging.info('The Label batch dumped has shape: %s', str(dataBatchY.shape))
+
+    if statsFileName:
+        batch_num_image_idx_info = np.column_stack((
+            np.array(image_idx_arr).reshape(-1, 1),
+            np.array(batch_num_arr).reshape(-1, 1),
+            np.array(label_arr).reshape(-1, 1)
+        ))
+        batch_num_image_idx_info = pd.DataFrame(batch_num_image_idx_info,
+                                                columns=['index',
+                                                         'batch_num',
+                                                         'image_label'])
+        path = os.path.join(path_dict['batchFolderPath'], statsFileName)
+        batch_num_image_idx_info.to_csv(path, index=None)
+        
 
     if fileName:
+        logging.info('The Data batches dumped has shape: %s', str(dataBatchX.shape))
+        logging.info('The Label batch dumped has shape: %s', str(dataBatchY.shape))
         DataIO.dumpPickleFile(dataX=dataBatchX,
                               dataY=dataBatchY,
                               labelDict=None,
                               folderPath=path_dict['batchFolderPath'],
                               picklefileName=fileName)
+        
+
+
+
+        
+debugg = False
+if debugg:
+    trainX, trainY, trainLabelDict = DataIO.getPickleFile(
+            path_dict['data_model_path'],
+            'training_imgarr.pickle')
+    verX, verY, verLabelDict = DataIO.getPickleFile(path_dict['data_model_path'],
+                                                           'verification_imgarr.pickle')
+    print(trainX.shape, trainY.shape)
+    print(verX.shape, verY.shape)
+    genDistinctStratifiedBatches(trainX, trainY,
+                                 fileName='distinct_stratified_batches.pickle',
+                                 statsFileName='batch_num_image_idx_info.csv'
+                                 )

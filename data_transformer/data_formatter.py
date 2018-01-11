@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import pandas as pd
 import pickle
 from scipy import ndimage, misc
 from skimage import io, img_as_uint
@@ -49,7 +50,7 @@ class DataFormatter():
                 io.imsave(os.path.join(outPersonPath, '%s.jpg' % str(num)), img_as_uint(imageResized))
                 
                 
-    def imageToArray(self):
+    def imageToArray(self, get_stats=None):
         if not os.path.exists(self.resized_path):
             raise ValueError('You should run the resize image dump before running imageToArray')
         
@@ -58,24 +59,54 @@ class DataFormatter():
         dataX = []
         dataY = []
         labelDict = {}
+        pic_filename_arr = []
+        person_name_arr = []
+        label_arr = []
         for label, person_name in enumerate(person_names):
             photo_path = os.path.join(self.resized_path, person_name)
-            person_pics = [os.path.join(photo_path, pics) for pics in os.listdir(photo_path) if
-                           pics.split('.')[1] == "jpg" or pics.split('.')[1] == "jpeg"]
+            person_pics = [pics.split('.')[0]
+                           for pics in os.listdir(photo_path)
+                           if pics.split('.')[1] == "jpg" or pics.split('.')[1] == "jpeg"]
+            # Extra line of code, just to sort properly
+            person_pics = [os.path.join(photo_path, str(pic)+'.jpg')
+                           for pic in sorted(list(map(int,person_pics)))]
             labelDict[str(label)] = person_name
             per_person_img_arr = np.ndarray((len(person_pics), 96, 96, 3))
             per_person_labels = np.tile(label, len(person_pics)).reshape(-1, 1)
+            
             for img_num, pic_path in enumerate(person_pics):
+                pic_filename_arr += [os.path.basename(pic_path).split('.')[0]]
                 image = ndimage.imread(pic_path, mode='RGB')
                 per_person_img_arr[img_num, :] = image
+
+            person_name_arr += [person_name]*len(person_pics)
+            label_arr += [str(label)] * len(person_pics)
+            
             if label == 0:
                 dataX = per_person_img_arr
                 dataY = per_person_labels
             else:
                 dataX = np.vstack((dataX, per_person_img_arr))
                 dataY = np.vstack((dataY, per_person_labels))
-        return dataX, dataY, labelDict
-    
+
+        if get_stats:
+            person_name_image_num_info = np.column_stack((
+                np.array(label_arr).reshape(-1, 1),
+                np.array(person_name_arr).reshape(-1, 1),
+                np.array(pic_filename_arr).reshape(-1, 1)
+            ))
+            person_name_image_num_info = pd.DataFrame(
+                    person_name_image_num_info,
+                    columns=['image_label',
+                             'person_name',
+                             'file_name'])
+            person_name_image_num_info = person_name_image_num_info.reset_index()
+
+            return dataX, dataY, labelDict, person_name_image_num_info
+        else:
+            return dataX, dataY, labelDict
+
+
     @staticmethod
     def dumpPickleFile(dataX, dataY, labelDict=None, folderPath=None, picklefileName=None, getStats=None):
         if not folderPath or not picklefileName:
@@ -103,7 +134,12 @@ class DataFormatter():
                 'labelDict': labelDict
             }
             pickle.dump(fullData, f, pickle.HIGHEST_PROTOCOL)
-         
+
+    @staticmethod
+    def dumpCSVFile(dataDF, folderPath, csvfileName, getStats=None):
+        path = os.path.join(folderPath, csvfileName)
+        dataDF.to_csv(path, index=None)
+        
     @staticmethod
     def getPickleFile(folderPath, picklefileName, getStats=None):
         path_from = os.path.join(folderPath, picklefileName)
@@ -123,3 +159,19 @@ class DataFormatter():
             print('Unique labels in dataY is: ', np.unique(dataY))
             print('Label dict: ', labelDict)
         return dataX, dataY, labelDict
+    
+    
+    
+debugg = False
+if debugg:
+    objDP = DataFormatter(path_dict['parent_path'], 'training')
+    objDP.createResizedData()
+    dataX, dataY, labelDict, person_name_image_num_info = objDP.imageToArray(get_stats=True)
+    
+    DataFormatter.dumpPickleFile(dataX, dataY, labelDict,
+                                 folderPath=os.path.join(path_dict['data_model_path']),
+                                 picklefileName='training_imgarr.pickle')
+
+    DataFormatter.dumpCSVFile(person_name_image_num_info,
+                                 folderPath=os.path.join(path_dict['data_model_path']),
+                                 csvfileName='person_name_image_num_info.csv')

@@ -12,6 +12,7 @@ path_dict = {}
 # /Users/sam/All-Program/App-DataSet/DeepFaceRecognition/summary
 
 path_dict['parent_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition'
+path_dict['analysis_path'] = os.path.join(path_dict['parent_path'], 'analysis')
 path_dict['data_model_path'] = os.path.join(path_dict['parent_path'] , 'data_models')
 
 path_dict['batchFolderPath'] = os.path.join(path_dict['data_model_path'], 'batch_img_arr')
@@ -26,6 +27,7 @@ path_dict['inception_nn4small_weights_path'] = "/Users/sam/All-Program/App-DataS
 path_dict['checkpoint_path'] = os.path.join(path_dict['data_model_path'], 'saver_checkpoints')
 path_dict['summary_path'] = os.path.join(path_dict['data_model_path'], 'summary')
 
+path_dict['cv_pred_analysis_path'] = os.path.join(path_dict['analysis_path'], 'cv_pred_analysis')
 
 myNet = {}
 
