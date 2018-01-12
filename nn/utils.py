@@ -38,6 +38,11 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha):
     '''
     batch_tripet_idx = []
     idx_arr = np.arange(len(batch_embedding))
+    
+    ##################  TO BE REMOVE
+    sseedd_arr = []
+    ##################  REMOVE
+    
     for i in np.arange(num_labels):
         pos_idxs = np.arange(i * img_per_label, i * img_per_label + img_per_label)
         neg_idxs = np.setdiff1d(idx_arr, pos_idxs)
@@ -62,6 +67,7 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha):
             if len(hard_neg_idx) > 0:
                 if config.triplet_seed_idx == len(config.seed_arr) - 1:
                     config.triplet_seed_idx = 0
+                sseedd_arr.append(config.seed_arr[config.triplet_seed_idx])
                 np.random.seed(config.seed_arr[config.triplet_seed_idx])
                 
                 # logging.info('Shuffling hard negative selection with seed idx = %s and seed %s', str(config.triplet_seed_idx), str(config.seed_arr[config.triplet_seed_idx]))
@@ -80,6 +86,7 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha):
                 batch_tripet_idx.append([anc_idx, pos_idx, neg_idxs[rnd_idx]])
             # else:
             #     logging.info('No hard negative index found for anc_idx = %s and  pos_idx = %s ', str(anc_idx), str(pos_idx))
+    logging.info('SEED USED %s', str(sseedd_arr))
     logging.info('TRIPLETS %s == %s', str(len(batch_tripet_idx)), str(batch_tripet_idx))
     return [batch_tripet_idx]
 

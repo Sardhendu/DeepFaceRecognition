@@ -33,7 +33,6 @@ myNet = {}
 
 
 myNet['image_shape'] = [96, 96, 3]
-myNet['use_checkpoint'] = False
 
 myNet['triplet_selection_alpha'] = 0.01
 myNet['triplet_loss_penalty'] = 0.2
@@ -46,7 +45,6 @@ myNet['batch_norm_decay'] = 0.9
 
 
 vars = {}
-vars['numEpochs'] = 10
 vars['numBatches'] = 10
 vars['numImgsPerLabels'] = 100
 vars['batchSize'] = 30
