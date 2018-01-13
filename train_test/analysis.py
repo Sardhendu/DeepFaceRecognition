@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
-from config import path_dict
+from config import path_dict, myNet
 
 batch_num_image_idx_info_path = os.path.join(path_dict['batchFolderPath'], 'batch_num_image_idx_info.csv')
 person_name_image_num_info_path = os.path.join(path_dict['data_model_path'], 'person_name_image_num_info.csv')
@@ -10,7 +10,7 @@ batch_num_image_idx_info = pd.read_csv(batch_num_image_idx_info_path)
 person_name_image_num_info = pd.read_csv(person_name_image_num_info_path)
 
 
-def save_prediction_analysis(cv_act, cv_hat, cv_hat_prob, fold, epoch):
+def save_prediction_analysis(cv_act, cv_hat, cv_hat_prob, fold, epoch, cvBatch_num):
     correct_arr = np.array(['y' if i == j else 'n' for i, j in zip(cv_act, cv_hat)], dtype=str).reshape(-1, 1)
     cv_act = np.array(cv_act, dtype='float32').reshape(-1, 1)
     cv_hat = np.array(cv_hat, dtype='float32').reshape(-1, 1)
@@ -18,17 +18,25 @@ def save_prediction_analysis(cv_act, cv_hat, cv_hat_prob, fold, epoch):
     fold_arr = np.tile(fold, len(cv_hat_prob)).reshape(-1, 1)
     epoch_arr = np.tile(epoch, len(cv_hat_prob)).reshape(-1, 1)
     
-    if fold == 1:
-        batch_num_image_idx_info_in = batch_num_image_idx_info[
-            batch_num_image_idx_info['batch_num'] == 10].reset_index().drop('level_0', axis=1)
-        p_name_batch_num_mrgd = person_name_image_num_info.merge(batch_num_image_idx_info_in,
-                                                                 left_on=['index', 'image_label'],
-                                                                 right_on=['index', 'image_label'], how='inner')
-    else:
-        raise ValueError('save_preiction_analysis only handled for FOld 1')
+    # if fold == 1:
+    batch_num_image_idx_info_in = batch_num_image_idx_info[
+        batch_num_image_idx_info['batch_num'] == cvBatch_num].reset_index().drop('level_0', axis=1)
+    p_name_batch_num_mrgd = person_name_image_num_info.merge(batch_num_image_idx_info_in,
+                                                             left_on=['index', 'image_label'],
+                                                             right_on=['index', 'image_label'], how='inner')
+    # else:
+    #     raise ValueError('save_preiction_analysis only handled for FOld 1')
+    folder_param = 'tsa_%s_tlp_%s_lr_%s'%(str(myNet['triplet_selection_alpha']),
+                                          str(myNet['triplet_loss_penalty']),
+                                          str(myNet['learning_rate']))
     
-    path = os.path.join(path_dict['cv_pred_analysis_path'], 'cv_prediction_analysis_fld_%s_epch_%s.csv' % (str(fold),
-                                                                                                           str(epoch)))
+    folder_path = os.path.join(path_dict['cv_pred_analysis_path'], folder_param)
+    
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+    
+    path = os.path.join(folder_path, 'cv_prediction_analysis_fld_%s_epch_%s.csv' % (str(fold),
+                                                                                    str(epoch)))
     
     nw_data = np.column_stack((fold_arr, epoch_arr, correct_arr, cv_act, cv_hat, cv_hat_prob))
     nw_data = pd.DataFrame(nw_data,

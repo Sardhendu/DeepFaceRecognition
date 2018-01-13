@@ -1,4 +1,5 @@
 from __future__ import division, print_function, absolute_import
+from nn.loss import loss
 from nn.network import *
 from config import myNet, vars
 import tensorflow as tf
@@ -32,7 +33,7 @@ def trainModel_FT(imgShape, params, init_wght_type='random'):
         X = fullyConnected_FT(X, [736, 128])
     else:
         raise ValueError('Provide a valid weight initialization type')
-    return dict(inpTensor=inpTensor, output=X)
+    return dict(inpTensor=inpTensor, embeddings=X)
 
 
 def getEmbeddings(imgShape, params):
@@ -52,7 +53,7 @@ def getEmbeddings(imgShape, params):
     X = inception5a(X, params, trainable=False)
     X = inception5b(X, params, trainable=False)
     X = fullyConnected(X, params, trainable=False)
-    return dict(inpTensor=inpTensor, output=X)
+    return dict(inpTensor=inpTensor, embeddings=X)
 
 
 def trainEmbeddings(weightDict, init_wght_type):
@@ -66,12 +67,17 @@ def trainEmbeddings(weightDict, init_wght_type):
                                                    myNet['learning_rate_decay_rate'],  # Decay rate
                                                    staircase=True)
     tf.summary.scalar('learning_rate', learning_rate)
+    
     embeddingDict = trainModel_FT(myNet['image_shape'], params=weightDict,
                                   init_wght_type=init_wght_type)
     
-    embeddingDict = loss(embeddingDict)
+    embeddingDict['triplet_loss'] = loss(embeddingDict['embeddings'])
     
-    embeddingDict = optimize(embeddingDict, learning_rate, global_step)
+    optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(
+            embeddingDict['triplet_loss'], global_step=global_step
+    )
+    embeddingDict['optimizer'] = optimizer
+    
     embeddingDict['learning_rate'] = learning_rate
     return embeddingDict
 

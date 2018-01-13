@@ -34,8 +34,8 @@ myNet = {}
 
 myNet['image_shape'] = [96, 96, 3]
 
-myNet['triplet_selection_alpha'] = 0.01
-myNet['triplet_loss_penalty'] = 0.2
+myNet['triplet_selection_alpha'] = 0.03  # The lesser this value is, the more hard negative we select. Try a range between 0.01 to 0.05
+myNet['triplet_loss_penalty'] = 0.2 # The larger this value is, the more penalty we induce. For example, That is if anc_vs_pos = 0.3 and anc_vs_neg = 0.9 then 0.3-0.9+0.2 = -0.4 then -0.4<0. So the loss is 0. On other hand, if anc_vs_pos = 0.6 and anc_vs_neg = 0.7 then 0.6-0.7+0.2 = 0.1 then 0.1>0. So the loss is 0.1
 
 myNet['img_per_label'] = 10
 myNet['num_labels'] = 3
@@ -51,10 +51,11 @@ vars['batchSize'] = 30
 vars['trainSize'] = vars['numImgsPerLabels'] * myNet['num_labels'] - vars['batchSize']
 
 #############  ACT IN SEED
-seed_arr = [213,436,754,991,302,992,223,645,724,944,232,123,321,
+seed_arr = [553, 292, 394, 874, 445, 191, 161, 141, 213,436,754,991,302,992,223,645,724,944,232,
+            123,321,
             909,784,239,337,888,666, 400,912,255,983,902,846,345,
             854,989,291,486,444,101,202,304,505,607,707,808,905, 900,
-            774,553,292,394,874,445,191,161,141,272]
+            774,272]
 
 
 
