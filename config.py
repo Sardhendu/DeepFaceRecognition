@@ -29,6 +29,12 @@ path_dict['summary_path'] = os.path.join(path_dict['data_model_path'], 'summary'
 
 path_dict['cv_pred_analysis_path'] = os.path.join(path_dict['analysis_path'], 'cv_pred_analysis')
 
+path_dict['image_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/full_images/now_you_see_me.jpg'
+path_dict['extracted_face_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/faces_extracted/'
+
+path_dict['image_labeled_path'] = "/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/full_images_labeled"
+
+
 myNet = {}
 
 

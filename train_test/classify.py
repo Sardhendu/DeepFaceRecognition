@@ -41,3 +41,5 @@ class SVM():
         top_label_idx = np.argmax(predLabels, axis=1)
         labelProb = predLabels[np.arange(len(top_label_idx)), top_label_idx]
         return top_label_idx, labelProb
+    
+    

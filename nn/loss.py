@@ -3,7 +3,6 @@ import numpy as np
 from itertools import combinations
 import logging
 import config
-
 from config import myNet
 
 
@@ -42,6 +41,7 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha):
     batch_tripet_idx = []
     idx_arr = np.arange(len(batch_embedding))
     
+    
     ##################  TO BE REMOVE
     sseedd_arr = []
     ##################  REMOVE
@@ -53,6 +53,8 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha):
         compare_point = -1  # used to avoid redundancy in calculating SSE between anchor and all negative
         # Get all combination of Anchor and positive
         for anc_idx, pos_idx in combinations(pos_idxs, 2):
+            # print('asasassasaaasasas ', config.triplet_seed_idx)
+            # logging.info('qqqqqqqwwqwqwqwqwqwqwqwqwq %s ', str(config.triplet_seed_idx))
             # print (anc_idx, pos_idx)
             if anc_idx != compare_point:
                 compare_point += 1
