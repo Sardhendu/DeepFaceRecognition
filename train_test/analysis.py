@@ -35,8 +35,9 @@ def save_prediction_analysis(cv_act, cv_hat, cv_hat_prob, fold, epoch, cvBatch_n
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
     
-    path = os.path.join(folder_path, 'cv_prediction_analysis_fld_%s_epch_%s.csv' % (str(fold),
-                                                                                    str(epoch)))
+    path = os.path.join(folder_path,
+                        'cv_prediction_analysis_fld_%s_epch_%s.csv' %
+                        (str(fold), str(epoch)))
     
     nw_data = np.column_stack((fold_arr, epoch_arr, correct_arr, cv_act, cv_hat, cv_hat_prob))
     nw_data = pd.DataFrame(nw_data,

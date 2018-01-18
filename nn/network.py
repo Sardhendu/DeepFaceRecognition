@@ -9,12 +9,12 @@ def conv1(X, params):
     bn_name = 'bn1'
     with tf.variable_scope(conv_name):
         X = convLayer(X, params[conv_name]['w'], params[conv_name]['b'], s=2,
-                      isTrainable=False, name=conv_name)
+                      trainable=False, name=conv_name)
         # X = tf.layers.batch_normalization(X, axis=-1, epsilon=1e-5, name='bn1')
         X = batchNorm(X,
                       mean=params[bn_name]['m'], var=params[bn_name]['v'],
                       gamma=params[bn_name]['w'], beta=params[bn_name]['b'],
-                      isTrainable=False, name=bn_name)
+                      trainable=False, name=bn_name)
         X = activation(X, type="relu")
         logging.info('conv1 %s', str(X.shape))
         
@@ -31,12 +31,12 @@ def conv2(X, params):
     bn_name = 'bn2'
     with tf.variable_scope(conv_name):
         X = convLayer(X, params[conv_name]['w'], params[conv_name]['b'], s=1,
-                      isTrainable=False, name=conv_name)
+                      trainable=False, name=conv_name)
         # X = tf.layers.batch_normalization(X, axis=-1, epsilon=1e-5, name='bn2')
         X = batchNorm(X,
                       mean=params[bn_name]['m'], var=params[bn_name]['v'],
                       gamma=params[bn_name]['w'], beta=params[bn_name]['b'],
-                      isTrainable=False, name=bn_name)
+                      trainable=False, name=bn_name)
         X = activation(X, type="relu")
         logging.info('conv2 %s ', str(X.shape))
         
@@ -51,12 +51,12 @@ def conv3(X, params):
     bn_name = 'bn3'
     with tf.variable_scope(conv_name):
         X = convLayer(X, params[conv_name]['w'], params[conv_name]['b'], s=1,
-                      isTrainable=False, name=conv_name)
+                      trainable=False, name=conv_name)
         # X = tf.layers.batch_normalization(X, axis=-1, epsilon=1e-5, name='bn3')
         X = batchNorm(X,
                       mean=params[bn_name]['m'], var=params[bn_name]['v'],
                       gamma=params[bn_name]['w'], beta=params[bn_name]['b'],
-                      isTrainable=False, name=bn_name)
+                      trainable=False, name=bn_name)
         X = activation(X, type="relu")
         logging.info('conv3 %s', str(X.shape))
         
@@ -242,7 +242,7 @@ def inception5b_FT(X):
     with tf.name_scope("Inception5b_FT"):
         logging.info('Inside Inception module 5a FT: %s', str(X.shape))
         objInception = Inception_FT()
-        inception5a = tf.concat(
+        inception5b = tf.concat(
                 values=[objInception.inception_3x3(X, cnv1s=1, cnv2s=1, padTD=(1, 1),
                                                    padLR=(1, 1), name='5b'),
                         objInception.inception_pool(X, cnv1s=1, padTD=(1, 1), padLR=(1, 1),
@@ -250,8 +250,8 @@ def inception5b_FT(X):
                                                     name='5b'),
                         objInception.inception_1x1(X, cnv1s=1, name='5b')],
                 axis=-1)
-        logging.info('inception5a%s', str(inception5a.shape))
-    return inception5a
+        logging.info('inception5b%s', str(inception5b.shape))
+    return inception5b
 
 
 def fullyConnected_FT(X, k_shape):

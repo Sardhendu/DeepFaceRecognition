@@ -21,8 +21,7 @@ def convLayer_FT(inpTensor, kShape, s, name):
         weight = tf.get_variable(
                     dtype='float32',
                     shape=kShape,
-                    initializer=tf.truncated_normal_initializer(
-                             stddev=0.1,
+                    initializer=tf.contrib.layers.xavier_initializer(
                             seed=config.seed_arr[config.weight_seed_idx]
                     ),
                     name="w",

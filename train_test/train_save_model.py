@@ -4,6 +4,8 @@ import os
 import numpy as np
 import tensorflow as tf
 import logging
+from tensorflow.python.framework import ops
+
 from data_transformer.data_formatter import DataFormatter
 from data_transformer.preprocess import Preprocessing
 
@@ -22,7 +24,7 @@ def get_pretrained_weights():
 
     
 
-class TrainTest():
+class Train():
     '''
     # This module would train the network for the given parameters and store the weights (create checkpoints) in the
     # disk.
@@ -91,11 +93,8 @@ class TrainTest():
                               feed_dict={trainEmbedGraph['inpTensor']: trnX_})
         logging.info('Training Embeddings shape %s', embeddings.shape)
         obj_svm = SVM()
-        obj_svm.train(embeddings, labels=trnY_,
-                      model_name='nFold_%s_batch_%s' % (str(self.nFold), str(self.epoch)))
-        train_labels, train_label_prob = obj_svm.classify(embeddings,
-                                                          model_name='nFold_%s_batch_%s' % (
-                                                              str(self.nFold), str(self.epoch)))
+        obj_svm.train(embeddings, labels=trnY_, model_name='final_model')
+        train_labels, train_label_prob = obj_svm.classify(embeddings, model_name='final_model')
         return train_labels, train_label_prob
     
     def cvalid(self, cvX_, sess):
@@ -105,19 +104,11 @@ class TrainTest():
         logging.info('Cross validation Embeddings shape %s', embeddings.shape)
         obj_svm = SVM()
         cv_labels, cv_label_prob = obj_svm.classify(embeddings,
-                                                    model_name='nFold_%s_batch_%s' % (str(self.nFold), str(self.epoch)))
+                                                    model_name='final_model')
         return cv_labels, cv_label_prob
     
     def accuracy(self, y, y_hat):
         return np.mean(np.equal(y_hat, y))
-    
-    #     def test(self, tstGraph, testBatch, sess):
-    #         # METHOD 2: TO get weights is form of Tensors
-    #         a = saver.restore(sess, os.path.join(checkpoint_path, "model.ckpt"))
-    #         trainableVars = tf.get_collection(ops.GraphKeys.TRAINABLE_VARIABLES)
-    #         testDict = getFineTunedEmbeddings([96,96,3], moduleWeightDict, trainableVars, sess)
-    #         embeddings = sess.run([tstGraph['output']], feed_dict={'inpTensor':testBatch})
-    #         return embeddings
     
     
     def sess_exec(self, trnX, trnY, cvX, cvY):
@@ -199,8 +190,12 @@ class TrainTest():
                 cv_acc_arr.append(cv_acc)
                 print("Fold: %s, CV acc = %s " % (str(self.nFold), str(cv_acc)))
 
-            # Write the weights, to the file to use it later for testing purpose
-            saver.save(sess, os.path.join(path_dict['checkpoint_path'], self.checkpoint_file_name))
+            # Write the weights, to the file  to use it later for testing purpose
+            checkpoint_path = os.path.join(path_dict['checkpoint_path'],
+                                           self.checkpoint_file_name + '.ckpt'
+                                           if len(self.checkpoint_file_name.split('.')) == 1
+                                           else self.checkpoint_file_name)
+            saver.save(sess, checkpoint_path)
 
             if self.write_tensorboard_summary:
                 self.writer = tf.summary.FileWriter(path_dict["summary_path"], sess.graph)
@@ -247,10 +242,79 @@ class TrainTest():
         return tr_acc, cv_acc,
 
 
+# class Test():
+#     def __init__(self, myNet):
+#         self.myNet = myNet
+#
+#     def test(self):
+#         self.weights = get_pretrained_weights()
+#
+#         # GET THE BATCH DATA FROM THE DISK
+#         dataX, dataY, labelDict = DataFormatter.getPickleFile(
+#                 folderPath=path_dict['batchFolderPath'], picklefileName=self.batch_file_name, getStats=True
+#         )
+#         trnBatch_idx = [list(np.setdiff1d(np.arange(len(dataX)), np.array(i))) for i in np.arange(len(dataX))]
+#         cvBatch_idx = [i for i in np.arange(len(dataX))]
+#
+#         logging.info('dataX.shape = %s, dataY.shape = %s', str(dataX.shape), str(dataY.shape))
+#
+#
+#         saver = tf.train.Saver()
+#         checkpoint_path = os.path.join(
+#                 path_dict['checkpoint_path'],
+#                 self.checkpoint_file_name + '.ckpt'
+#                 if len(self.checkpoint_file_name.split('.')) == 1
+#                 else self.checkpoint_file_name)
+#         print (checkpoint_path)
+#         # First let's load meta graph and restore weights
+#         # saver = tf.train.import_meta_graph(checkpoint_path)
+#         with tf.Session() as sess:
+#             saver.restore(sess, checkpoint_path)
+#             trainableVars = tf.get_collection(ops.GraphKeys.TRAINABLE_VARIABLES)
+#             print (trainableVars)
+        # METHOD 2: TO get weights is form of Tensors
+    
+    # def test(self, tstGraph, testBatch):
+        #
+        # dataX, dataY, labelDict = DataFormatter.getPickleFile(
+        #         folderPath=path_dict['batchFolderPath'], picklefileName=self.batch_file_name, getStats=True
+        # )
+        # trnBatch_idx = [list(np.setdiff1d(np.arange(len(dataX)), np.array(i))) for i in np.arange(len(dataX))]
+        # cvBatch_idx = [i for i in np.arange(len(dataX))]
+        #
+        # logging.info('dataX.shape = %s, dataY.shape = %s', str(dataX.shape), str(dataY.shape))
+        #
+        # saver = tf.train.Saver()
+        # with tf.Session() as sess:
+        #     # Restore variables from disk.
+        #     saver.restore(sess, os.path.join(path_dict['checkpoint_path'],
+        #                                      self.checkpoint_file_name)))
+        # # METHOD 2: TO get weights is form of Tensors
+        # a =
+        # trainableVars = tf.get_collection(ops.GraphKeys.TRAINABLE_VARIABLES)
+        # testDict = getFineTunedEmbeddings([96,96,3], moduleWeightDict, trainableVars, sess)
+        # embeddings = sess.run([tstGraph['output']], feed_dict={'inpTensor':testBatch})
+        # return embeddings
 
 
 ##################################################
 
+debugg = True
 
+if debugg:
+    from config import myNet
 
+    myNet['triplet_selection_alpha'] = 0.1
+    params = dict(learning_rate_override=0.0001,
+                  use_checkpoint=False,
+                  write_tensorboard_summary=True,
+                  save_for_analysis=True,
+                  which_fold=1,
+                  numEpochs=10,
+                  which_eopch_to_save=[5, 8, 9, 10],
+                  batch_file_name='distinct_stratified_batches.pickle',
+                  checkpoint_file_name='distinct_stratified_model')
+    
+    train_test_obj = Train(myNet=myNet, embeddingType='finetune', params=params)
+    train_test_obj.train_save_model()
 

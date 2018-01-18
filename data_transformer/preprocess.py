@@ -63,8 +63,8 @@ class Preprocessing():
         
         # Add random contrast
         imageOUT = self.randomFlip(imageIN)
-        imageOUT = self.addRandBrightness(imageOUT)
-        imageOUT = self.addRandContrast(imageOUT)
+        # imageOUT = self.addRandBrightness(imageOUT)
+        # imageOUT = self.addRandContrast(imageOUT)
         imageOUT = self.standarize(imageOUT)
         
         return dict(imageIN=imageIN,

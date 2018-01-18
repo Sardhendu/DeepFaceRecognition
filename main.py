@@ -3,7 +3,7 @@
 
 import os
 from config import myNet
-from train_test.train_save_model import TrainTest
+from train_test.train_save_model import Train#, Test
 from data_transformer.data_prep import DataIO, genDistinctStratifiedBatches, genRandomStratifiedBatches
 from data_transformer.data_formatter import DataFormatter
 import config
@@ -50,10 +50,11 @@ def create_batches_wrapper():
 
 def train():
     '''
-        It seems from analysing the file (RecognitionTuneParams) that
+        It seems from analysing the file (RecognitionTuneParams) that the hyperparameter triplet_selection = 0.05 does better in overall cross validation average accuracy and learning rate 0.0001 with exponential details. Other
+        parameters are tested and stores in the config file. We don't need to touch them. Lets use the best model parameters and train, store our model trainable (finetune eligible) parameters.
     '''
     
-    myNet['triplet_selection_alpha'] = 0.05
+    myNet['triplet_selection_alpha'] = 0.1
     params = dict(learning_rate_override=0.0001,
                   use_checkpoint=False,
                   write_tensorboard_summary = True,
@@ -64,7 +65,7 @@ def train():
                   batch_file_name = 'distinct_stratified_batches.pickle',
                   checkpoint_file_name='distinct_stratified_model')
     
-    train_test_obj = TrainTest(myNet=myNet, embeddingType='finetune', params=params)
+    train_test_obj = Train(myNet=myNet, embeddingType='finetune', params=params)
     tr_acc, cv_acc = train_test_obj.train_save_model()
 
     print('trained_fold = %s, trained_epochs = %s, train_accuracy = %s, cross_validation_accuracy = %s' % (
@@ -75,4 +76,4 @@ def test():
 
 
 
-train
+train()

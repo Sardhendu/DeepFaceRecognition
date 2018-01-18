@@ -7,11 +7,15 @@ global seed_arr
 global weight_seed_idx
 global finetune_layer_scope_names
 
+
 path_dict = {}
 
 # /Users/sam/All-Program/App-DataSet/DeepFaceRecognition/summary
 
 path_dict['parent_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition'
+
+path_dict['haar_cascade'] = os.path.join(path_dict['parent_path'], "Face_cascade.xml")
+
 path_dict['analysis_path'] = os.path.join(path_dict['parent_path'], 'analysis')
 path_dict['data_model_path'] = os.path.join(path_dict['parent_path'] , 'data_models')
 
