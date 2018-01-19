@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fef8d370-cc09-4c08-96fa-1e4e7cbdc34f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data_transformer/data_io.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data_transformer/detect_extract_faces.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data_transformer/generate_data.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data_transformer/data_formatter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/face_detection/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/face_detection/detect_extract_faces.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/train_test/classify.py" afterPath="$PROJECT_DIR$/train_test/classifier.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/RecognitionTuneParams-checkpoint.ipynb" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/RecognitionTuneParams-checkpoint.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RecognitionTuneParams.ipynb" afterPath="$PROJECT_DIR$/RecognitionTuneParams.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_transformer/data_prep.py" afterPath="$PROJECT_DIR$/data_transformer/data_prep.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_transformer/preprocess.py" afterPath="$PROJECT_DIR$/data_transformer/preprocess.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logfile.log" afterPath="$PROJECT_DIR$/logfile.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nn/loss.py" afterPath="$PROJECT_DIR$/nn/loss.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nn/network.py" afterPath="$PROJECT_DIR$/nn/network.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train_test/train_save_model.py" afterPath="$PROJECT_DIR$/train_test/train_save_model.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,7 +29,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="data_prep.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="data_prep.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_transformer/data_prep.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
@@ -54,6 +37,19 @@
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="440">
+                <caret line="9" column="132" lean-forward="true" selection-start-line="9" selection-start-column="132" selection-end-line="9" selection-end-column="132" />
+                <folding />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -188,7 +184,6 @@
         <option value="$PROJECT_DIR$/DataPrep/data_io.py" />
         <option value="$PROJECT_DIR$/nn/finetune_inception.py" />
         <option value="$PROJECT_DIR$/Verification.ipynb" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/TrainTest/classify.py" />
         <option value="$PROJECT_DIR$/nn/model.py" />
         <option value="$PROJECT_DIR$/train_test/train_test.py" />
@@ -223,6 +218,7 @@
         <option value="$PROJECT_DIR$/dsdsdsdsd/data_prep.py" />
         <option value="$PROJECT_DIR$/data_transformer/data_prep.py" />
         <option value="$PROJECT_DIR$/data_transformer/generate_data.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -793,16 +789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nn/load_params.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1700">
@@ -1031,6 +1017,17 @@
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="440">
+            <caret line="9" column="132" lean-forward="true" selection-start-line="9" selection-start-column="132" selection-end-line="9" selection-end-column="132" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
