@@ -1,21 +1,18 @@
 from __future__ import division, print_function, absolute_import
 
+import logging
 import os
+
 import numpy as np
 import tensorflow as tf
-import logging
-from tensorflow.python.framework import ops
-
 from data_transformer.data_formatter import DataFormatter
-from data_transformer.preprocess import Preprocessing
-
-from nn.load_params import layer_name, convShape, getWeights
-from train_test.model import trainModel_FT, getEmbeddings, trainEmbeddings, summaryBuilder
-from train_test.classify import SVM
 
 import config
 from config import path_dict
-
+from data_transformer.preprocess import Preprocessing
+from nn.load_params import getWeights
+from train_test.classifier import SVM
+from train_test.model import getEmbeddings, trainEmbeddings, summaryBuilder
 
 
 def get_pretrained_weights():

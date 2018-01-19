@@ -16,6 +16,20 @@ path_dict['parent_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecogniti
 
 path_dict['haar_cascade'] = os.path.join(path_dict['parent_path'], "Face_cascade.xml")
 
+# INPUT DATA PATHS
+path_dict['face_snapshot_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_snapshot')
+path_dict['face_snapshot_resized_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_snapshot_resized')
+path_dict['face_extracted_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_extracted')
+path_dict['face_detection_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_detection')
+
+# ARRAY BATCH TRANSFORM DATA
+
+
+# OUTPUT DATA PATHS
+# path_dict['face_snapshot_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_snapshot')
+# path_dict['face_extracted_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_extracted')
+# path_dict['face_detection_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_detection')
+
 path_dict['analysis_path'] = os.path.join(path_dict['parent_path'], 'analysis')
 path_dict['data_model_path'] = os.path.join(path_dict['parent_path'] , 'data_models')
 
@@ -39,9 +53,12 @@ path_dict['extracted_face_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceR
 path_dict['image_labeled_path'] = "/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/full_images_labeled"
 
 
+
+
+
+
+#####################   NET PARAMETERS
 myNet = {}
-
-
 myNet['image_shape'] = [96, 96, 3]
 
 myNet['triplet_selection_alpha'] = 0.03  # The lesser this value is, the more hard negative we select. Try a range between 0.01 to 0.05
@@ -53,12 +70,23 @@ myNet['learning_rate'] = 0.001
 myNet['learning_rate_decay_rate'] = 0.95
 myNet['batch_norm_decay'] = 0.9
 
+#####################   BATCH PARAMETERS
 
 vars = {}
 vars['numBatches'] = 10
 vars['numImgsPerLabels'] = 100
 vars['batchSize'] = 30
 vars['trainSize'] = vars['numImgsPerLabels'] * myNet['num_labels'] - vars['batchSize']
+
+####################    PREPROCESSING PARAMETERS
+pp_vars = {}
+pp_vars['standardise'] = True
+pp_vars['rand_brightness'] = True
+pp_vars['rand_contrast'] = True
+pp_vars['rand_rotate'] = False
+pp_vars['rand_flip'] = True
+pp_vars['rand_crop'] = False
+
 
 #############  ACT IN SEED
 seed_arr = [553, 292, 394, 874, 445, 191, 161, 141, 213,436,754,991,302,992,223,645,724,944,232,

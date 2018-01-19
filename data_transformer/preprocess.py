@@ -1,10 +1,22 @@
 from __future__ import division
 from __future__ import print_function
 
+import numpy as np
+from scipy import misc
 import logging
 import tensorflow as tf
 import config
 
+
+
+def random_rotate_image(image):
+    if config.preprocess_seed_idx == len(config.seed_arr) - 1:
+        config.preprocess_seed_idx = 0
+        
+    np.random.seed(config.preprocess_seed_idx)
+    angle = np.random.uniform(low=-10.0, high=10.0)
+    return misc.imrotate(image, angle, 'bicubic')
+                    
 class Preprocessing():
     '''
         Preprocessing in images are done per image, hence it is a good idea to create a separate computation graph
@@ -16,16 +28,25 @@ class Preprocessing():
         pass
     
     def randomCrop(self, imageIN):
-        pass
-    
+        logging.info('Performing random crop')
+        if config.preprocess_seed_idx == len(config.seed_arr) -1:
+            config.preprocess_seed_idx = 0
+        return  tf.random_crop(imageIN, config.myNet['image_shape'],
+                               seed=config.seed_arr[config.preprocess_seed_idx])
     def randomFlip(self, imageIN):
-        logging.info('Initialing random horizontal flip')
+        logging.info('Performing random horizontal flip')
         if config.preprocess_seed_idx == len(config.seed_arr) -1:
             config.preprocess_seed_idx = 0
         # Given an image this operation may or may not flip the image
         return tf.image.random_flip_left_right(imageIN,
                                                seed=config.seed_arr[config.preprocess_seed_idx])
-    
+
+    def randomRotate(self, imageIN):
+        logging.info('Performing Random Rotation')
+        # Given an image this operation may or may not flip the image
+        return tf.py_func(random_rotate_image, [imageIN], tf.uint8)
+
+
     def addRandBrightness(self, imageIN):
         logging.info('Adding random brightness')
         if config.preprocess_seed_idx == len(config.seed_arr) -1:
@@ -41,7 +62,7 @@ class Preprocessing():
         return tf.image.random_contrast(imageIN, lower=0.2, upper=1.8,
                                         seed=config.seed_arr[config.preprocess_seed_idx])
     
-    def standarize(self, imageIN):
+    def standardize(self, imageIN):
         logging.info('Standarizing the image')
         return tf.image.per_image_standardization(imageIN)
     
@@ -62,10 +83,26 @@ class Preprocessing():
                                  name="Preprocessor-variableHolder")
         
         # Add random contrast
-        imageOUT = self.randomFlip(imageIN)
-        # imageOUT = self.addRandBrightness(imageOUT)
-        # imageOUT = self.addRandContrast(imageOUT)
-        imageOUT = self.standarize(imageOUT)
+        imageOUT = imageIN
+        if config.pp_vars['rand_brightness']:
+            imageOUT = self.addRandBrightness(imageOUT)
         
-        return dict(imageIN=imageIN,
-                    imageOUT=imageOUT)
+        if config.pp_vars['rand_contrast']:
+            imageOUT = self.addRandContrast(imageOUT)
+        
+        if config.pp_vars['rand_rotate']:
+            imageOUT = self.randomRotate(imageOUT)
+
+        if config.pp_vars['rand_crop']:
+            imageOUT = self.randomCrop(imageOUT)
+        else:
+            imageOUT = tf.image.resize_image_with_crop_or_pad(imageOUT,
+                                                              imageShape[0], imageShape[1])
+            
+        if config.pp_vars['rand_flip']:
+            imageOUT = self.randomFlip(imageOUT)
+        
+        if config.pp_vars['standardise']:
+            imageOUT = self.standardize(imageOUT)
+        
+        return dict(imageIN=imageIN, imageOUT=imageOUT)

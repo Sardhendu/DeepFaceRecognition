@@ -197,9 +197,21 @@ def fullyConnected(X, params, trainable):
             b = tf.constant(params['dense']['b'], name="bias", dtype=tf.float32)
         else:
             with tf.variable_scope('dense'):
-                w = tf.Variable(params['dense']['w'], dtype='float32', name='w', trainable=True)
-                b = tf.Variable(params['dense']['b'], dtype='float32', name="b", trainable=True)
-
+                w = tf.get_variable(
+                        dtype='float32',
+                        initializer=params['dense']['w'],
+                        name="w",
+                        trainable=True
+                )
+    
+                b = tf.get_variable(
+                        dtype='float32',
+                        initializer=params['dense']['b'],
+                        name="b",
+                        trainable=True
+    
+                )
+                
         tf.summary.histogram("FC_Weights", w)
         tf.summary.histogram("FC_bias", b)
         X = tf.layers.average_pooling2d(X, pool_size=3, strides=1,

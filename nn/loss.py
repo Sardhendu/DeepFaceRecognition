@@ -24,7 +24,7 @@ def tripletLoss(anchor, positive, negative, alpha=0.2):
     positiveDist = tf.reduce_sum(tf.square(tf.subtract(anchor, positive)), 1)
     negativeDist = tf.reduce_sum(tf.square(tf.subtract(anchor, negative)), 1)
     
-    # Calculating the loss accross all the examples in the Batch
+    # Calculating the loss across all the examples in the Batch
     triplet_loss = tf.reduce_sum(tf.maximum(tf.add(tf.subtract(positiveDist, negativeDist), alpha), 0))
     return triplet_loss
 
@@ -85,8 +85,6 @@ def getTriplets(batch_embedding, img_per_label, num_labels, alpha):
                 
                 np.random.shuffle(hard_neg_idx)
                 # logging.info('Hard Negative Index %s', str(hard_neg_idx))
-                
-                np.random.shuffle(hard_neg_idx)
                 
                 # logging.info('Shuffled Hard Negative Index %s', str(hard_neg_idx))
                 rnd_idx = hard_neg_idx[0]
