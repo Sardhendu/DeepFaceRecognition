@@ -2,6 +2,7 @@ from __future__ import division, print_function, absolute_import
 import tensorflow as tf
 from nn.inception import convLayer, activation, Inception, batchNorm
 from nn.inception_finetune import Inception_FT
+import config
 import logging
 
 def conv1(X, params):
@@ -214,8 +215,7 @@ def fullyConnected(X, params, trainable):
                 
         tf.summary.histogram("FC_Weights", w)
         tf.summary.histogram("FC_bias", b)
-        X = tf.layers.average_pooling2d(X, pool_size=3, strides=1,
-                                        data_format='channels_last')
+        X = tf.layers.average_pooling2d(X, pool_size=3, strides=1, data_format='channels_last')
         logging.info('X after FC pool: %s', str(X.shape))
         X = tf.contrib.layers.flatten(X)
         logging.info('X after X Flattened: %s', str(X.shape))
@@ -268,18 +268,21 @@ def inception5b_FT(X):
 
 def fullyConnected_FT(X, k_shape):
     name = "InceptionFC_FT"
+    
+    if config.weight_seed_idx == len(config.seed_arr) - 1:
+        config.weight_seed_idx = 0
     with tf.name_scope(name):
         X = tf.cast(X, tf.float32)
         X = tf.layers.average_pooling2d(X, pool_size=3, strides=1,
                                         data_format='channels_last')
         logging.info('X after FC pool: %s', str(X.shape))
-        logging.info('Initializing random weights using seed %s',str(6752))
+        logging.info('Initializing random weights using seed %s',str(config.weight_seed_idx))
         with tf.variable_scope('dense'):
             w = tf.get_variable(
                     dtype='float32',
                     shape=k_shape,
                     initializer=tf.truncated_normal_initializer(
-                            stddev=0.1, seed=6752
+                            stddev=0.1, seed=config.weight_seed_idx
                     ),
                     name="w",
                     trainable=True
@@ -293,13 +296,18 @@ def fullyConnected_FT(X, k_shape):
                     trainable=True
             
             )
+        config.weight_seed_idx += 1
 
         tf.summary.histogram("FC_Weights", w)
         tf.summary.histogram("FC_bias", b)
         # Flatten the pooled output (cnvrt [batchSize, 1, 1, 736] to [batchSize, 736])
         X = tf.contrib.layers.flatten(X)
+        X = tf.nn.dropout(X, keep_prob=config.myNet['keep_prob'], seed=config.weight_seed_idx)
+        config.weight_seed_idx += 1
         logging.info('X after X Flattened: %s', str(X.shape))
         # logging.info('sdcdsddf ', params['dense']['w'].dtype, params['dense']['b'].dtype)
+        
+        # CREATING FINAL EMBEDDINGS
         X = tf.add(tf.matmul(X, w), b)
         logging.info('X after FC Matmul: %s', str(X.shape))
         

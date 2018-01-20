@@ -14,7 +14,13 @@ path_dict = {}
 
 path_dict['parent_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition'
 
+
+# PRE-OBTAINED HAAR CASCADES FOR FACE DETECTION
 path_dict['haar_cascade'] = os.path.join(path_dict['parent_path'], "Face_cascade.xml")
+
+# PRE-TRAINED INCEPTION WEIGHT DIRECTORY
+path_dict['inception_nn4small_weights_path'] = "/Users/sam/All-Program/App-DataSet/DeepNeuralNets/Models/FaceNet" \
+                                           "_Inception"
 
 # INPUT DATA PATHS
 path_dict['face_snapshot_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_snapshot')
@@ -39,8 +45,7 @@ path_dict['training_encoding_path'] = os.path.join(path_dict['data_model_path'])
 
 path_dict['classification_model_path'] = os.path.join(path_dict['data_model_path'], 'classification_model')
 
-path_dict['inception_nn4small_weights_path'] = "/Users/sam/All-Program/App-DataSet/DeepNeuralNets/Models/FaceNet" \
-                                           "_Inception"
+
 
 path_dict['checkpoint_path'] = os.path.join(path_dict['data_model_path'], 'saver_checkpoints')
 path_dict['summary_path'] = os.path.join(path_dict['data_model_path'], 'summary')
@@ -66,6 +71,7 @@ myNet['triplet_loss_penalty'] = 0.2 # The larger this value is, the more penalty
 
 myNet['img_per_label'] = 10
 myNet['num_labels'] = 3
+myNet['keep_prob'] = 0.7
 myNet['learning_rate'] = 0.001
 myNet['learning_rate_decay_rate'] = 0.95
 myNet['batch_norm_decay'] = 0.9
