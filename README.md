@@ -24,3 +24,18 @@ The application works in two simple ways.
 
 ### Training Images
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/20.jpg)
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/4.jpg)
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/5.jpg)
+
+### Test Image
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img2.jpg)
+
+### Test Image Face Detected
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img2.jpg)
+
+### Test Image Face Extracted
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_extracted/img2_0.jpg)
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_extracted/img2_1.jpg)
+
+### Test Image Labeled
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img2.jpg)
