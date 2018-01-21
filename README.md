@@ -18,7 +18,7 @@ The application works in two simple ways.
    
    * *Cross validation*: 10 Fold cross validation is performed for parameter tuning. The model is re-trained, weights are updated using best parameter setting.
    
-   * *Classification*: A 128 dimension embedding(feature) is obtained per image using Face Net architecture. A linear SVC (Support Vector Machine) is use to classify a face. 
+   * *Classification*: A 128 dimension embedding(feature) is obtained per image using Face Net architecture. A linear SVC (Support Vector Machine) is used to classify a face. 
    
    * *Test*: During test time we first detect and extract all the faces using haar cascade. We then obtained 128 dimension embedding using the updated weight and then classify a face using SVM stored model.
 

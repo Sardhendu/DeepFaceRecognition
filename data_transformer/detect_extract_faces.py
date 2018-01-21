@@ -1,5 +1,6 @@
 from __future__ import division, print_function, absolute_import
 
+import os
 import cv2
 import numpy as np
 import logging
@@ -37,11 +38,17 @@ def detect_extract_faces(image_path, face_extracted_path, face_detection_path, s
                 faces_arr.append(sub_img)
                 rect_arr.append([x, y, w, h])
                 if store:
-                    cv2.imwrite(face_extracted_path, sub_img)
+                    outpath = os.path.basename(face_extracted_path).split('.')[0]
+                    outpath = os.path.join(path_dict['face_extracted_test_path'],
+                                           str(outpath)+'_%s.jpg'%str(num))
+                    cv2.imwrite(outpath, sub_img)
             else:
                 if store:
                     rimg = resize_image(image, resize_shape=myNet['image_shape'])
-                    cv2.imwrite(face_extracted_path, rimg)
+                    outpath = os.path.basename(face_extracted_path).split('.')[0]
+                    outpath = os.path.join(path_dict['face_extracted_test_path'],
+                                           str(outpath) + '_%s.jpg' % str(num))
+                    cv2.imwrite(outpath, rimg)
                 
             # Place rectangles for the regions
             cv2.rectangle(image,(x,y),(x+w,y+h),(255, 255,0),2)
