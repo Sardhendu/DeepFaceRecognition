@@ -38,7 +38,7 @@ def trainModel_FT(imgShape, params, init_wght_type='random'):
 
 def getEmbeddings(imgShape, params):
     inpTensor = tf.placeholder(dtype=tf.float32, shape=[None, imgShape[0], imgShape[1], imgShape[2]])
-    logging.info('SHAPE: inpTensor %s', str(inpTensor.shape))
+    logging.info('GET EMBEDDINGS: SHAPE: inpTensor %s', str(inpTensor.shape))
     
     # Pad the input to make of actual size
     X = tf.pad(inpTensor, paddings=[[0, 0], [3, 3], [3, 3], [0, 0]])

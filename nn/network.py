@@ -191,6 +191,15 @@ def inception5b(X, params, trainable):
 
 
 def fullyConnected(X, params, trainable):
+    '''
+    :param X:
+    :param params:
+    :param trainable:
+    :return:
+    
+    Note: Unlike fullyConnected_FT module, we don't have dropout layer here, because we are just predicting outcomes
+    here
+    '''
     with tf.name_scope("InceptionFC"):
         X = tf.cast(X, tf.float32)
         if not trainable:

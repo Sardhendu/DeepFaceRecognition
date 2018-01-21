@@ -28,34 +28,28 @@ path_dict['face_snapshot_resized_path'] = os.path.join(path_dict['parent_path'],
 path_dict['face_extracted_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_extracted')
 path_dict['face_detection_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_detection')
 
-# ARRAY BATCH TRANSFORM DATA
-
 
 # OUTPUT DATA PATHS
-# path_dict['face_snapshot_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_snapshot')
-# path_dict['face_extracted_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_extracted')
-# path_dict['face_detection_path'] = os.path.join(path_dict['parent_path'], 'input_data_faces', 'face_detection')
+path_dict['face_snapshot_test_path'] = os.path.join(path_dict['parent_path'], 'output_data_faces', 'face_snapshot')
+path_dict['face_extracted_test_path'] = os.path.join(path_dict['parent_path'], 'output_data_faces', 'face_extracted')
+path_dict['face_detection_test_path'] = os.path.join(path_dict['parent_path'], 'output_data_faces', 'face_detection')
+path_dict['face_detection_labeled_test_path'] = os.path.join(path_dict['parent_path'], 'output_data_faces', 'face_detection_labeled')
 
+
+# MODEL, PARAMS AND ANALYSIS DATA PATH
 path_dict['analysis_path'] = os.path.join(path_dict['parent_path'], 'analysis')
 path_dict['data_model_path'] = os.path.join(path_dict['parent_path'] , 'data_models')
-
 path_dict['batchFolderPath'] = os.path.join(path_dict['data_model_path'], 'batch_img_arr')
-
 path_dict['training_encoding_path'] = os.path.join(path_dict['data_model_path'])
-
 path_dict['classification_model_path'] = os.path.join(path_dict['data_model_path'], 'classification_model')
-
-
-
 path_dict['checkpoint_path'] = os.path.join(path_dict['data_model_path'], 'saver_checkpoints')
 path_dict['summary_path'] = os.path.join(path_dict['data_model_path'], 'summary')
-
 path_dict['cv_pred_analysis_path'] = os.path.join(path_dict['analysis_path'], 'cv_pred_analysis')
 
-path_dict['image_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/full_images/now_you_see_me.jpg'
-path_dict['extracted_face_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/faces_extracted/'
-
-path_dict['image_labeled_path'] = "/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/full_images_labeled"
+# path_dict['image_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/full_images/now_you_see_me.jpg'
+# path_dict['extracted_face_path'] = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/faces_extracted/'
+#
+# path_dict['image_labeled_path'] = "/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/full_images_labeled"
 
 
 
@@ -66,8 +60,8 @@ path_dict['image_labeled_path'] = "/Users/sam/All-Program/App-DataSet/DeepFaceRe
 myNet = {}
 myNet['image_shape'] = [96, 96, 3]
 
-myNet['triplet_selection_alpha'] = 0.03  # The lesser this value is, the more hard negative we select. Try a range between 0.01 to 0.05
-myNet['triplet_loss_penalty'] = 0.2 # The larger this value is, the more penalty we induce. For example, That is if anc_vs_pos = 0.3 and anc_vs_neg = 0.9 then 0.3-0.9+0.2 = -0.4 then -0.4<0. So the loss is 0. On other hand, if anc_vs_pos = 0.6 and anc_vs_neg = 0.7 then 0.6-0.7+0.2 = 0.1 then 0.1>0. So the loss is 0.1
+myNet['triplet_selection_alpha'] = 0.09  # The lesser this value is, the more hard negative we select. Try a range between 0.01 to 0.05
+myNet['triplet_loss_penalty'] = 0.1 # The larger this value is, the more penalty we induce. For example, That is if anc_vs_pos = 0.3 and anc_vs_neg = 0.9 then 0.3-0.9+0.2 = -0.4 then -0.4<0. So the loss is 0. On other hand, if anc_vs_pos = 0.6 and anc_vs_neg = 0.7 then 0.6-0.7+0.2 = 0.1 then 0.1>0. So the loss is 0.1
 
 myNet['img_per_label'] = 10
 myNet['num_labels'] = 3
