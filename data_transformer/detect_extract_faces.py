@@ -59,6 +59,7 @@ def detect_extract_faces(image_path, face_extracted_path, face_detection_path, s
             cv2.imwrite(face_extracted_path, rimg)
 
     if store:
+        image = resize_image(image, (400,300))
         cv2.imwrite(face_detection_path, image)
     return np.array(faces_arr), np.array(rect_arr)
 

@@ -39,6 +39,7 @@ class PlotLabeledImages():
             (x, y, w, h) = rect
             img = self.draw_rectangle(img, x, y, w, h)
             img = self.draw_text(img, text+' '+str(round(prob*100, 2))+'%', x, y)
+        
         cv2.imwrite(os.path.join(path_dict['face_detection_labeled_test_path'],
                                  os.path.basename(img_path)), img)
         return img

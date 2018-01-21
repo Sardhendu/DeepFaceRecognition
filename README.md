@@ -2,9 +2,7 @@
 ## Deep Face Recognition
 
 ### ABOUT THE MODULE
-This Application is an inspiration from Coursera's lecture (deeplearning.ai) on Face Recognition and it implements ideas from "FaceNet" by Florian Schroff, Dmitry Kalenichenko and James Philbin. 
-
-The module is developed from scratch using Tensorflow. The application makes the use of Inception Net NN4 small (96x96) architecture.
+This Application implements ideas from "FaceNet" by Florian Schroff, Dmitry Kalenichenko and James Philbin. https://arxiv.org/abs/1503.03832. The module is developed from scratch using Tensorflow. The application makes use of the Inception Net NN4 small (96x96) architecture.
 
 
 ### OVERVIEW
