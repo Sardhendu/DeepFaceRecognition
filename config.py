@@ -65,7 +65,7 @@ myNet['triplet_loss_penalty'] = 0.1 # The larger this value is, the more penalty
 
 myNet['img_per_label'] = 10
 myNet['num_labels'] = 3
-myNet['keep_prob'] = 0.7
+myNet['keep_prob'] = 0.5
 myNet['learning_rate'] = 0.001
 myNet['learning_rate_decay_rate'] = 0.95
 myNet['batch_norm_decay'] = 0.9
