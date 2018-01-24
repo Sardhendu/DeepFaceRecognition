@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fef8d370-cc09-4c08-96fa-1e4e7cbdc34f" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/sample_training_image/20.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/face_detection/img3.jpg" afterPath="$PROJECT_DIR$/images/face_detection/img3.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/face_detection_labeled/img2.jpg" afterPath="$PROJECT_DIR$/images/face_detection_labeled/img2.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/face_detection_labeled/img3.jpg" afterPath="$PROJECT_DIR$/images/face_detection_labeled/img3.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/face_extracted/img3_0.jpg" afterPath="$PROJECT_DIR$/images/face_extracted/img3_0.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/face_extracted/img3_1.jpg" afterPath="$PROJECT_DIR$/images/face_extracted/img3_1.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/face_snapshot/img3.jpg" afterPath="$PROJECT_DIR$/images/face_snapshot/img3.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/RecognitionTuneParams-checkpoint.ipynb" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/RecognitionTuneParams-checkpoint.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RecognitionTuneParams.ipynb" afterPath="$PROJECT_DIR$/RecognitionTuneParams.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_transformer/detect_extract_faces.py" afterPath="$PROJECT_DIR$/data_transformer/detect_extract_faces.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logfile.log" afterPath="$PROJECT_DIR$/logfile.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train_test/run.py" afterPath="$PROJECT_DIR$/train_test/run.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -75,8 +62,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="607">
-                <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <first_editor relative-caret-position="347">
+                <caret line="16" column="28" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="28" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -1026,8 +1013,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="607">
-            <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <first_editor relative-caret-position="347">
+            <caret line="16" column="28" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="28" />
             <folding />
           </first_editor>
           <second_editor />
