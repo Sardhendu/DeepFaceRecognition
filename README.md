@@ -26,12 +26,12 @@ The application works in two simple ways.
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/5.jpg)
 
 ### Test Image
-![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img2.jpg){:height="50%" width="50%"}
-![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img4.jpg){:height="50%" width="50%"}
+![test image size](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img2.jpg){:height="50%" width="50%"}
+![test image size](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img4.jpg){:height="50%" width="50%"}
 
 ### Test Image Face Detected
-![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img2.jpg){:height="50%" width="50%"}
-![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img4.jpg){:height="50%" width="50%"}
+![test image size](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img2.jpg){:height="50%" width="50%"}
+![test image size](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img4.jpg){:height="50%" width="50%"}
 
 ### Test Image Face Extracted
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_extracted/img2_0.jpg)
@@ -39,5 +39,5 @@ The application works in two simple ways.
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_extracted/img4_0.jpg)
 
 ### Test Image Labeled
-![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img2.jpg){:height="50%" width="50%"}
-![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img4.jpg){:height="50%" width="50%"}
+![test image size](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img2.jpg){:height="50%" width="50%"}
+![test image size](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img4.jpg){:height="50%" width="50%"}
