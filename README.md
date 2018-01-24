@@ -21,19 +21,20 @@ The application works in two simple ways.
    * *Test*: During test time we first detect and extract all the faces using haar cascade. We then obtained 128 dimension embedding using the updated weight and then classify a face using SVM stored model.
 
 ### Training Images
-<img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/37.jpg" width="100" height="100">
-<img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/4.jpg" width="100" height="100">
-<img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/5.jpg" width="100" height="100">
-
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/37.jpg)
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/4.jpg)
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/5.jpg)
 
 
 ### Test Image
-![test image size](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img2.jpg){:height="50%" width="50%"}
-![test image size](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img4.jpg){:height="50%" width="50%"}
+<img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img2.jpg" width="100" 
+height="200"> <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img4.jpg" 
+width="100" height="200">
 
 ### Test Image Face Detected
-![test image size](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img2.jpg){:height="50%" width="50%"}
-![test image size](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img4.jpg){:height="50%" width="50%"}
+<img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img2.jpg" width="100" 
+height="200"> <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img4.jpg" 
+width="100" height="200">
 
 ### Test Image Face Extracted
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_extracted/img2_0.jpg)
