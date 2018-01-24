@@ -27,14 +27,14 @@ The application works in two simple ways.
 
 
 ### Test Image
-<img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img2.jpg" width="450" 
-height="350"> <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img4.jpg" 
-width="450" height="350">
+<img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img2.jpg" width="400" 
+height="300"> <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img4.jpg" 
+width="400" height="300">
 
 ### Test Image Face Detected
-<img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img2.jpg" width="450" 
-height="350"> <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img4.jpg" 
-width="450" height="350">
+<img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img2.jpg" width="400" 
+height="300"> <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img4.jpg" 
+width="400" height="300">
 
 ### Test Image Face Extracted
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_extracted/img2_0.jpg)
@@ -43,4 +43,4 @@ width="450" height="350">
 
 ### Test Image Labeled
 <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img2.jpg" 
-width="450" height="350"> <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img4.jpg" width="450" height="350">
+width="400" height="300"> <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img4.jpg" width="400" height="300">
