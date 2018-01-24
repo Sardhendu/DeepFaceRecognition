@@ -21,19 +21,23 @@ The application works in two simple ways.
    * *Test*: During test time we first detect and extract all the faces using haar cascade. We then obtained 128 dimension embedding using the updated weight and then classify a face using SVM stored model.
 
 ### Training Images
-![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/20.jpg)
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/37.jpg)
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/4.jpg)
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/5.jpg)
 
 ### Test Image
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img2.jpg)
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_snapshot/img4.jpg)
 
 ### Test Image Face Detected
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img2.jpg)
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection/img4.jpg)
 
 ### Test Image Face Extracted
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_extracted/img2_0.jpg)
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_extracted/img2_1.jpg)
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_extracted/img4_0.jpg)
 
 ### Test Image Labeled
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img2.jpg)
+![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img4.jpg)

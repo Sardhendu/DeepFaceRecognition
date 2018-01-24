@@ -432,8 +432,8 @@ if debugg:
     
     test_image_path_arr = [
         '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/output_data_faces/face_snapshot/img2.jpg',
-        # '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/output_data_faces/face_snapshot/img1.jpg',
-        '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/output_data_faces/face_snapshot/img3.jpg'
+        '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/output_data_faces/face_snapshot/img3.jpg',
+        '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/output_data_faces/face_snapshot/img4.jpg'
     ]
     # myNet['triplet_selection_alpha'] = 0.1
     myNet['triplet_selection_alpha'] = 0.09

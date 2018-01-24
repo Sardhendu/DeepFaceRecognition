@@ -20,8 +20,10 @@ def resize_image(image, resize_shape):
         return imageResized
     
 
-def detect_extract_faces(image_path, face_extracted_path, face_detection_path, store=True):
+def detect_extract_faces(image_path, face_extracted_path=None,
+                         face_detection_path=None, store=True):
     image=cv2.imread(image_path)
+    # print (image)
     image_grey=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
     
     faces = FACE_CASCADE.detectMultiScale(image_grey,scaleFactor=1.16,
@@ -59,44 +61,14 @@ def detect_extract_faces(image_path, face_extracted_path, face_detection_path, s
             cv2.imwrite(face_extracted_path, rimg)
 
     if store:
-        image = resize_image(image, (400,300))
+        # image = resize_image(image, (400,300))
         cv2.imwrite(face_detection_path, image)
     return np.array(faces_arr), np.array(rect_arr)
 
 
-# def detect_extract_faces(image_path, face_extracted_path, face_detection_path, store=True):
-#     image = cv2.imread(image_path)
-#     image_grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-#
-#     faces = FACE_CASCADE.detectMultiScale(image_grey, scaleFactor=1.16,
-#                                           minNeighbors=5, minSize=(25, 25), flags=0)
-#     faces_arr = []
-#     rect_arr = []
-#     for num, (x, y, w, h) in enumerate(faces):
-#         print('Rectangle dim: ', x, y, w, h)
-#         sub_img = image[y - 10:y + h + 10, x - 10:x + w + 10]
-#         print(sub_img.shape)
-#         sub_img = resize_image(sub_img, resize_shape=myNet['image_shape'])
-#
-#         if len(sub_img) > 0:
-#             print(sub_img.shape)
-#             face_dump_path = os.path.join(face_extracted_path,
-#                                           str(os.path.basename(image_path).split('.')[0]) + str(num) + ".jpg")
-#             print(face_dump_path)
-#             faces_arr.append(sub_img)
-#             rect_arr.append([x, y, w, h])
-#             cv2.imwrite(face_dump_path, sub_img)
-#
-#         # Place rectangles for the regions
-#         cv2.rectangle(image, (x, y), (x + w, y + h), (255, 255, 0), 2)
-#
-#     print('asaasasasasas ', os.path.join(face_detection_path, os.path.basename(image_path)))
-#     cv2.imwrite(os.path.join(face_detection_path, os.path.basename(image_path)), image)
-#     return np.array(faces_arr), np.array(rect_arr)
-
 debugg = False
 if debugg:
-    full_image_path = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/extras/full_images/img1.jpg'
-    test_faces = detect_extract_faces(full_image_path)
+    full_image_path = '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/output_data_faces/face_snapshot/img4.jpg'
+    test_faces = detect_extract_faces(full_image_path, store=False)
     print (test_faces.shape)
 # detect_extract_faces(path_dict['image_path'])
