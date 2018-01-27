@@ -2,7 +2,7 @@
 ## Deep Face Recognition
 
 ### ABOUT THE MODULE
-This Application implements ideas from "FaceNet" by Florian Schroff, Dmitry Kalenichenko and James Philbin. https://arxiv.org/abs/1503.03832. The module is developed from scratch using Tensorflow. The application makes use of the Inception Net NN4 small (96x96) architecture.
+This Application implements ideas from "FaceNet" by Florian Schroff, Dmitry Kalenichenko and James Philbin. https://arxiv.org/abs/1503.03832. The module is developed from scratch using Tensorflow. The application makes use of transfer learning with Google Net (NN4 small (96x96)) architecture.
 
 
 ### OVERVIEW
@@ -19,6 +19,16 @@ The application works in two simple ways.
    * *Classification*: A 128 dimension embedding(feature) is obtained per image using Face Net architecture. A linear SVC (Support Vector Machine) is used to classify a face. 
    
    * *Test*: During test time we first detect and extract all the faces using haar cascade. We then obtained 128 dimension embedding using the updated weight and then classify a face using SVM stored model.
+
+### Get Started.
+Mod 1. config.py: The config.py file consist all the settings that includes input_data_path, model_path, output_data_path, net_params, trainable_feature_names and etc.
+
+Mod 2. generate_data.py: (../data_transformer/generate_data.py) This modules calls several functions inside the data_transformer folder. The ultimate goal for this modules is to create 10 fold cross validation batches and dump it in the respected path for the neural network model to pick up.
+
+Mod 3. RecognitionTuneParams.ipynb: The notebook allows you to play arround with different parameters and tune them based on average 10-fold accuracy and output probabilities.
+
+Mod 4. run.py: (../train_test/run.py): Once the batches are created using Mod 2 and parameters are decided using Mod 3, run.py trains the model again for the selected model params and stores a checkpoint in the disk. The checkpoints are used by the "Test" module to make predictions.
+
 
 ### Training Images
 ![alt text](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/sample_training_image/37.jpg)
