@@ -63,6 +63,8 @@ width="400" height="300"> <img src="https://github.com/Sardhendu/DeepFaceRecogni
 ### REFERENCES:
 Florian Schroff, Dmitry Kalenichenko, James Philbin (2015). FaceNet: A Unified Embedding for Face Recognition and Clustering: https://arxiv.org/abs/1503.03832
 
-The pretrained weights were taken from by Victor's Repo: https://github.com/iwantooxxoox/Keras-OpenFace.
+The pretrained weights were taken from by Victor's github repo: https://github.com/iwantooxxoox/Keras-OpenFace.
 
-The code implementation is also highly inspired from FaceNet github repository: https://github.com/davidsandberg/facenet
+The code implementation is also highly inspired from FaceNet github repo: https://github.com/davidsandberg/facenet
+
+The code implementation is also highly inspired from the assignments of Coursera's Deep Learning course on Convolutional Neural Networks. https://www.coursera.org/learn/convolutional-neural-networks
