@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fef8d370-cc09-4c08-96fa-1e4e7cbdc34f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data_transformer/generate_data.py" afterPath="$PROJECT_DIR$/data_transformer/generate_data.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logfile.log" afterPath="$PROJECT_DIR$/logfile.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train_test/run.py" afterPath="$PROJECT_DIR$/train_test/run.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,8 +24,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="1359">
-                <caret line="29" column="146" lean-forward="true" selection-start-line="29" selection-start-column="146" selection-end-line="29" selection-end-column="146" />
+              <first_editor relative-caret-position="2920">
+                <caret line="67" column="106" lean-forward="false" selection-start-line="67" selection-start-column="106" selection-end-line="67" selection-end-column="106" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -734,7 +731,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/InceptionNets/ROUGH.ipynb" />
     <entry file="file://$PROJECT_DIR$/nn/Inception_cp.py" />
     <entry file="file://$PROJECT_DIR$/InceptionNets/ROUGH.ipynb" />
     <entry file="file://$PROJECT_DIR$/nn/keras.py" />
@@ -992,11 +988,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Vizualize_distinctBatches.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="1359">
-            <caret line="29" column="146" lean-forward="true" selection-start-line="29" selection-start-column="146" selection-end-line="29" selection-end-column="146" />
+          <first_editor relative-caret-position="2920">
+            <caret line="67" column="106" lean-forward="false" selection-start-line="67" selection-start-column="106" selection-end-line="67" selection-end-column="106" />
             <folding />
           </first_editor>
           <second_editor />

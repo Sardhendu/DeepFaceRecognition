@@ -2,7 +2,7 @@
 ## Deep Face Recognition
 
 ### ABOUT THE MODULE
-This Application implements ideas from "FaceNet" by Florian Schroff, Dmitry Kalenichenko and James Philbin. https://arxiv.org/abs/1503.03832. The module is developed from scratch using Tensorflow. The application makes use of transfer learning with Google Net (NN4 small (96x96)) architecture.
+This Application implements ideas from the paper FaceNet by Florian Schroff, Dmitry Kalenichenko and James Philbin. The module is developed from scratch using Tensorflow and makes use of transfer learning with Google Net (NN4 small (96x96)) architecture.
 
 
 ### OVERVIEW
@@ -19,6 +19,8 @@ The application works in two simple ways.
    * *Classification*: A 128 dimension embedding(feature) is obtained per image using Face Net architecture. A linear SVC (Support Vector Machine) is used to classify a face. 
    
    * *Test*: During test time we first detect and extract all the faces using haar cascade. We then obtained 128 dimension embedding using the updated weight and then classify a face using SVM stored model.
+
+The pre-trained weights for the model can be found at: 
 
 ### Get Started.
 Mod 1. config.py: The config.py file consist all the settings that includes input_data_path, model_path, output_data_path, net_params, trainable_feature_names and etc.
@@ -56,3 +58,11 @@ width="400" height="300">
 ### Test Image Labeled
 <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img2.jpg" 
 width="400" height="300"> <img src="https://github.com/Sardhendu/DeepFaceRecognition/blob/master/images/face_detection_labeled/img4.jpg" width="400" height="300">
+
+
+### REFERENCES:
+Florian Schroff, Dmitry Kalenichenko, James Philbin (2015). FaceNet: A Unified Embedding for Face Recognition and Clustering: https://arxiv.org/abs/1503.03832
+
+The pretrained weights were taken from by Victor's Repo: https://github.com/iwantooxxoox/Keras-OpenFace.
+
+The code implementation is also highly inspired from FaceNet github repository: https://github.com/davidsandberg/facenet
