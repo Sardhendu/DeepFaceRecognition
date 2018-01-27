@@ -97,9 +97,9 @@ class DeepFaceRecognition():
         
         if 'batch_file_name' in params_keys:
             self.batch_file_name = params['batch_file_name']
-        
-        if 'test_image_path_arr' in params_keys:
-            self.test_image_path_arr = test_image_path_arr
+        #
+        # if 'test_image_path_arr' in params_keys:
+        #     self.test_image_path_arr = params['test_image_path_arr']
         
         _, _, self.labelDict = getPickleFile(
                 folderPath=path_dict['parent_path'], picklefileName='training_imgarr.pickle', getStats=True
@@ -425,35 +425,3 @@ class Test(DeepFaceRecognition):
         return labeled_image_arr
     
 
-debugg = True
-
-if debugg:
-    from config import myNet
-    
-    test_image_path_arr = [
-        '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/output_data_faces/face_snapshot/img2.jpg',
-        '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/output_data_faces/face_snapshot/img3.jpg',
-        '/Users/sam/All-Program/App-DataSet/DeepFaceRecognition/output_data_faces/face_snapshot/img4.jpg'
-    ]
-    # myNet['triplet_selection_alpha'] = 0.1
-    myNet['triplet_selection_alpha'] = 0.09
-    myNet['triplet_loss_penalty'] = 0.1
-    params = dict(learning_rate_override=0.0001,
-                  init_finetune_weight='random',
-                  use_checkpoint=False,
-                  save_checkpoint=True,
-                  write_tensorboard_summary=False,
-                  save_for_analysis=False,
-                  which_fold=5,  # In actuality
-                  numEpochs=10,
-                  which_eopch_to_save=[5, 8, 9, 10],
-                  batch_file_name='ext_rsz_distinct_stratified_batches.pickle',
-                  checkpoint_file_name='ext_rsz_distinct_stratified_model'
-                  )
-    moduleWeightDict = getWeights(path_dict['inception_nn4small_weights_path'])
-    train_obj = Train(myNet=myNet, embeddingType='finetune', params=params)
-    test_obj = Test(myNet=myNet, embeddingType='finetune', params=params)
-    tr_acc, cv_acc = train_obj.fit_save(moduleWeightDict)
-    labeled_image_arr = test_obj.predict(test_image_path_arr, moduleWeightDict)
-    
-    

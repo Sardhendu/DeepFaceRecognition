@@ -23,11 +23,13 @@ The application works in two simple ways.
 ### Get Started.
 Mod 1. config.py: The config.py file consist all the settings that includes input_data_path, model_path, output_data_path, net_params, trainable_feature_names and etc.
 
-Mod 2. generate_data.py: (../data_transformer/generate_data.py) This modules calls several functions inside the data_transformer folder. The ultimate goal for this modules is to create 10 fold cross validation batches and dump it in the respected path for the neural network model to pick up.
+Mod 2: main.py (Wraps the complete functionality for data generation, train and test)
 
-Mod 3. RecognitionTuneParams.ipynb: The notebook allows you to play arround with different parameters and tune them based on average 10-fold accuracy and output probabilities.
+  * Func1: generate_data.py: (../data_transformer/generate_data.py) This modules calls several functions inside the data_transformer folder. The ultimate goal for this modules is to create 10 fold cross validation batches and dump it in the respected path for the neural network model to pick up.
 
-Mod 4. run.py: (../train_test/run.py): Once the batches are created using Mod 2 and parameters are decided using Mod 3, run.py trains the model again for the selected model params and stores a checkpoint in the disk. The checkpoints are used by the "Test" module to make predictions.
+  * Func 2. RecognitionTuneParams.ipynb: The notebook allows you to play arround with different parameters and tune them based on average 10-fold accuracy and output probabilities.
+
+  * Func 3. run.py: (../train_test/run.py): Once the batches are created using Mod 2 and parameters are decided using Mod 3, run.py trains the model again for the selected model params and stores a checkpoint in the disk. The checkpoints are used by the "Test" module to make predictions.
 
 
 ### Training Images
