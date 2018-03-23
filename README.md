@@ -2,36 +2,38 @@
 ## Deep Face Recognition
 
 ### ABOUT THE MODULE
-This Application implements ideas from the paper FaceNet by Florian Schroff, Dmitry Kalenichenko and James Philbin. The module is developed from scratch using Tensorflow and makes use of transfer learning with Google Net (NN4 small (96x96)) architecture.
+This Application implements ideas from the paper FaceNet by Florian Schroff, Dmitry Kalenichenko and James Philbin. The module is developed from scratch using Tensorflow and makes use of transfer learning with Google Net (NN4 small (96x96)) architecture to recognize faces.
 
+### Why Transfer Learning:
+From a Deep learning perspective, to perform a classification task we need to have a lot of data to train a good model. Here a lot of Data could be several thousands, even more. Transfer learning allows us to use a predefined model (trained with millions of data) and augment/finetune on it for our classification problem. It is often suggested to use pretrained models that were trained on tasks similar to your classification problem. Here we use the pre-trained model that was trained on faces. 
 
 ### OVERVIEW
-The application works in two simple ways.
+The application works in two simple ways. 
+ 
+1. [Face Detection and Extraction](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/data_transformer/detect_extract_faces.py). There are many implementation of Face Detection. The implementation we use here is the **Haar classifier**. Haar cascades are obtained online - visit [HERE](https://github.com/opencv/opencv/tree/master/data/haarcascades) for a complete list.   
 
-1. **Face Detection and Extraction**. There are many implementation of Face Detection. The implementation we use here is the Haar classifier. Haar cascades are obtained online and used here. Visit https://github.com/opencv/opencv/tree/master/data/haarcascades for a complete list.
-  
-2. **Face Recognition**: As discussed above we use the Inception NN4 small architecture. We obtained the pre-trained weights for each layer. 
+3. [Face Recognition](https://github.com/Sardhendu/DeepFaceRecognition/tree/master/nn): As discussed above we use the Inception NN4 small architecture. We obtained the pre-trained weights for each layer. 
 
-   * *Training*: For training we freeze the weights for (1 to n-3) layers (conv1, conv2, conv3, 3a, 3b, 3c, 4a, 4e) and only train weights for the last few layers (5a, 5b, dense). 
+   * *Training*: Suppose that we have **n** layers. For training we freeze the weights for (1 to n-3) layers (conv1, conv2, conv3, 3a, 3b, 3c, 4a, 4e) and only train weights for the last few layers (5a, 5b, dense). 
    
-   * *Cross validation*: 10 Fold cross validation is performed for parameter tuning. The model is re-trained, weights are updated using best parameter setting.
+   * *Cross validation*: 10 Fold cross validation is performed for [Parameter tuning](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/RecognitionTuneParams.ipynb). The model is re-trained, weights are updated using best parameter setting.
    
    * *Classification*: A 128 dimension embedding(feature) is obtained per image using Face Net architecture. A linear SVC (Support Vector Machine) is used to classify a face. 
    
    * *Test*: During test time we first detect and extract all the faces using haar cascade. We then obtained 128 dimension embedding using the updated weight and then classify a face using SVM stored model.
 
-The pre-trained weights for the model can be found at: 
+The pre-trained weights for the model can be found [HERE](https://github.com/iwantooxxoox/Keras-OpenFace/tree/master/weights): 
 
-### Get Started.
-Mod 1. config.py: The config.py file consist all the settings that includes input_data_path, model_path, output_data_path, net_params, trainable_feature_names and etc.
+### Get Started with the modules.
+Mod 1. [config.py](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/config.py): The config.py file consist all the settings that includes input_data_path, model_path, output_data_path, net_params, trainable_feature_names and etc.
 
-Mod 2: main.py (Wraps the complete functionality for data generation, train and test)
+Mod 2: [main.py](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/main.py) (Wraps the complete functionality for data generation, train and test)
 
-  * Func1: generate_data.py: (../data_transformer/generate_data.py) This modules calls several functions inside the data_transformer folder. The ultimate goal for this modules is to create 10 fold cross validation batches and dump it in the respected path for the neural network model to pick up.
+  * [Data Generation](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/data_transformer/generate_data.py): This modules calls several functions inside the data_transformer folder. The ultimate goal for this modules is to create 10 fold cross validation batches and dump it in the disk.
 
-  * Func 2. RecognitionTuneParams.ipynb: The notebook allows you to play arround with different parameters and tune them based on average 10-fold accuracy and output probabilities.
+  * [Recognition Tune Params](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/RecognitionTuneParams.ipynb): The notebook allows you to play around with different parameters and tune them based on average 10-fold accuracy and output probabilities. Then the best tuning parameter can be chosen for model learning.
 
-  * Func 3. run.py: (../train_test/run.py): Once the batches are created using Mod 2 and parameters are decided using Mod 3, run.py trains the model again for the selected model params and stores a checkpoint in the disk. The checkpoints are used by the "Test" module to make predictions.
+  * [Run](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/train_test/run.py): Once the batches are created using **Data Generation** and parameters are decided using **Recognition Tune Params**, This module will trains the model again for the selected model params and stores a checkpoint in the disk. The checkpoints are used by the "Test" module to make predictions.
 
 
 ### Training Images
