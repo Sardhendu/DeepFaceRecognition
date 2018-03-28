@@ -2,17 +2,17 @@
 ## Deep Face Recognition
 
 ### ABOUT THE MODULE
-This Application implements ideas from the paper FaceNet by Florian Schroff, Dmitry Kalenichenko and James Philbin. The module is developed from scratch using Tensorflow and makes use of transfer learning with Google Net (NN4 small (96x96)) architecture to recognize faces.
+Face recognition softwares are ubiquitous, we use them every day to unlock our cell phones. Deep Learning application have proven to show an increase in performance with increase in data. This application is an attempt to recognize a person given his image. Several ideas are borrowed from the paper <b>FaceNet</b> by Florian Schroff, Dmitry Kalenichenko and James Philbin. The module is developed from scratch using Tensorflow and makes use of transfer learning with Google Net (NN4 small (96x96)) architecture to recognize faces.
 
 ### Why Transfer Learning:
-From a Deep learning perspective, to perform a classification task we need to have a lot of data to train a good model. Here a lot of Data could be several thousands, even more. Transfer learning allows us to use a predefined model (trained with millions of data) and augment/finetune on it for our classification problem. It is often suggested to use pretrained models that were trained on tasks similar to your classification problem. Here we use the pre-trained model that was trained on faces. 
+From a Deep learning perspective, to perform a classification task we need to have a lot of data to train a good model. Here a lot of Data could be hundreds of thousands. Transfer learning allows us to train a very robust model with a small dataset. It allows us to use a predefined model (trained with millions of data) and augment/finetune on it with respect to out classification problem. It is often suggested to use pretrained models that were trained on tasks similar to our classification problem. Here we use the pre-trained model that was trained on faces. 
 
 ### OVERVIEW
-The application works in two simple ways. 
+The application employs a multi-step approach.
  
-1. [Face Detection and Extraction](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/data_transformer/detect_extract_faces.py). There are many implementation of Face Detection. The implementation we use here is the **Haar classifier**. Haar cascades are obtained online - visit [HERE](https://github.com/opencv/opencv/tree/master/data/haarcascades) for a complete list.   
+1. [Face Detection and Extraction](https://github.com/Sardhendu/DeepFaceRecognition/blob/master/data_transformer/detect_extract_faces.py). The first part is to detect faces given an image. There are many implementation of Face Detection. The implementation we use here is the **Haar classifier**. Haar cascades are obtained online - visit [HERE](https://github.com/opencv/opencv/tree/master/data/haarcascades) for a complete list.   
 
-3. [Face Recognition](https://github.com/Sardhendu/DeepFaceRecognition/tree/master/nn): As discussed above we use the Inception NN4 small architecture. We obtained the pre-trained weights for each layer. 
+3. [Face Recognition](https://github.com/Sardhendu/DeepFaceRecognition/tree/master/nn): The second task is to recognize the faces. As discussed above we use the Inception NN4 small architecture. We obtained the pre-trained weights for each layer. 
 
    * *Training*: Suppose that we have **n** layers. For training we freeze the weights for (1 to n-3) layers (conv1, conv2, conv3, 3a, 3b, 3c, 4a, 4e) and only train weights for the last few layers (5a, 5b, dense). 
    
